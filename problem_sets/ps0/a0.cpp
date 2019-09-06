@@ -75,12 +75,58 @@ float SimpleImage::compute_average() const {
   return 0.0f; // Change this
 }
 
+bool point_overlaps_rectangle(int n, int h, int w, float left_boundary, float right_boundary,
+                        float top_boundary, float bottom_boundary) {
+  // Get the pixel's x-y coordinates from the flattened point index.
+  const int x = n % w;
+  const int y = n / w;
+  /*
+  Note the < condition for the bottom and right boundaries.
+  By definition, inclusive means up to, but not including,
+  the next index/integer.
+  */
+  if (y >= floor(top_boundary) && y < ceil(bottom_boundary)
+    && x >= floor(left_boundary) && x < ceil(right_boundary)) {
+    return true;
+  }
+  return false;
+}
+
 // Create a white (1.0f) rectangle in the center of the image, taking up
 // 10% of the image in each direction
 void SimpleImage::make_rectangle() {
+
+  /*
+  PSEUDOCODE
+  generate boundary rectangle, excluding 0, width, and height
+  for each pixel n in the 1D pixel array:
+    x = n / width
+    y = n % width
+    if x and y are within the boundary rectangle:
+      set pixel n to white 
+  */
+
   // --------- HANDOUT  PS00 ------------------------------
   // Denote white as 1.0f
+  const float white = 1.0f;
+  // Let’s make the rectangle be 20% of the 
+  // width (and height respectively); within 10%
+  // (inclusive) of the image center in each direction.
+  const float rectangle_radius = 0.1;
+  const float center_x = width_ / 2.0;
+  const float center_y = height_ / 2.0;
+  const float left_boundary = -(rectangle_radius * width_) + center_x;
+  const float right_boundary = (rectangle_radius * width_) + center_x;
+  const float top_boundary = -(rectangle_radius * height_) + center_y;
+  const float bottom_boundary = (rectangle_radius * height_) + center_y;
   // Make sure rectangle is centered in the image and includes the center
+  for (int pixel = 0; pixel < img_.size(); pixel++) {
+    if (point_overlaps_rectangle(pixel, height_, width_,
+                                left_boundary, right_boundary, 
+                                top_boundary, bottom_boundary)) {
+      img_[pixel] = white;
+    }
+  }
 }
 
 // Print the image to the terminal.
@@ -88,4 +134,13 @@ void SimpleImage::make_rectangle() {
 void SimpleImage::print_to_terminal() const {
   // --------- HANDOUT  PS00 ------------------------------
   // print the image as ASCII characters
+  for (int pixel = 0; pixel < img_.size(); pixel++) {
+    if (pixel % width_ == 0 && pixel != 0) cout << endl;
+    if (img_[pixel] == 0.0f) {
+      cout << "-";
+    } else {
+      cout << "+";
+    }
+  }
+  cout << endl;
 }

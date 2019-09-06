@@ -50,11 +50,18 @@ int main() {
   img = SimpleImage(w, h);
   img.make_rectangle();
   img.print_to_terminal();
-  // cout << "Size of image array: " << img.size() << endl;
+
+  w = 100;
+  h = 31;
+  cout << "Center rectangle spanning test (" << w << " x " << h << ")..." << endl;
+  
+  img = SimpleImage(w, h);
+  img.make_rectangle();
+  img.print_to_terminal();
 
   // Example Test
   // Read an Image
-  // Image im("./Input/Cambridge1.png");
+  // Image im = readAnImage("./Input/Cambridge1.png");
 
   // Write an Image
   // cout << "Image size: " << im.width() << ", "

@@ -47,7 +47,7 @@ Image readAnImage(const std::string &filename)
 {
     // --------- HANDOUT  PS00 ------------------------------
     // Use the constructor in Image.h
-    return Image(1, 1, 1); // Change this
+    return Image(filename);
 }
 
 // Create an empty image of size width x height
@@ -156,7 +156,7 @@ void SimpleImage::print_to_terminal() const
         {
             cout << "-";
         }
-        else
+        else if (img_[pixel] == 1.0f)
         {
             cout << "+";
         }

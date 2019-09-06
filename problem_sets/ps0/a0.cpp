@@ -77,8 +77,11 @@ float SimpleImage::compute_average() const
 {
     // --------- HANDOUT  PS00 ------------------------------
     // compute the average
+    float average = 0.0f;
+    for (float pixel : img_) average += pixel;
+    average /= float(img_.size());
     // return the average
-    return 0.0f; // Change this
+    return average;
 }
 
 bool point_overlaps_rectangle(int n, int h, int w, float left_boundary, float right_boundary,

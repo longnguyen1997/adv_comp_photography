@@ -61,10 +61,10 @@ int main() {
 
   // Example Test
   // Read an Image
-  // Image im = readAnImage("./Input/Cambridge1.png");
+  Image im = readAnImage("./Input/Cambridge1.png");
 
   // Write an Image
-  // cout << "Image size: " << im.width() << ", "
-  //      << im.height() << ", " << im.channels() << endl;
-  // im.write("./Output/SameAsInput.png");
+  cout << "Image size: " << im.width() << ", "
+       << im.height() << ", " << im.channels() << endl;
+  im.write("./Output/SameAsInput.png");
 }

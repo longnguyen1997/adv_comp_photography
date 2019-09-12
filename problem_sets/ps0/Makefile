@@ -73,6 +73,7 @@ prepare:
 	cp *.cpp asst
 	cp *.h asst
 	cp Makefile asst
+	cp -R Input asst
 	zip -r a$(NUMBER)_submission.zip asst
 	rm -rf asst
 .PHONY: prepare

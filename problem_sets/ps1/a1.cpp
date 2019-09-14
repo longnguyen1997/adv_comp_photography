@@ -75,9 +75,26 @@ Image contrast(const Image &im, float factor, float midpoint)
 Image color2gray(const Image &im, const std::vector<float> &weights)
 {
     // --------- HANDOUT  PS01 ------------------------------
-    // Image output(im.width(), im.height(), 1);
+    Image output(im.width(), im.height(), 1);
     // Convert to grayscale
-    return Image(1, 1, 1); // Change this
+    for (int x = 0; x < im.width(); x++)
+    {
+        for(int y = 0; y < im.height(); y++)
+        {
+            // Sanity check for grayscale inputs.
+            if(im.channels() == 1)
+            {
+                output(x, y, 0) = im(x, y, 0) * weights[0];
+            }
+            else
+            {
+                output(x, y, 0) = (im(x, y, 0) * weights[0] +
+                                   im(x, y, 1) * weights[1] +
+                                   im(x, y, 2) * weights[2]);
+            }
+        }
+    }
+    return output;
 }
 
 // For this function, we want two outputs, a single channel luminance image

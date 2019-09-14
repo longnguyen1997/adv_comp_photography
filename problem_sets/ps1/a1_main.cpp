@@ -100,6 +100,23 @@ int main()
     Image boston_underexposed = Image("./Input/Boston_underexposed.png");
     Image boston_corrected_exposure = brightness(boston_underexposed, 2.0f);
     boston_corrected_exposure.write("./Output/boston_exposure.png");
+
+    cout << "3.a) Verify boston_exposure.png." << endl;
+
+    Image boston_contrast = Image("./Input/Boston_low_contrast.png");
+    Image boston_corrected_contrast = contrast(boston_contrast, 2.0f, 0.7f);
+    boston_corrected_contrast.write("./Output/boston_contrast.png");
+
+    cout << "3.b) Verify boston_contrast.png." << endl;
+
+    std::vector<float> weights;
+    weights.push_back(0.1f);
+    weights.push_back(0.4f);
+    weights.push_back(0.1f);
+    color2gray(Image("./Input/castle_small.png"), weights).write("./Output/castle_gray2.png");
+
+    cout << "4) Verify castle_gray.png." << endl;
+
     // std::vector<Image> LC = lumiChromi(im);
     // LC[0].write("./Output/castle_luminance.png");
     // LC[1].write("./Output/castle_chrominance.png");

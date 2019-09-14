@@ -345,6 +345,36 @@ std::vector<Image> spanish(const Image &im)
     return images;
 }
 
+float channel_average(const Image &im, const int channel)
+{
+    float sum = 0;
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            sum += im(x, y, channel);
+        }
+    }
+    return sum / (im.width() * im.height());
+}
+
+std::vector<float> get_wb_factors(const Image &im)
+{
+    std::vector<float> weights;
+    const float red_average = channel_average(im, 0);
+    const float green_average = channel_average(im, 1);
+    const float blue_average = channel_average(im, 2);
+    // weights[0] is factor for R channel.
+    weights.push_back(green_average / red_average);
+    // weights[1] is factor for B channel.
+    weights.push_back(green_average / blue_average);
+    // Uncomment to verify white balance factors.
+    // cout << weights[0] * red_average << endl;
+    // cout << green_average << endl;
+    // cout << weights[1]*blue_average << endl;
+    return weights;
+}
+
 // White balances an image using the gray world assumption
 Image grayworld(const Image &im)
 {
@@ -353,5 +383,16 @@ Image grayworld(const Image &im)
     // of the input by a factor such that the three channel of the output
     // image have the same mean value. The mean value of the green channel
     // is taken as reference.
-    return Image(1, 1, 1); // Change this
+    Image output(im.width(), im.height(), im.channels());
+    const std::vector<float> wb_weights = get_wb_factors(im);
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            output(x, y, 0) = im(x, y, 0) * wb_weights[0];
+            output(x, y, 1) = im(x, y, 1);
+            output(x, y, 2) = im(x, y, 2) * wb_weights[1];
+        }
+    }
+    return output;
 }

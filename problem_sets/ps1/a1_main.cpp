@@ -142,9 +142,11 @@ int main()
 
     cout << "8) See zebra_color.png & zebra_bw.png for the Spanish castle illusion." << endl;
 
-    
+    grayworld(Image("Input/flower.png")).write("Output/flower_white_balanced.png");
 
-    // std::vector<Image> LC = lumiChromi(im);
-    // LC[0].write("./Output/castle_luminance.png");
-    // LC[1].write("./Output/castle_chrominance.png");
+    cout << "9) See flower_white_balanced.png to verify WB." << endl;
+
+    std::vector<Image> LC = lumiChromi(Image("Input/castle_small.png"));
+    LC[0].write("./Output/castle_luminance.png");
+    LC[1].write("./Output/castle_chrominance.png");
 }

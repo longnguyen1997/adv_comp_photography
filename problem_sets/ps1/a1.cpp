@@ -82,7 +82,7 @@ Image color2gray(const Image &im, const std::vector<float> &weights)
         for(int y = 0; y < im.height(); y++)
         {
             // Sanity check for grayscale inputs.
-            if(im.channels() == 1)
+            if (im.channels() == 1)
             {
                 output(x, y, 0) = im(x, y, 0) * weights[0];
             }
@@ -106,7 +106,22 @@ std::vector<Image> lumiChromi(const Image &im)
     // Create the luminance image
     // Create the chrominance image
     // Create the output vector as (luminance, chrominance)
-    return std::vector<Image>(); // Change this
+    vector<Image> images;
+    const Image luminance = color2gray(im);
+
+    Image chrominance(im.width(), im.height(), im.channels());
+    for (int i = 0; i < im.width(); ++i)
+    {
+        for (int j = 0; j < im.height(); ++j)
+        {
+            chrominance(i, j, 0) = im(i, j, 0) / luminance(i, j);
+            chrominance(i, j, 1) = im(i, j, 1) / luminance(i, j);
+            chrominance(i, j, 2) = im(i, j, 2) / luminance(i, j);
+        }
+    }
+    images.push_back(luminance);
+    images.push_back(chrominance);
+    return images;
 }
 
 // Modify brightness then contrast
@@ -115,7 +130,20 @@ Image brightnessContrastLumi(const Image &im, float brightF, float contrastF,
 {
     // --------- HANDOUT  PS01 ------------------------------
     // Modify brightness, then contrast of luminance image
-    return Image(1, 1, 1); // Change this
+    const vector<Image> lumi_chromi = lumiChromi(im);
+    const Image lumi_adjusted = contrast(brightness(lumi_chromi[0], brightF),
+                                         contrastF, midpoint);
+    Image output(im.width(), im.height(), im.channels());
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            output(x, y, 0) = lumi_adjusted(x, y) * lumi_chromi[1](x, y, 0);
+            output(x, y, 1) = lumi_adjusted(x, y) * lumi_chromi[1](x, y, 1);
+            output(x, y, 2) = lumi_adjusted(x, y) * lumi_chromi[1](x, y, 2);
+        }
+    }
+    return output;
 }
 
 Image rgb2yuv(const Image &im)
@@ -123,7 +151,20 @@ Image rgb2yuv(const Image &im)
     // --------- HANDOUT  PS01 ------------------------------
     // Create output image of appropriate size
     // Change colorspace
-    return Image(1, 1, 1); // Change this
+    Image output(im.width(), im.height(), im.channels());
+    for (int i = 0; i < im.width(); ++i)
+    {
+        for (int j = 0; j < im.height(); ++j)
+        {
+            const float r = im(i, j, 0);
+            const float g = im(i, j, 1);
+            const float b = im(i, j, 2);
+            output(i, j, 0) = 0.299f * r + 0.587f * g + 0.114f * b;
+            output(i, j, 1) = (-0.147f) * r + (-0.289f) * g + 0.436f * b;
+            output(i, j, 2) = 0.615f * r + (-0.515f) * g + (-0.100f) * b;
+        }
+    }
+    return output;
 }
 
 Image yuv2rgb(const Image &im)
@@ -131,7 +172,20 @@ Image yuv2rgb(const Image &im)
     // --------- HANDOUT  PS01 ------------------------------
     // Create output image of appropriate size
     // Change colorspace
-    return Image(1, 1, 1); // Change this
+    Image output(im.width(), im.height(), im.channels());
+    for (int i = 0; i < im.width(); ++i)
+    {
+        for (int j = 0; j < im.height(); ++j)
+        {
+            const float y = im(i, j, 0);
+            const float u = im(i, j, 1);
+            const float v = im(i, j, 2);
+            output(i, j, 0) = 1.0f * y + 0.0f * u + 1.14f * v;
+            output(i, j, 1) = 1.0f * y + (-0.395f) * u + (-0.581f) * v;
+            output(i, j, 2) = 1.0f * y + 2.032f * u + 0.0f * v;
+        }
+    }
+    return output;
 }
 
 Image saturate(const Image &im, float factor)
@@ -139,8 +193,16 @@ Image saturate(const Image &im, float factor)
     // --------- HANDOUT  PS01 ------------------------------
     // Create output image of appropriate size
     // Saturate image
-    // return output;
-    return Image(1, 1, 1); // Change this
+    Image yuv = rgb2yuv(im);
+    for (int i = 0; i < im.width(); ++i)
+    {
+        for (int j = 0; j < im.height(); ++j)
+        {
+            yuv(i, j, 1) *= factor;
+            yuv(i, j, 2) *= factor;
+        }
+    }
+    return yuv2rgb(yuv);
 }
 
 // Gamma codes the image

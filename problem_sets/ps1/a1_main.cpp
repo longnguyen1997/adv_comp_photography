@@ -109,13 +109,17 @@ int main()
 
     cout << "3.b) Verify boston_contrast.png." << endl;
 
-    std::vector<float> weights;
-    weights.push_back(0.1f);
-    weights.push_back(0.4f);
-    weights.push_back(0.1f);
-    color2gray(Image("./Input/castle_small.png"), weights).write("./Output/castle_gray2.png");
+    color2gray(Image("./Input/castle_small.png")).write("./Output/castle_gray.png");
 
     cout << "4) Verify castle_gray.png." << endl;
+
+    brightnessContrastLumi(Image("./Input/castle_small.png"), 1.3f, 1.4f, 0.7f).write("./Output/castle_brightness_contrast_lumi.png");
+
+    cout << "5) Verify castle_brightness_contrast_lumi.png." << endl;
+
+    saturate(Image("./Input/castle_small.png"), 0.2f).write("./Output/castle_saturated.png");
+
+    cout << "6) Verify castle_saturated.png." << endl;
 
     // std::vector<Image> LC = lumiChromi(im);
     // LC[0].write("./Output/castle_luminance.png");

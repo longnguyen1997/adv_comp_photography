@@ -136,6 +136,14 @@ int main()
 
     cout << "7.c/d) Compare skies_trees_quantize_gamma.png and skies_trees_gamma_quantize.png." << endl;
 
+    const std::vector<Image> spanish_illusion_zebra = spanish(Image("./Input/zebra.png"));
+    spanish_illusion_zebra[0].write("./Output/zebra_color.png");
+    spanish_illusion_zebra[1].write("./Output/zebra_bw.png");
+
+    cout << "8) See zebra_color.png & zebra_bw.png for the Spanish castle illusion." << endl;
+
+    
+
     // std::vector<Image> LC = lumiChromi(im);
     // LC[0].write("./Output/castle_luminance.png");
     // LC[1].write("./Output/castle_chrominance.png");

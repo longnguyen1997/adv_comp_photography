@@ -290,7 +290,59 @@ std::vector<Image> spanish(const Image &im)
     // Push the images onto the vector
     // Do all the required processing
     // Return the vector, color image first
-    return std::vector<Image>(); // Change this
+    std::vector<Image> images;
+    Image color(im.width(), im.height(), im.channels());
+    Image bw(im.width(), im.height(), im.channels());
+
+    /*
+    The first image has a constant luminance (Y)
+    and its chrominance is the opposite of the
+    input’s chrominance (-U and -V).
+
+    In the first image, set the luminance to be 0.5.
+    */
+    const Image yuv = rgb2yuv(im);
+    for (int c = 0; c < im.channels(); c++)
+    {
+        for (int x = 0; x < im.width(); x++)
+        {
+            for (int y = 0; y < im.height(); y++)
+            {
+                color(x, y, c) = (c == 0) ? 0.5f : -yuv(x, y, c);
+            }
+        }
+    }
+
+    /*
+    The second image is a black-and-white version of the original,
+    i.e. both U and V should be uniformly zero.
+    */
+    for (int c = 0; c < im.channels(); c++)
+    {
+        for (int x = 0; x < im.width(); x++)
+        {
+            for (int y = 0; y < im.height(); y++)
+            {
+                bw(x, y, c) = (c == 0) ? yuv(x, y, c) : 0.0f;
+            }
+        }
+    }
+
+    /*
+    If image has dimensions w × h, make sure that the black
+    dot is at the 0-indexed location floor(w/2), floor(h/2).
+    */
+    float center_x, center_y;
+    center_x = floor(im.width() / 2);
+    center_y = floor(im.height() / 2);
+
+    color.create_rectangle(center_x, center_y, center_x, center_y, 0.0f, 0.0f, 0.0f);
+    bw.create_rectangle(center_x, center_y, center_x, center_y, 0.0f, 0.0f, 0.0f);
+
+    images.push_back(yuv2rgb(color));
+    images.push_back(yuv2rgb(bw));
+
+    return images;
 }
 
 // White balances an image using the gray world assumption

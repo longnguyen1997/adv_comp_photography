@@ -121,6 +121,10 @@ int main()
 
     cout << "6) Verify castle_saturated.png." << endl;
 
+    gamma_code(Image("./Input/skies_and_trees.png"), 2.2).write("./Output/skies_trees_gamma.png");
+
+    cout << "7.a) Verify skies_and_trees.png." << endl;
+
     // std::vector<Image> LC = lumiChromi(im);
     // LC[0].write("./Output/castle_luminance.png");
     // LC[1].write("./Output/castle_chrominance.png");

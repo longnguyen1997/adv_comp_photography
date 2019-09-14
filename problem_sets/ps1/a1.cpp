@@ -114,9 +114,18 @@ std::vector<Image> lumiChromi(const Image &im)
     {
         for (int j = 0; j < im.height(); ++j)
         {
-            chrominance(i, j, 0) = im(i, j, 0) / luminance(i, j);
-            chrominance(i, j, 1) = im(i, j, 1) / luminance(i, j);
-            chrominance(i, j, 2) = im(i, j, 2) / luminance(i, j);
+            if (luminance(i, j) == 0)
+            {
+                chrominance(i, j, 0) = 1.0f;
+                chrominance(i, j, 1) = 1.0f;
+                chrominance(i, j, 2) = 1.0f;
+            }
+            else
+            {
+                chrominance(i, j, 0) = im(i, j, 0) / luminance(i, j);
+                chrominance(i, j, 1) = im(i, j, 1) / luminance(i, j);
+                chrominance(i, j, 2) = im(i, j, 2) / luminance(i, j);
+            }
         }
     }
     images.push_back(luminance);
@@ -209,10 +218,28 @@ Image saturate(const Image &im, float factor)
 Image gamma_code(const Image &im, float gamma)
 {
     // // --------- HANDOUT  PS01 ------------------------------
-    // Image output(im.width(), im.height(), im.channels());
+    Image output(im.width(), im.height(), im.channels());
     // Gamma encodes the image
-    // return output;
-    return Image(1, 1, 1); // Change this
+    const vector<Image> lumi_chromi = lumiChromi(im);
+    Image luminance = lumi_chromi[0];
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            luminance(x, y, 0) = pow(luminance(x, y, 0), 1 / gamma);
+        }
+    }
+    // Multiply back to get the gamma-encoded image.
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            output(x, y, 0) = luminance(x, y) * lumi_chromi[1](x, y, 0);
+            output(x, y, 1) = luminance(x, y) * lumi_chromi[1](x, y, 1);
+            output(x, y, 2) = luminance(x, y) * lumi_chromi[1](x, y, 2);
+        }
+    }
+    return output;
 }
 
 // Quantizes the image to 2^bits levels and scales back to 0~1

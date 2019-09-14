@@ -125,6 +125,17 @@ int main()
 
     cout << "7.a) Verify skies_and_trees.png." << endl;
 
+    quantize(Image("./Input/flower.png"), 4).write("./Output/flower_4bits.png");
+    quantize(Image("./Input/flower.png"), 8).write("./Output/flower_8bits.png");
+
+    cout << "7.b) Verify flower_{4, 8}bits.png." << endl;
+
+    const std::vector<Image> skies_trees = gamma_test(Image("./Input/skies_and_trees.png"), 4, 1.8f);
+    skies_trees[0].write("./Output/skies_trees_quantize_gamma.png");
+    skies_trees[1].write("./Output/skies_trees_gamma_quantize.png");
+
+    cout << "7.c/d) Compare skies_trees_quantize_gamma.png and skies_trees_gamma_quantize.png." << endl;
+
     // std::vector<Image> LC = lumiChromi(im);
     // LC[0].write("./Output/castle_luminance.png");
     // LC[1].write("./Output/castle_chrominance.png");

@@ -246,10 +246,23 @@ Image gamma_code(const Image &im, float gamma)
 Image quantize(const Image &im, int bits)
 {
     // // --------- HANDOUT  PS01 ------------------------------
-    // Image output(im.width(), im.height(), im.channels());
+    Image output(im.width(), im.height(), im.channels());
     // Quantizes the image to 2^bits levels
-    // return output;
-    return Image(1, 1, 1); // Change this
+    const int unit = 256 / pow(2, bits);
+    for (int c = 0; c < im.channels(); c++)
+    {
+        for (int i = 0; i < im.width(); ++i)
+        {
+            for (int j = 0; j < im.height(); j++)
+            {
+                // Scale the input pixel.
+                const float scaled = round(255 * im(i, j, c));
+                const float quantized = floor(scaled / unit) / pow(2, bits);
+                output(i, j, c) = quantized;
+            }
+        }
+    }
+    return output;
 }
 
 // Compare between first quantize then gamma_encode and first gamma_encode
@@ -263,7 +276,10 @@ std::vector<Image> gamma_test(const Image &im, int bits, float gamma)
     // // Push the images onto the vector
     // // Do all the required processing
     // // Return the vector, color image first
-    return std::vector<Image>(); // Change this
+    vector<Image> images;
+    images.push_back(gamma_code(quantize(im, bits), gamma));
+    images.push_back(quantize(gamma_code(im, gamma), bits));
+    return images;
 }
 
 // Return two images in a C++ vector

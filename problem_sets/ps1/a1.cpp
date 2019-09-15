@@ -116,9 +116,9 @@ std::vector<Image> lumiChromi(const Image &im)
         {
             if (luminance(i, j) == 0)
             {
-                chrominance(i, j, 0) = 1.0f;
-                chrominance(i, j, 1) = 1.0f;
-                chrominance(i, j, 2) = 1.0f;
+                chrominance(i, j, 0) = 0.0f;
+                chrominance(i, j, 1) = 0.0f;
+                chrominance(i, j, 2) = 0.0f;
             }
             else
             {

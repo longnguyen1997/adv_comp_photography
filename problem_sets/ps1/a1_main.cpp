@@ -95,7 +95,14 @@ int main()
     im2.create_line(10, 50, 80, 50, 122 / 255.0, 9 / 255.0, 37 / 255.0);
     im2.write("./Output/horizontal_line.png");
 
-    cout << "Passed 2.e. Verify {horizontal, vertical}_line.png." << endl;
+    cout << "2.e) Verify {horizontal, vertical}_line.png." << endl;
+
+    Image diagonal_line(100, 100, 3);
+    diagonal_line.create_line(34, 90, 2, 4, 1, 1, 1);
+    diagonal_line.create_line(25, 25, 75, 75, 0.5, 0.5, 0.5);
+    diagonal_line.write("Output/diagonal_lines.png");
+
+    cout << "2.e) Verify diagonal_lines.png." << endl;
 
     Image boston_underexposed = Image("./Input/Boston_underexposed.png");
     Image boston_corrected_exposure = brightness(boston_underexposed, 2.0f);

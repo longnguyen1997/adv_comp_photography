@@ -103,22 +103,27 @@ void Image::create_rectangle(int xstart, int ystart, int xend, int yend,
     if (xstart < 0 || xend >= width()) throw OutOfBoundsException();
     if (ystart < 0 || yend >= height()) throw OutOfBoundsException();
 
-    for (int p = 0; p < width() * height(); p++)
+    std::vector<float> rgb{r, g, b};
+    for (int c = 0; c < channels(); c++)
     {
-        const int x = p % width();
-        const int y = p / width();
-        if (x >= xstart && x <= xend
-                && y >= ystart && y <= yend)
+        for (int x = 0; x < width(); x++)
         {
-            operator()(x, y, 0) = r;
-            if (channels() == 3)
+            for (int y = 0; y < height(); y++)
             {
-                operator()(x, y, 1) = g;
-                operator()(x, y, 2) = b;
+                if (xstart == xend && ystart == yend &&
+                        x == xstart && y == ystart)
+                {
+                    operator()(x, y, c) = rgb[c];
+                }
+                else if (x >= xstart && x <= xend
+                         && y >= ystart && y <= yend)
+                {
+                    operator()(x, y, c) = rgb[c];
+                }
             }
-            if (r == 0.55) cout << r << endl;
         }
     }
+
 }
 
 void Image::create_line(int xstart, int ystart, int xend, int yend, float r,
@@ -128,38 +133,27 @@ void Image::create_line(int xstart, int ystart, int xend, int yend, float r,
     // Create a line segment with specified color
     if (xstart < 0 || xend >= width()) throw OutOfBoundsException();
     if (ystart < 0 || yend >= height()) throw OutOfBoundsException();
-    // Vertical case
-    if (xstart == xend)
+    // Vertical/horizontal cases
+    if (xstart == xend || ystart == yend)
     {
-        for (int p = 0; p < width() * height(); p++)
-        {
-            const int y = p / width();
-            if (y >= ystart && y <= yend)
-            {
-                operator()(xstart, y, 0) = r;
-                if (channels() == 3)
-                {
-                    operator()(xstart, y, 1) = g;
-                    operator()(xstart, y, 2) = b;
-                }
-            }
-        }
+        create_rectangle(xstart, ystart, xend, yend, r, g, b);
     }
     else
     {
-        // Horizontal case
-        for (int p = 0; p < width() * height(); p++)
+        // Line in any direction.
+        const int dx = xend - xstart;
+        const int dy = yend - ystart;
+        const int steps = max(abs(dx), abs(dy));
+        const float Xincrement = dx / (float) steps;
+        const float Yincrement = dy / (float) steps;
+        float x = xstart;
+        float y = ystart;
+        for (int v = 0; v < steps; v++)
         {
-            const int x = p % width();
-            if (x >= xstart && x <= xend)
-            {
-                operator()(x, ystart, 0) = r;
-                if (channels() == 3)
-                {
-                    operator()(x, ystart, 1) = g;
-                    operator()(x, ystart, 2) = b;
-                }
-            }
+            x += Xincrement;
+            y += Yincrement;
+            create_rectangle(round(x), round(y), round(x), round(y),
+                             r, g, b);
         }
     }
 }

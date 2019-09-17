@@ -115,8 +115,8 @@ void Image::create_rectangle(int xstart, int ystart, int xend, int yend,
                 {
                     operator()(x, y, c) = rgb[c];
                 }
-                else if (x >= xstart && x <= xend
-                         && y >= ystart && y <= yend)
+                else if (x >= min(xstart, xend) && x <= max(xstart, xend)
+                         && y >= min(ystart, yend) && y <= max(ystart, yend))
                 {
                     operator()(x, y, c) = rgb[c];
                 }

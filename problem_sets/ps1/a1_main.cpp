@@ -83,7 +83,11 @@ int main()
     im2.create_rectangle(1, 1, 49, 49, 122 / 255.0, 9 / 255.0, 37 / 255.0);
     im2.write("./Output/pink_and_rect.png");
 
-    cout << "Passed 2.b. See pink_and_rect.png." << endl;
+    Image pure_rect(100, 100, 3);
+    pure_rect.create_rectangle(75, 75, 25, 25, 1, 1, 1);
+    pure_rect.write("Output/white_rectangle.png");
+
+    cout << "Passed 2.b. See pink_and_rect.png and white_rectangle.png." << endl;
 
     const Image special_image = create_special();
     special_image.write("./Output/special_img.png");

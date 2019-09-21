@@ -45,6 +45,10 @@ private:
   int height;
 };
 
+// Extra credit
+// Long Nguyen, 2019.
+Image edgeDetection(const Image &im, const bool clamp);
+
 // Box Blurring
 Image boxBlur(const Image &im, int k, bool clamp = true);
 Image boxBlur_filterClass(const Image &im, int k, bool clamp = true);

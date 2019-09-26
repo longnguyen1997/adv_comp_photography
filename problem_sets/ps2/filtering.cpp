@@ -178,12 +178,38 @@ Image gaussianBlur_horizontal(const Image &im, float sigma, float truncate, bool
     return Filter(K, 1 + 2 * ceil(sigma * truncate), 1).convolve(im, clamp);
 }
 
+float gauss2D(const int x, const int y, const float sigma)
+{
+    return exp(-(pow(x, 2) + pow(y, 2)) / (2 * pow(sigma, 2)));
+}
+
 vector<float> gauss2DFilterValues(float sigma, float truncate)
 {
     // --------- HANDOUT  PS02 ------------------------------
     // Create a vector containing the normalized values in a 2D Gaussian
     // filter. Truncate the gaussian at truncate*sigma.
-    return vector<float>();
+    const int k = 1 + 2 * ceil(sigma * truncate);
+    const int numElements = k * k;
+    float sum = 0.0f;
+    vector<float> weights;
+    for (int i = -k / 2; i <= k / 2; ++i)
+    {
+        for (int j = -k / 2; j <= k / 2; ++j)
+        {
+            const float g = gauss2D(i, j, sigma);
+            weights.push_back(g);
+            sum += g;
+        }
+    }
+    float sumNormalized = 0.0f;
+    for (int i = 0; i < weights.size(); i++)
+    {
+        weights[i] /= sum;
+        sumNormalized += weights[i];
+    }
+    assert(abs(sumNormalized - 1.0f < 0.0005f));
+    assert(weights.size() == numElements);
+    return weights;
 }
 
 Image gaussianBlur_2D(const Image &im, float sigma, float truncate,
@@ -191,7 +217,8 @@ Image gaussianBlur_2D(const Image &im, float sigma, float truncate,
 {
     // --------- HANDOUT  PS02 ------------------------------
     // Blur an image with a full 2D rotationally symmetric Gaussian kernel
-    return im;
+    const int k = 1 + 2 * ceil(sigma * truncate);
+    return Filter(gauss2DFilterValues(sigma, truncate), k, k).convolve(im, clamp);
 }
 
 Image gaussianBlur_separable(const Image &im, float sigma, float truncate,
@@ -200,7 +227,13 @@ Image gaussianBlur_separable(const Image &im, float sigma, float truncate,
     // --------- HANDOUT  PS02 ------------------------------
     // Use principles of seperabiltity to blur an image using 2 1D Gaussian
     // Filters
-    return im;
+    const vector<float> gaussianWeights = gauss1DFilterValues(sigma, truncate);
+    const int k = 1 + 2 * ceil(sigma * truncate);
+    Filter gaussianX(gaussianWeights, k, 1);
+    Filter gaussianY(gaussianWeights, 1, k);
+    return gaussianY.convolve(
+               gaussianX.convolve(im, clamp), clamp
+           );
 }
 
 Image unsharpMask(const Image &im, float sigma, float truncate, float strength,
@@ -208,7 +241,9 @@ Image unsharpMask(const Image &im, float sigma, float truncate, float strength,
 {
     // --------- HANDOUT  PS02 ------------------------------
     // Sharpen an image
-    return im;
+    Image lowpassIm = gaussianBlur_separable(im, sigma, truncate, clamp);
+    Image highpassIm = im - lowpassIm;
+    return im + strength * highpassIm;
 }
 
 Image bilateral(const Image &im, float sigmaRange, float sigmaDomain,
@@ -216,7 +251,47 @@ Image bilateral(const Image &im, float sigmaRange, float sigmaDomain,
 {
     // --------- HANDOUT  PS02 ------------------------------
     // Denoise an image using the bilateral filter
-    return im;
+    Image bilatFiltered = Image(im.width(), im.height(), im.channels());
+    const vector<float> gXgY = gauss2DFilterValues(sigmaDomain, truncateDomain);
+    const int k = sqrt(gXgY.size());
+    const int m = k / 2;
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            for (int c = 0; c < im.channels(); c++)
+            {
+                float innerSum = 0;
+                float Z = 0;
+                for (int j = 0; j < k; j++)
+                {
+                    for (int i = 0; i < k; i++)
+                    {
+                        const int xPrime = x + i - m;
+                        const int yPrime = y + j - m;
+                        float sumOfColors = 0;
+                        // Sum over all color channels.
+                        for (int d = 0; d < im.channels(); d++)
+                        {
+                            sumOfColors += pow(
+                                               im.smartAccessor(x, y, d, clamp) -
+                                               im.smartAccessor(xPrime, yPrime, d, clamp),
+                                               2);
+                        }
+                        // The three terms to multiply in the bilateral summation.
+                        // i + j * k gives the (x - x', y - y').
+                        float gDomain = gXgY.at(i + j * k);
+                        float rangeGaussian = gauss(sqrt(sumOfColors), sigmaRange);
+                        float iXY = im.smartAccessor(xPrime, yPrime, c, clamp);
+                        innerSum += gDomain * rangeGaussian * iXY;
+                        Z += gDomain * rangeGaussian;
+                    }
+                }
+                bilatFiltered(x, y, c) = innerSum / Z;
+            }
+        }
+    }
+    return bilatFiltered;
 }
 
 Image bilaYUV(const Image &im, float sigmaRange, float sigmaY, float sigmaUV,
@@ -226,7 +301,52 @@ Image bilaYUV(const Image &im, float sigmaRange, float sigmaY, float sigmaUV,
     // 6.865 only
     // Bilaterial Filter an image seperatly for
     // the Y and UV components of an image
-    return im;
+    Image bilatFiltered = Image(im.width(), im.height(), im.channels());
+    Image yuv = rgb2yuv(im);
+    const vector<float> YgXgY = gauss2DFilterValues(sigmaY, truncateDomain);
+    const vector<float> UVgXgY = gauss2DFilterValues(sigmaUV, truncateDomain);
+
+    const int kY = sqrt(YgXgY.size());
+    const int kUV = sqrt(UVgXgY.size());
+    for (int x = 0; x < im.width(); x++)
+    {
+        for (int y = 0; y < im.height(); y++)
+        {
+            for (int c = 0; c < im.channels(); c++)
+            {
+                const int k = (c == 0) ? kY : kUV;
+                const int m = k / 2;
+                float innerSum = 0;
+                float Z = 0;
+                for (int j = 0; j < k; j++)
+                {
+                    for (int i = 0; i < k; i++)
+                    {
+                        const int xPrime = x + i - m;
+                        const int yPrime = y + j - m;
+                        float sumOfColors = 0;
+                        // Sum over all color channels.
+                        for (int d = 0; d < im.channels(); d++)
+                        {
+                            sumOfColors += pow(
+                                               yuv.smartAccessor(x, y, d, clamp) -
+                                               yuv.smartAccessor(xPrime, yPrime, d, clamp),
+                                               2);
+                        }
+                        // The three terms to multiply in the bilateral summation.
+                        // i + j * k gives the (x - x', y - y').
+                        float gDomain = (c == 0) ? YgXgY.at(i + j * k) : UVgXgY.at(i + j * k);
+                        float rangeGaussian = gauss(sqrt(sumOfColors), sigmaRange);
+                        float iXY = yuv.smartAccessor(xPrime, yPrime, c, clamp);
+                        innerSum += gDomain * rangeGaussian * iXY;
+                        Z += gDomain * rangeGaussian;
+                    }
+                }
+                bilatFiltered(x, y, c) = innerSum / Z;
+            }
+        }
+    }
+    return yuv2rgb(bilatFiltered);
 }
 
 /**************************************************************

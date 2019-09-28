@@ -101,14 +101,15 @@ vector<int> align(const Image &im1, const Image &im2, int maxOffset)
     // returns the (x,y) offset that best aligns im2 to match im1.
     vector<int> translation(2, 0);
     float minDiff = squaredDiff(im1, im2, maxOffset);
-    for (int x = -maxOffset; x <= maxOffset; ++x)
+    for (int xRoll = -maxOffset; xRoll <= maxOffset; ++xRoll)
     {
-        for (int y = -maxOffset; y <= maxOffset; ++y)
+        for (int yRoll = -maxOffset; yRoll <= maxOffset; ++yRoll)
         {
             // Try translating (x, y).
             const float diff = squaredDiff(
-                                   im1, roll(im2, x, y), maxOffset
+                                   im1, roll(im2, xRoll, yRoll), maxOffset
                                );
+
         }
     }
 }

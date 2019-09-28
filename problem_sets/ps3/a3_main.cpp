@@ -59,7 +59,7 @@ int main()
 
     //
     // // Demosaic ---------------------------
-    Image raw("./Input/raw/signs-small.png");
+    // Image raw("./Input/raw/signs-small.png");
     // Image green = basicGreen(raw, 1);
     // green.write("./Output/demosaic_green.png");
     // Image red = basicRorB(raw, 1, 1);
@@ -69,11 +69,11 @@ int main()
     // Image rgb = edgeBasedGreenDemosaic(raw, 1, 1, 1, 0, 0);
     // rgb.write("./Output/demosaiced-edge-based-green.png");
 
-    improvedDemosaic(raw, 1, 1, 1, 0, 0).write("./Output/demosaiced-improved.png");
+    // improvedDemosaic(raw, 1, 1, 1, 0, 0).write("./Output/demosaiced-improved.png");
     //
     //
-    // // Sergey ---------------------------
-    // Image sergeyImg("./Input/Sergey/00911v_third.png");
+    // Sergey ---------------------------
+    // Image sergeyImg("./Input/Sergey/00088v_third.png");
     // Image rgb2 = split(sergeyImg);
     // rgb2.write("./Output/Sergey_split.png");
     // Image rgbAlign = sergeyRGB(sergeyImg,10);

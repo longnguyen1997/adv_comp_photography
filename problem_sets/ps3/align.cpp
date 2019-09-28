@@ -109,9 +109,15 @@ vector<int> align(const Image &im1, const Image &im2, int maxOffset)
             const float diff = squaredDiff(
                                    im1, roll(im2, xRoll, yRoll), maxOffset
                                );
-
+            if (diff < minDiff)
+            {
+                minDiff = diff;
+                translation[0] = xRoll;
+                translation[1] = yRoll;
+            }
         }
     }
+    return translation;
 }
 
 Image alignAndDenoise(const vector<Image> &imSeq, int maxOffset)

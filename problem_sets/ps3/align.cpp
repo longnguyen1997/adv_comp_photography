@@ -125,6 +125,7 @@ Image alignAndDenoise(const vector<Image> &imSeq, int maxOffset)
     // // --------- HANDOUT  PS03 ------------------------------
     // Registers all images to the first one in a sequence and outputs
     // a denoised image even when the input sequence is not perfectly aligned.
+    vector<vector<int>> translations(imSeq.size() - 1, vector<int>{});
     return Image(1, 1, 1);
 }
 

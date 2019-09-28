@@ -8,6 +8,7 @@
  * ------------------------------------------------------------------------*/
 
 #include "align.h"
+#include <numeric>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ Image denoiseSeq(const vector<Image> &imSeq)
 {
     // // --------- HANDOUT  PS03 ------------------------------
     // Basic denoising by computing the average of a sequence of images
-    if (imSeq.size() == 0) return NULL;
+    if (imSeq.size() == 0) return Image(1, 1, 1);
     const int N = imSeq.size();
     Image output(imSeq[0].width(), imSeq[0].height(), imSeq[0].channels());
     for (int x = 0; x < output.width(); ++x)
@@ -24,7 +25,7 @@ Image denoiseSeq(const vector<Image> &imSeq)
         {
             for (int c = 0; c < output.channels(); ++c)
             {
-                for (const Image im : imSeq) output(x, y, c) += im(x, y, c);
+                for (int n = 0; n < N; ++n) output(x, y, c) += imSeq[n](x, y, c);
             }
         }
     }
@@ -36,14 +37,69 @@ Image logSNR(const vector<Image> &imSeq, float scale)
     // // --------- HANDOUT  PS03 ------------------------------
     // returns an image visualizing the per-pixel and
     // per-channel log of the signal-to-noise ratio scaled by scale.
-    return Image(1, 1, 1);
+
+    const int W = imSeq[0].width();
+    const int H = imSeq[0].height();
+    const int C = imSeq[0].channels();
+    const int N = imSeq.size();
+    const Image sumOfImages = accumulate(imSeq.begin(), imSeq.end(), Image(W, H, C));
+    const Image muNIm = sumOfImages / N;
+    Image SNR(W, H, C);
+    for (int i = 0; i < W; ++i)
+    {
+        for (int j = 0; j < H; ++j)
+        {
+            for (int c = 0; c < C; ++c)
+            {
+                float sigmaI = 0;
+                float expected = 0;
+                float expectedSquared = 0;
+                for (int n = 0; n < N; ++n)
+                {
+                    expected += imSeq[n](i, j, c);
+                    expectedSquared += pow(imSeq[n](i, j, c), 2);
+                }
+                expected /= N;
+                expectedSquared /= N;
+                sigmaI = expectedSquared - pow(expected, 2);
+                SNR(i, j, c) = scale * 10 * log10(expectedSquared / (sigmaI + 0.000001f));
+            }
+        }
+    }
+    return SNR;
+}
+
+float squaredDiff(const Image &i1, const Image &i2)
+{
+    const int w = i1.width();
+    const int h = i1.height();
+    const int c = i1.channels();
+    float diff = 0;
+    for (int x = 0; x < w; ++x)
+    {
+        for (int y = 0; y < h; ++y)
+        {
+            for (int z = 0; z < c; ++z)
+            {
+                diff += pow(i1(x, y, z) - i2(x, y, z), 2);
+            }
+        }
+    }
+    return diff;
 }
 
 vector<int> align(const Image &im1, const Image &im2, int maxOffset)
 {
     // // --------- HANDOUT  PS03 ------------------------------
     // returns the (x,y) offset that best aligns im2 to match im1.
-    return vector<int>();
+    vector<int> translation(2, 0);
+    for (int x = -maxOffset; x <= maxOffset; ++x)
+    {
+        for (int y = -maxOffset; y <= maxOffset; ++y)
+        {
+            // Try translating (x, y).
+        }
+    }
 }
 
 Image alignAndDenoise(const vector<Image> &imSeq, int maxOffset)

@@ -69,7 +69,7 @@ Image logSNR(const vector<Image> &imSeq, float scale)
     return SNR;
 }
 
-float squaredDiff(const Image &i1, const Image &i2)
+float squaredDiff(const Image &i1, const Image &i2, const int maxOffset)
 {
     const int w = i1.width();
     const int h = i1.height();
@@ -79,6 +79,13 @@ float squaredDiff(const Image &i1, const Image &i2)
     {
         for (int y = 0; y < h; ++y)
         {
+            // Ignore edge pixels within maxOffset distance.
+            if (x < maxOffset || x >= w - maxOffset
+                    ||
+                    y < maxOffset || y >= h - maxOffset)
+            {
+                continue;
+            }
             for (int z = 0; z < c; ++z)
             {
                 diff += pow(i1(x, y, z) - i2(x, y, z), 2);
@@ -93,11 +100,15 @@ vector<int> align(const Image &im1, const Image &im2, int maxOffset)
     // // --------- HANDOUT  PS03 ------------------------------
     // returns the (x,y) offset that best aligns im2 to match im1.
     vector<int> translation(2, 0);
+    float minDiff = squaredDiff(im1, im2, maxOffset);
     for (int x = -maxOffset; x <= maxOffset; ++x)
     {
         for (int y = -maxOffset; y <= maxOffset; ++y)
         {
             // Try translating (x, y).
+            const float diff = squaredDiff(
+                                   im1, roll(im2, x, y), maxOffset
+                               );
         }
     }
 }

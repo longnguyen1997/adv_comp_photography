@@ -125,8 +125,14 @@ Image alignAndDenoise(const vector<Image> &imSeq, int maxOffset)
     // // --------- HANDOUT  PS03 ------------------------------
     // Registers all images to the first one in a sequence and outputs
     // a denoised image even when the input sequence is not perfectly aligned.
-    vector<vector<int>> translations(imSeq.size() - 1, vector<int>{});
-    return Image(1, 1, 1);
+    vector<Image> translatedImages;
+    translatedImages.push_back(imSeq[0]);
+    for (int i = 1; i < (int)imSeq.size(); ++i)
+    {
+        const vector<int> translation = align(imSeq[0], imSeq[i], maxOffset);
+        translatedImages.push_back(roll(imSeq[i], translation[0], translation[1]));
+    }
+    return denoiseSeq(translatedImages);
 }
 
 Image split(const Image &sergeyImg)
@@ -134,7 +140,19 @@ Image split(const Image &sergeyImg)
     // --------- HANDOUT  PS03 ------------------------------
     // 6.865 only:
     // split a Sergey images to turn it into one 3-channel image.
-    return Image(1, 1, 1);
+    const int w = sergeyImg.width();
+    const int h = floor((float)sergeyImg.height() / 3.0);
+    Image rgb(w, h, 3);
+    for (int x = 0; x < w; ++x)
+    {
+        for (int y = 0; y < h; ++y)
+        {
+            rgb(x, y, 0) = sergeyImg(x, y + 2 * h);
+            rgb(x, y, 1) = sergeyImg(x, y + h);
+            rgb(x, y, 2) = sergeyImg(x, y);
+        }
+    }
+    return rgb;
 }
 
 Image sergeyRGB(const Image &sergeyImg, int maxOffset)
@@ -143,7 +161,35 @@ Image sergeyRGB(const Image &sergeyImg, int maxOffset)
     // 6.865 only:
     // aligns the green and blue channels of your rgb channel of a sergey
     // image to the red channel. This should return an aligned RGB image
-    return Image(1, 1, 1);
+    Image splitSergey = split(sergeyImg);
+    const int w = splitSergey.width();
+    const int h = splitSergey.height();
+    Image r(w, h);
+    Image g(w, h);
+    Image b(w, h);
+    for (int x = 0; x < w; ++x)
+    {
+        for (int y = 0; y < h; ++y)
+        {
+            r(x, y) = splitSergey(x, y, 0);
+            g(x, y) = splitSergey(x, y, 1);
+            b(x, y) = splitSergey(x, y, 2);
+        }
+    }
+    const vector<int> translateGreen = align(r, g, maxOffset);
+    const vector<int> translateBlue = align(r, b, maxOffset);
+    g = roll(g, translateGreen[0], translateGreen[1]);
+    b = roll(b, translateBlue[0], translateBlue[1]);
+    for (int x = 0; x < w; ++x)
+    {
+        for (int y = 0; y < h; ++y)
+        {
+            splitSergey(x, y, 0) = r(x, y);
+            splitSergey(x, y, 1) = g(x, y);
+            splitSergey(x, y, 2) = b(x, y);
+        }
+    }
+    return splitSergey;
 }
 
 /**************************************************************

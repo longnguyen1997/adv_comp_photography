@@ -86,11 +86,11 @@ Image makeHDR(vector<Image> &imSeq, float epsilonMini, float epsilonMaxi)
     {
         if (i == 0)
         {
-            weights.push_back(computeWeight(imSeq[i], 0.0, epsilonMaxi));
+            weights.push_back(computeWeight(imSeq[i], epsilonMini, 1.0));
         }
         else if (i == (int)imSeq.size() - 1)
         {
-            weights.push_back(computeWeight(imSeq[i], epsilonMini, 1.0));
+            weights.push_back(computeWeight(imSeq[i], 0.0, epsilonMaxi));
         }
         else
         {
@@ -139,6 +139,24 @@ Image toneMap(const Image &im, float targetBase, float detailAmp, bool useBila,
     // -
     vector<Image> lumiAndChromi = lumiChromi(im);
     Image log10Luminance = log10Image(lumiAndChromi[0]);
+    Image baseImage(im.width(), im.height(), im.channels());
+    float sigma = max(max(im.width(), im.height()), im.channels()) / 50.0;
+    float truncateDomain = 3.0f;
+    if (useBila)
+    {
+        baseImage = bilateral(log10Luminance, sigmaRange, sigma, truncateDomain, true);
+    }
+    else
+    {
+        baseImage = gaussianBlur_2D(log10Luminance, sigma, truncateDomain, true);
+    }
+    Image detailImage = log10Luminance - baseImage;
+    float baseRange = baseImage.max() - baseImage.min();
+    float k = log10(targetBase) / baseRange;
+    Image logOut = detailAmp * detailImage + k * (baseImage - baseImage.max());
+    // Set the new luminance.
+    lumiAndChromi[0] = exp10Image(logOut);
+    return lumiChromi2rgb(lumiAndChromi);
 }
 
 /*********************************************************************
@@ -152,11 +170,11 @@ Image log10Image(const Image &im)
     // Taking a linear image im, transform to log10 scale.
     // To avoid infinity issues, make any 0-valued pixel be equal the the
     // minimum non-zero value. See image_minnonzero(im).
-    float minimum = image_minnonzero(im);
+    float minimum = log10(image_minnonzero(im));
     Image out(im.width(), im.height(), im.channels());
     for (int i = 0; i < im.number_of_elements(); ++i)
     {
-        out(i) = im(i) == 0 ? minimum : log10(im(i));
+        out(i) = (im(i) == 0) ? minimum : log10(im(i));
     }
     return out;
 }
@@ -167,7 +185,12 @@ Image exp10Image(const Image &im)
     // --------- HANDOUT  PS04 ------------------------------
     // take an image in log10 domain and transform it back to linear domain.
     // see pow(a, b)
-    return im;
+    Image out(im.width(), im.height(), im.channels());
+    for (int i = 0; i < im.number_of_elements(); i++)
+    {
+        out(i) = pow(10, im(i));
+    }
+    return out;
 }
 
 // min non-zero pixel value of image
@@ -176,7 +199,7 @@ float image_minnonzero(const Image &im)
     // --------- HANDOUT  PS04 ------------------------------
     // return the smallest value in the image that is non-zeros (across all
     // channels too)
-    float minimum = 1.01f;
+    float minimum = 1.0f;
     for (int i = 0; i < im.number_of_elements(); ++i)
     {
         if (im(i) != 0.0f) minimum = min(minimum, im(i));

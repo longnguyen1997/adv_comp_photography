@@ -91,20 +91,75 @@ Image scaleLin(const Image &im, float factor) {
     return scaled;
 }
 
+float bicubic(float x, float B, float C) {
+    if (abs(x) < 1) {
+        return ((12 - 9 * B - 6 * C) * pow(abs(x), 3) +
+                (-18 + 12 * B + 6 * C) * pow(abs(x), 2) +
+                (6 - 2 * B)) / 6;
+    } else if (1 <= abs(x) && abs(x) < 2) {
+        return ((-B - 6 * C) * pow(abs(x), 3) +
+                (6 * B + 30 * C) * pow(abs(x), 2) +
+                (-12 * B - 48 * C) * abs(x) +
+                (8 * B + 24 * C)) / 6;
+    } else {
+        return 0;
+    }
+}
+
+float interpCubic(const Image &im, float x, float y, int z, float B, float C) {
+    int x1 = floor(x);
+    int x2 = ceil(x);
+    int y1 = floor(y);
+    int y2 = ceil(y);
+    if (x1 == x2 && y1 == y2) {
+        return bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true);
+    }
+    if (x1 == x2) {
+        return (bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true) +
+                bicubic(x - x1, B, C) * bicubic(y - y2, B, C) * im.smartAccessor(x1, y2, z, true));
+    }
+    if (y1 == y2) {
+        return (bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true) +
+                bicubic(x - x2, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x2, y1, z, true));
+    }
+    return (bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true) +
+            bicubic(x - x2, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x2, y1, z, true) +
+            bicubic(x - x1, B, C) * bicubic(y - y2, B, C) * im.smartAccessor(x1, y2, z, true) +
+            bicubic(x - x2, B, C) * bicubic(y - y2, B, C) * im.smartAccessor(x2, y2, z, true));
+}
+
 Image scaleBicubic(const Image &im, float factor, float B, float C) {
     // --------- HANDOUT  PS05 ------------------------------
     // create a new image that is factor times bigger than the input by using
     // a bicubic filter kernel with Mitchell and Netravali's parametrization
     // see "Reconstruction filters in computer graphics", Mitchell and Netravali
     // 1988 or http://entropymine.com/imageworsener/bicubic/
-    return im;
+    Image scaled((int)floor(factor * im.width()),
+                 (int)floor(factor * im.height()),
+                 im.channels());
+    for (int c = 0; c < im.channels(); ++c) {
+        for (int y = 0; y < scaled.height(); ++y) {
+            for (int x = 0; x < scaled.width(); ++x) {
+                scaled(x, y, c) = interpCubic(im,
+                                              (float)x / factor,
+                                              (float)y / factor,
+                                              c,
+                                              B,
+                                              C);
+            }
+        }
+    }
+    return scaled;
 }
 
 Image scaleLanczos(const Image &im, float factor, float a) {
     // --------- HANDOUT  PS05 ------------------------------
     // create a new image that is factor times bigger than the input by using
     // a Lanczos filter kernel
-    return im;
+    Image scaled((int)floor(factor * im.width()),
+                 (int)floor(factor * im.height()),
+                 im.channels());
+    return scaled;
 }
 
 Image rotate(const Image &im, float theta) {

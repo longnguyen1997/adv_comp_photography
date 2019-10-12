@@ -63,6 +63,12 @@ void testBilinearRescaling() {
   scaled.write("./Output/testLin.png");
 }
 
+void testBicubicRescaling() {
+  const Image im("./Input/BostonRainbow-crop-400.png");
+  Image scaled = scaleBicubic(im, 3.5, 0.33, 0.33);
+  scaled.write("./Output/testBicubic.png");
+}
+
 void testRotation() {
   const Image im("./Input/BostonRainbow-crop-400.png");
 
@@ -173,6 +179,7 @@ int main() {
   testNearestNeighbor();
   testBilinearInterpolation();
   testBilinearRescaling();
+  testBicubicRescaling();
   // testRotation();
   // testVectorOperations();
   // testSegment();

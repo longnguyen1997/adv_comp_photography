@@ -69,6 +69,12 @@ void testBicubicRescaling() {
   scaled.write("./Output/testBicubic.png");
 }
 
+void testLanczos() {
+  const Image im("./Input/BostonRainbow-crop-400.png");
+  Image scaled = scaleLanczos(im, 3.5, 3);
+  scaled.write("./Output/testLanczos.png");
+}
+
 void testRotation() {
   const Image im("./Input/BostonRainbow-crop-400.png");
 
@@ -180,6 +186,7 @@ int main() {
   testBilinearInterpolation();
   testBilinearRescaling();
   testBicubicRescaling();
+  testLanczos();
   // testRotation();
   // testVectorOperations();
   // testSegment();

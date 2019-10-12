@@ -91,41 +91,43 @@ Image scaleLin(const Image &im, float factor) {
     return scaled;
 }
 
-float bicubic(float x, float B, float C) {
+float bicubicWeight(float x, float y, float B, float C) {
+    float xWeight = 0;
     if (abs(x) < 1) {
-        return ((12 - 9 * B - 6 * C) * pow(abs(x), 3) +
-                (-18 + 12 * B + 6 * C) * pow(abs(x), 2) +
-                (6 - 2 * B)) / 6;
+        xWeight = ((12 - 9 * B - 6 * C) * pow(abs(x), 3) +
+                   (-18 + 12 * B + 6 * C) * pow(abs(x), 2) +
+                   (6 - 2 * B)) / 6.0;
     } else if (1 <= abs(x) && abs(x) < 2) {
-        return ((-B - 6 * C) * pow(abs(x), 3) +
-                (6 * B + 30 * C) * pow(abs(x), 2) +
-                (-12 * B - 48 * C) * abs(x) +
-                (8 * B + 24 * C)) / 6;
-    } else {
-        return 0;
+        xWeight = ((-B - 6 * C) * pow(abs(x), 3) +
+                   (6 * B + 30 * C) * pow(abs(x), 2) +
+                   (-12 * B - 48 * C) * abs(x) +
+                   (8 * B + 24 * C)) / 6.0;
     }
+    float yWeight = 0;
+    if (abs(y) < 1) {
+        yWeight = ((12 - 9 * B - 6 * C) * pow(abs(y), 3) +
+                   (-18 + 12 * B + 6 * C) * pow(abs(y), 2) +
+                   (6 - 2 * B)) / 6.0;
+    } else if (1 <= abs(x) && abs(y) < 2) {
+        yWeight = ((-B - 6 * C) * pow(abs(y), 3) +
+                   (6 * B + 30 * C) * pow(abs(y), 2) +
+                   (-12 * B - 48 * C) * abs(y) +
+                   (8 * B + 24 * C)) / 6.0;
+    }
+    return xWeight * yWeight;
 }
 
 float interpCubic(const Image &im, float x, float y, int z, float B, float C) {
-    int x1 = floor(x);
-    int x2 = ceil(x);
-    int y1 = floor(y);
-    int y2 = ceil(y);
-    if (x1 == x2 && y1 == y2) {
-        return bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true);
+    float value = 0;
+    int xF = floor(x) - 1;
+    int yF = floor(y) - 1;
+    for (int Y = yF; Y < yF + 4; ++Y) {
+        for (int X = xF; X < xF + 4; ++X) {
+            value += (bicubicWeight(x - X, y - Y, B, C) * im.smartAccessor(X, Y, z, true));
+        }
     }
-    if (x1 == x2) {
-        return (bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true) +
-                bicubic(x - x1, B, C) * bicubic(y - y2, B, C) * im.smartAccessor(x1, y2, z, true));
-    }
-    if (y1 == y2) {
-        return (bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true) +
-                bicubic(x - x2, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x2, y1, z, true));
-    }
-    return (bicubic(x - x1, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x1, y1, z, true) +
-            bicubic(x - x2, B, C) * bicubic(y - y1, B, C) * im.smartAccessor(x2, y1, z, true) +
-            bicubic(x - x1, B, C) * bicubic(y - y2, B, C) * im.smartAccessor(x1, y2, z, true) +
-            bicubic(x - x2, B, C) * bicubic(y - y2, B, C) * im.smartAccessor(x2, y2, z, true));
+    assert(value != 0);
+    return value;
 }
 
 Image scaleBicubic(const Image &im, float factor, float B, float C) {
@@ -152,6 +154,36 @@ Image scaleBicubic(const Image &im, float factor, float B, float C) {
     return scaled;
 }
 
+float sinc(float x) {
+    return x == 0 ? 1 : sin(x) / x;
+}
+
+float lanczosWeight(float x, float y, float a) {
+    float wX = 0;
+    if (abs(x) < a) {
+        wX = sinc(x) * sinc(x / a);
+    }
+    float wY = 0;
+    if (abs(y) < a) {
+        wY = sinc(y) * sinc(y / a);
+    }
+    return wX * wY;
+}
+
+float interpLanczos(const Image &im, float x, float y, int z, float a) {
+    int A = (int)a;
+    float value = 0;
+    int xF = floor(x) - A;
+    int yF = floor(y) - A;
+    for (int Y = yF; Y < yF + 2 * A + 1; ++Y) {
+        for (int X = xF; X < xF + 2 * A + 1; ++X) {
+            value += (lanczosWeight(x - X, y - Y, a) * im.smartAccessor(X, Y, z, true));
+        }
+    }
+    assert(value != 0);
+    return value;
+}
+
 Image scaleLanczos(const Image &im, float factor, float a) {
     // --------- HANDOUT  PS05 ------------------------------
     // create a new image that is factor times bigger than the input by using
@@ -159,6 +191,17 @@ Image scaleLanczos(const Image &im, float factor, float a) {
     Image scaled((int)floor(factor * im.width()),
                  (int)floor(factor * im.height()),
                  im.channels());
+    for (int c = 0; c < im.channels(); ++c) {
+        for (int y = 0; y < scaled.height(); ++y) {
+            for (int x = 0; x < scaled.width(); ++x) {
+                scaled(x, y, c) = interpLanczos(im,
+                                                (float)x / factor,
+                                                (float)y / factor,
+                                                c,
+                                                a);
+            }
+        }
+    }
     return scaled;
 }
 
@@ -167,10 +210,30 @@ Image rotate(const Image &im, float theta) {
     // rotate an image around its center by theta
 
     // // center around which to rotate
-    // float centerX = (im.width()-1.0)/2.0;
-    // float centerY = (im.height()-1.0)/2.0;
+    float centerX = (im.width() - 1.0) / 2.0;
+    float centerY = (im.height() - 1.0) / 2.0;
 
-    return im; // changeme
+    Image rotated(im.width(), im.height(), im.channels());
+
+    for (int x = 0; x < im.width(); x++) {
+        for (int y = 0; y < im.height(); y++) {
+            float xOffset = x - centerX;
+            float yOffset = y - centerY;
+            float r = sqrt(pow(xOffset, 2) + pow(yOffset, 2));
+            float targetTheta = 0;
+            if (xOffset != 0) {
+                targetTheta = atan(yOffset / xOffset) + theta;
+            }
+            for (int c = 0; c < im.channels(); c++) {
+                if (xOffset < 0) {
+                    rotated(x, y, c) = interpolateLin(im, -r * cos(targetTheta) + centerX, -r * sin(targetTheta) + centerY, c, false);
+                } else {
+                    rotated(x, y, c) = interpolateLin(im, r * cos(targetTheta) + centerX, r * sin(targetTheta) + centerY, c, false);
+                }
+            }
+        }
+    }
+    return rotated;
 }
 
 // -----------------------------------------------------

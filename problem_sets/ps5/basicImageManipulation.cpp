@@ -10,6 +10,7 @@
 
 #include "basicImageManipulation.h"
 #include <cmath>
+#include <cassert>
 using namespace std;
 
 // --------- HANDOUT PS05 ------------------------------
@@ -215,13 +216,13 @@ Image rotate(const Image &im, float theta) {
 
     Image rotated(im.width(), im.height(), im.channels());
 
-    for (int x = 0; x < im.width(); x++) {
-        for (int y = 0; y < im.height(); y++) {
+    for (int y = 0; y < im.height(); y++) {
+        for (int x = 0; x < im.width(); x++) {
             float xOffset = x - centerX;
             float yOffset = y - centerY;
             float r = sqrt(pow(xOffset, 2) + pow(yOffset, 2));
             float targetTheta = 0;
-            if (xOffset != 0) {
+            if (xOffset) {
                 targetTheta = atan(yOffset / xOffset) + theta;
             }
             for (int c = 0; c < im.channels(); c++) {

@@ -107,6 +107,7 @@ float Segment::distance(Vec2f X) const {
     // --------- HANDOUT  PS05 ------------------------------
     // Implement distance from a point X(x,y) to the segment. Remember the 3
     // cases from class.
+    Vec2f v = P;
     Vec2f w = Q;
     Vec2f p = X;
     // Return minimum distance between line segment vw and point p

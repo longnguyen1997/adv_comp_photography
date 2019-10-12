@@ -152,7 +152,7 @@ void testWarp() {
 
     // define before and after segments
     Segment segBefore(Vec2f(0, 0), Vec2f(10, 0));
-    Segment segAfter(Vec2f(30, 15), Vec2f(10, 10));
+    Segment segAfter(Vec2f(10, 10), Vec2f(30, 15));
 
     // warp
     Image warp1 = warpBy1(bear, segBefore, segAfter);
@@ -199,6 +199,6 @@ int main() {
     // testVectorOperations();
     testSegment();
     testWarpBy1();
-    // testWarp();
+    testWarp();
     // testMorph();
 }

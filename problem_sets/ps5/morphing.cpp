@@ -143,7 +143,9 @@ float Segment::weight(Vec2f X, float a, float b, float p) const {
     // --------- HANDOUT  PS05 ------------------------------
     // compute the weight of a segment to a point X(x,y) given the weight
     // parameters a,b, and p (see paper for details).
-    return 1.0f; // changeme
+
+    // weight = ((length^p)/(a+dist))^b
+    return pow(pow(length(X), p) / (a + distance(X)), b);
 }
 
 Image warp(const Image &im, const vector<Segment> &src_segs,

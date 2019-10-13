@@ -153,7 +153,35 @@ Image warp(const Image &im, const vector<Segment> &src_segs,
     // --------- HANDOUT  PS05 ------------------------------
     // Warp an image according to a vector of before and after segments using
     // segment weighting
-    return im;
+    Image destination(im.width(), im.height(), im.channels());
+    // For each pixel X in the destination
+    for (int c = 0; c < im.channels(); ++c) {
+        for (int y = 0; y < im.height(); ++y) {
+            for (int x = 0; x < im.width(); ++x) {
+                Vec2f DSUM(0, 0);
+                float weightsum = 0;
+                Vec2f Xi(x, y);
+                // For each line PiQi
+                for (int i = 0; i < src_segs.size(); ++i) {
+                    Segment PiQi = src_segs[i];
+                    Segment PiQiPrime = dst_segs[i];
+                    // Calculate uv based on PiQi
+                    Vec2f uv = PiQiPrime.XtoUV(Xi); // HAVE TO USE Pi'Qi'!
+                    // Calculate X'i based on uv and Pi'Qi'
+                    Vec2f after = PiQi.UVtoX(uv);
+                    // Calculate displacement Di = Xi' - Xi for this line
+                    Vec2f Di = after - Xi;
+                    // dist = shortest distance from Xi to PiQi
+                    float weight = PiQiPrime.weight(Xi, a, b, p);
+                    DSUM = DSUM + (Di * weight);
+                    weightsum += weight;
+                }
+                Vec2f XPrime = Xi + DSUM / weightsum;
+                destination(x, y, c) = interpolateLin(im, XPrime.x, XPrime.y, c, true);
+            }
+        }
+    }
+    return destination;
 }
 
 vector<Image> morph(const Image &im_before, const Image &im_after,
@@ -164,5 +192,30 @@ vector<Image> morph(const Image &im_before, const Image &im_after,
     // return a vector of N+2 images: the two inputs plus N images that morphs
     // between im_before and im_after for the corresponding segments. im_before
     // should be the first image, im_after the last.
-    return vector<Image>();
+    compareDimensions(im_before, im_after);
+    vector<Image> morphImages;
+    morphImages.push_back(im_before);
+    for (int n = 1; n <= N; ++n) {
+        Image imgN(im_before.width(), im_before.height(), im_before.channels());
+        float t = n / float(N + 1);
+        // Build the target segments.
+        vector<Segment> targetSegs;
+        for (int i = 0; i < segs_before.size(); ++i) {
+            Vec2f beforeP = segs_before[i].getP();
+            Vec2f afterP = segs_after[i].getP();
+            Vec2f P = ((afterP - beforeP) * t) + beforeP;
+            Vec2f beforeQ = segs_before[i].getQ();
+            Vec2f afterQ = segs_after[i].getQ();
+            Vec2f Q = ((afterQ - beforeQ) * t) + beforeQ;
+            targetSegs.push_back(Segment(P, Q));
+        }
+        Image before = warp(im_before, segs_before, targetSegs, a, b, p);
+        Image after = warp(im_after, segs_after, targetSegs, a, b, p);
+        for (int j = 0; j < before.number_of_elements(); ++j) {
+            imgN(j) = before(j) * (1 - t) + after(j) * t;
+        }
+        morphImages.push_back(imgN);
+    }
+    morphImages.push_back(im_after);
+    return morphImages;
 }

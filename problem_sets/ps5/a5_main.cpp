@@ -200,5 +200,5 @@ int main() {
     testSegment();
     testWarpBy1();
     testWarp();
-    // testMorph();
+    testMorph();
 }

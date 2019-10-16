@@ -156,7 +156,7 @@ Image scaleBicubic(const Image &im, float factor, float B, float C) {
 }
 
 float sinc(float x) {
-    return x == 0 ? 1 : sin(x) / x;
+    return x == 0 ? 1 : sin(M_PI * x) / (M_PI * x);
 }
 
 float lanczosWeight(float x, float y, float a) {

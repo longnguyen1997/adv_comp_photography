@@ -256,9 +256,9 @@ int main() {
 
   // testEigen();
   // testApplyHomography();
-  testComputeHomography();
-  // testComputeTransformedBBox();
-  // testBBoxUnion();
+  // testComputeHomography();
+  testComputeTransformedBBox();
+  testBBoxUnion();
   // testTranslate();
   // testStitchMonu();
   // testStitchStata();

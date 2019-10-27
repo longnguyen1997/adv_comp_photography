@@ -34,8 +34,6 @@ Matrix generateEquations(const CorrespondencePair pair) {
     float yPrime = pair.point2[1];
     equations << x, y, 1, 0, 0, 0, -(xPrime * x), -(xPrime * y),
               0, 0, 0, x, y, 1, -(x * yPrime), -(y * yPrime);
-    // cout << equations << endl;
-    // cout << "equations" << endl;
     return equations;
 }
 
@@ -64,13 +62,38 @@ BoundingBox computeTransformedBBox(int imwidth, int imheight, Matrix H) {
     // --------- HANDOUT  PS06 ------------------------------
     // Predict the bounding boxes that encompasses all the transformed
     // coordinates for pixels frow and Image with size (imwidth, imheight)
-    return BoundingBox(0, 0, 0, 0);
+    Vec3f A, B, C, D;
+    A << 0, 0, 1;
+    B << imwidth, 0, 1;
+    C << 0, imheight, 1;
+    D << imwidth, imheight, 1;
+    A = H * A;
+    B = H * B;
+    C = H * C;
+    D = H * D;
+    A /= A[2];
+    B /= B[2];
+    C /= C[2];
+    D /= D[2];
+    int x1, x2, y1, y2;
+    x1 = min(A[0], min(B[0], min(C[0], D[0])));
+    y1 = min(A[1], min(B[1], min(C[1], D[1])));
+    x2 = max(A[0], max(B[0], max(C[0], D[0])));
+    y2 = max(A[1], max(B[1], max(C[1], D[1])));
+    return BoundingBox(x1, x2, y1, y2);
 }
 
 BoundingBox bboxUnion(BoundingBox B1, BoundingBox B2) {
     // --------- HANDOUT  PS06 ------------------------------
     // Compute the bounding box that tightly bounds the union of B1 an B2.
-    return BoundingBox(0, 0, 0, 0);
+    int a, b, c, d;
+    a = min(B1.x1, B2.x1);
+    b = max(B1.x2, B2.x2);
+    c = min(B1.y1, B2.y1);
+    d = max(B1.y2, B2.y2);
+    assert(a <= b);
+    assert(c <= d);
+    return BoundingBox(a, b, c, d);
 }
 
 Matrix makeTranslation(BoundingBox B) {

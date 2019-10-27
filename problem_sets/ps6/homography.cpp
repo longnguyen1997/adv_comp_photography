@@ -100,7 +100,11 @@ Matrix makeTranslation(BoundingBox B) {
     // --------- HANDOUT  PS06 ------------------------------
     // Compute a translation matrix (as a homography matrix) that translates the
     // top-left corner of B to (0,0).
-    return Matrix::Zero(3, 3);
+    Matrix T(3, 3);
+    T << 1, 0, -B.x1,
+    0, 1, -B.y1,
+    0, 0, 1;
+    return T;
 }
 
 Image stitch(const Image &im1, const Image &im2,
@@ -109,7 +113,28 @@ Image stitch(const Image &im1, const Image &im2,
     // Transform im1 to align with im2 according to the set of correspondences.
     // make sure the union of the bounding boxes for im2 and transformed_im1 is
     // translated properly (use makeTranslation)
-    return im1;
+
+    // You first need to compute the homography between
+    // the two images.
+    Matrix H = computeHomography(correspondences);
+    // Then compute the resulting bounding
+    // box and translation matrix.
+    BoundingBox newBox = bboxUnion(
+                             computeTransformedBBox(im1.width(), im1.height(), H),
+                             BoundingBox(0, im2.width(), 0, im2.height())
+                         );
+    Matrix T = makeTranslation(newBox);
+    // Create a new black image
+    // of the size of the bounding box.
+    Image canvas(newBox.x2 - newBox.x1,
+                 newBox.y2 - newBox.y1,
+                 max(im1.channels(), im2.channels()));
+    // Then use a combination
+    // of your translation and homography matrix to composite
+    // both images into the output.
+    applyHomographyFast(im1, T * H, canvas, true);
+    applyHomographyFast(im2, T, canvas, true);
+    return canvas;
 }
 
 // debug-useful
@@ -142,4 +167,27 @@ void applyHomographyFast(const Image &source, const Matrix &H, Image &out,
     // --------- HANDOUT  PS06 ------------------------------
     // Same as apply but change only the pixels of out that are within the
     // predicted bounding box (when H maps source to its new position).
+    Matrix HInverse = H.inverse();
+    BoundingBox bound = computeTransformedBBox(out.width(), out.height(), H);
+    
+    bound.x1 = max(0, bound.x1);
+    bound.x2 = min(out.width(), bound.x2);
+    bound.y1 = max(0, bound.y1);
+    bound.y2 = min(out.height(), bound.y2);
+
+    for (int x = bound.x1; x < bound.x2; ++x) {
+        for (int y = bound.y1; y < bound.y2; ++y) {
+            Vec3f XPrimeYPrimeW = HInverse * Vec3f(x, y, 1.0);
+            XPrimeYPrimeW /= XPrimeYPrimeW[2];
+            float X = XPrimeYPrimeW[0];
+            float Y = XPrimeYPrimeW[1];
+            if (X < 0 || Y < 0 || X >= source.width() || Y >= source.height()) {
+                continue;
+            }
+            for (int c = 0; c < out.channels(); ++c) {
+                out(x, y, c) = bilinear ? interpolateLin(source, X, Y, c, true) : source(X, Y, c);
+            }
+
+        }
+    }
 }

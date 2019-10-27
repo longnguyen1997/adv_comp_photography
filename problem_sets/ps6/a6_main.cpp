@@ -257,12 +257,12 @@ int main() {
   // testEigen();
   // testApplyHomography();
   // testComputeHomography();
-  testComputeTransformedBBox();
-  testBBoxUnion();
+  // testComputeTransformedBBox();
+  // testBBoxUnion();
   // testTranslate();
-  // testStitchMonu();
-  // testStitchStata();
-  // testStitchGuedelon();
+  testStitchMonu();
+  testStitchStata();
+  testStitchGuedelon();
   // testApplyHomographyFast();
 
   ////--------------- for 6.865 only

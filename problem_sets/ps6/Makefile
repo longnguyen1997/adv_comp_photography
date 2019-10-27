@@ -23,7 +23,7 @@ OUTPUT := Output
 
 # We declare the C++ compiler/linker to be used.
 # We define it as a variable so we can change it easily if needed.
-CXX := g++ -Wall -std=c++11 -I.
+CXX := g++ -std=c++11 -I.
 
 # === Targets ==================================================================
 

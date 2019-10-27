@@ -253,12 +253,10 @@ void testApplyHomographyFast() {
 
 // This is a way for you to test your functions.
 int main() {
-  cout << "nothing done in a6_main.cpp, but read me! "
-       << "There's some useful info here." << endl;
 
   // testEigen();
   // testApplyHomography();
-  // testComputeHomography();
+  testComputeHomography();
   // testComputeTransformedBBox();
   // testBBoxUnion();
   // testTranslate();

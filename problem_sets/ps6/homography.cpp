@@ -32,8 +32,10 @@ Matrix generateEquations(const CorrespondencePair pair) {
     float y = pair.point1[1];
     float xPrime = pair.point2[0];
     float yPrime = pair.point2[1];
-    equations << y, x, 1, 0, 0, 0, -y *yPrime, -x *yPrime,
-              0, 0, 0, y, x, 1, -y *xPrime, -x *xPrime;
+    equations << x, y, 1, 0, 0, 0, -(xPrime * x), -(xPrime * y),
+              0, 0, 0, x, y, 1, -(x * yPrime), -(y * yPrime);
+    // cout << equations << endl;
+    // cout << "equations" << endl;
     return equations;
 }
 
@@ -41,14 +43,21 @@ Matrix computeHomography(const CorrespondencePair correspondences[4]) {
     // --------- HANDOUT  PS06 ------------------------------
     // Compute a homography from 4 point correspondences.
     Matrix A = Matrix::Zero(8, 8);
+    Matrix B = Matrix::Zero(8, 1);
     for (int c = 0; c < 4; ++c) {
         CorrespondencePair pair = correspondences[c];
         Matrix equationPair = generateEquations(pair);
-        cout<<equationPair<<endl;
         A.block<2, 8>(c * 2, 0) = equationPair;
+        float xPrime = pair.point2[0];
+        float yPrime = pair.point2[1];
+        B(c * 2, 0) = xPrime;
+        B(c * 2 + 1, 0) = yPrime;
     }
-    Matrix B = Matrix::Zero(8,1);
-    return A;
+    Matrix solution = A.inverse() * B;
+    Matrix H(3, 3);
+    for (int i = 0; i < 8; ++i) H(i / 3, i % 3) = solution(i, 0);
+    H(2, 2) = 1;
+    return H;
 }
 
 BoundingBox computeTransformedBBox(int imwidth, int imheight, Matrix H) {

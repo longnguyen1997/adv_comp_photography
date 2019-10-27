@@ -186,6 +186,42 @@ void testMorph() {
     }
 }
 
+void classMorph() {
+    // Test morph
+    Image lpn("./lpn.png");
+    Image pjwu("./pjwu.png");
+
+    // ... use the UI to specify segments
+    vector<Segment> segsBefore;
+    segsBefore.push_back(Segment(Vec2f(152, 197), Vec2f(229, 152)));
+    segsBefore.push_back(Segment(Vec2f(336, 173), Vec2f(351, 268)));
+    segsBefore.push_back(Segment(Vec2f(205, 349), Vec2f(297, 343)));
+    segsBefore.push_back(Segment(Vec2f(168, 379), Vec2f(232, 416)));
+    segsBefore.push_back(Segment(Vec2f(343, 363), Vec2f(317, 395)));
+    segsBefore.push_back(Segment(Vec2f(182, 236), Vec2f(226, 241)));
+    segsBefore.push_back(Segment(Vec2f(281, 240), Vec2f(326, 236)));
+    vector<Segment> segsAfter;
+    segsAfter.push_back(Segment(Vec2f(146, 112), Vec2f(221, 62)));
+    segsAfter.push_back(Segment(Vec2f(356, 68), Vec2f(398, 217)));
+    segsAfter.push_back(Segment(Vec2f(193, 335), Vec2f(328, 333)));
+    segsAfter.push_back(Segment(Vec2f(129, 351), Vec2f(241, 441)));
+    segsAfter.push_back(Segment(Vec2f(390, 351), Vec2f(346, 399)));
+    segsAfter.push_back(Segment(Vec2f(170, 180), Vec2f(224, 193)));
+    segsAfter.push_back(Segment(Vec2f(300, 189), Vec2f(366, 180)));
+
+    vector<Image> out = morph(lpn, pjwu, segsBefore, segsAfter, 30);
+
+    // This is how you can write an image sequence
+    for (int i = 0; i < (int)out.size(); ++i) {
+        ostringstream fname;
+        fname << "./class_morph/class_morph_";
+        fname << setfill('0') << setw(2);
+        fname << i;
+        fname << ".png";
+        out[i].write(fname.str());
+    }
+}
+
 // This is a way for you to test your functions.
 // We will only grade the contents of morphing.cpp and
 // basicImageManipulation.cpp
@@ -197,8 +233,9 @@ int main() {
     // testLanczos();
     // testRotation();
     // testVectorOperations();
-    testSegment();
-    testWarpBy1();
-    testWarp();
-    testMorph();
+    // testSegment();
+    // testWarpBy1();
+    // testWarp();
+    // testMorph();
+    classMorph();
 }

@@ -254,19 +254,19 @@ void testApplyHomographyFast() {
 // This is a way for you to test your functions.
 int main() {
 
-  // testEigen();
-  // testApplyHomography();
-  // testComputeHomography();
-  // testComputeTransformedBBox();
-  // testBBoxUnion();
-  // testTranslate();
+  testEigen();
+  testApplyHomography();
+  testComputeHomography();
+  testComputeTransformedBBox();
+  testBBoxUnion();
+  testTranslate();
   testStitchMonu();
   testStitchStata();
   testStitchGuedelon();
-  // testApplyHomographyFast();
+  testApplyHomographyFast();
 
   ////--------------- for 6.865 only
-  // testStitchScience();
-  // testStitchConvention();
-  // testStitchBoston1();
+  testStitchScience();
+  testStitchConvention();
+  testStitchBoston1();
 }

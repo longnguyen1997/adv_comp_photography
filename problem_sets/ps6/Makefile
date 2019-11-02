@@ -23,7 +23,7 @@ OUTPUT := Output
 
 # We declare the C++ compiler/linker to be used.
 # We define it as a variable so we can change it easily if needed.
-CXX := g++ -w -std=c++11 -I.
+CXX := g++ -Wall -std=c++11 -I. -w
 
 # === Targets ==================================================================
 
@@ -72,8 +72,12 @@ prepare:
 	mkdir -p asst
 	cp *.cpp asst
 	cp *.h asst
+	[ ! -f *.png ] || cp *.png asst
 	cp Makefile asst
 	cp -R Input asst
+	cp -R Eigen asst
+	cp -R class_morph asst
+	cp segments.txt asst
 	zip -r a$(NUMBER)_submission.zip asst
 	rm -rf asst
 .PHONY: prepare

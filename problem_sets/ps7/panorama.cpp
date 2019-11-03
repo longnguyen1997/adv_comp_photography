@@ -152,14 +152,39 @@ vector<bool> inliers(const Matrix &H,
     // return a vector of bools the same size as listOfCorrespondences
     // indicating whether each correspondance is an inlier according to the
     // homography H and threshold epsilon
-    return vector<bool>();
+    vector<bool> inlierBools;
+    for (FeatureCorrespondence c : listOfCorrespondences) {
+        Vec3f p1 = c.feature(0).point().toHomogenousCoords();
+        Vec3f p2 = c.feature(1).point().toHomogenousCoords();
+        p2 = H.inverse() * p2;
+        p2 /= p2[2];
+        inlierBools.push_back((p2 - p1).norm() < epsilon);
+    }
+    return inlierBools;
 }
 
 Matrix RANSAC(const vector<FeatureCorrespondence> &listOfCorrespondences,
               int Niter, float epsilon) {
     // // --------- HANDOUT  PS07 ------------------------------
     // Put together the RANSAC algorithm.
-    return Matrix(3, 3);
+    int bestCor = 0;
+    Matrix bestH(3, 3);
+    for (int n = 0; n < Niter; ++n) {
+        vector<CorrespondencePair> pairs = getListOfPairs(
+                                               sampleFeatureCorrespondences(listOfCorrespondences)
+                                           );
+        assert(pairs.size() == 4);
+        Matrix H = computeHomography(pairs.data());
+        if (H.determinant()) {
+            int numInliers = 0;
+            for (bool c : inliers(H, listOfCorrespondences, epsilon)) if (c) numInliers++;
+            if (numInliers > bestCor) {
+                bestCor = numInliers;
+                bestH = H;
+            }
+        }
+    }
+    return bestH;
 }
 
 Image autostitch(const Image &im1, const Image &im2, float blurDescriptor,
@@ -167,7 +192,18 @@ Image autostitch(const Image &im1, const Image &im2, float blurDescriptor,
     // // --------- HANDOUT  PS07 ------------------------------
     // Now you have all the ingredients to make great panoramas without using a
     // primitive javascript UI !
-    return Image(1, 1, 1);
+    Matrix H = RANSAC(findCorrespondences(
+                          computeFeatures(im1, HarrisCorners(im1), blurDescriptor, radiusDescriptor),
+                          computeFeatures(im2, HarrisCorners(im2), blurDescriptor, radiusDescriptor)
+                      ));
+    BoundingBox bbox1 = computeTransformedBBox(im1.width(), im1.height(), H);
+    BoundingBox bbox2 = BoundingBox(0, im2.width(), 0, im2.height());
+    BoundingBox bbox = bboxUnion(bbox1, bbox2);
+    Matrix T = makeTranslation(bbox);
+    Image stitch(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, im1.channels());
+    applyHomography(im2, T, stitch, true);
+    applyHomography(im1, T * H, stitch, true);
+    return stitch;
 }
 
 // *****************************************************************************

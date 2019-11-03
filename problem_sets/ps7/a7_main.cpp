@@ -292,7 +292,7 @@ int main() {
     // testHarrisCorners();
     // testDescriptor();
     // testComputeFeatures();
-    // testFindCorrespondences();
+    testFindCorrespondences();
     // testRANSAC();
     // testVisualizeCorrespondenceInliers();
     // testAutoStitch();

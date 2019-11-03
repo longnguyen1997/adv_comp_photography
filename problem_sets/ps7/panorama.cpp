@@ -69,7 +69,19 @@ Image descriptor(const Image &blurredIm, const Point &p,
     // --------- HANDOUT  PS07 ------------------------------
     // Extract a descriptor from blurredIm around point p, with a radius
     // 'radiusDescriptor'.
-    return Image(1, 1, 1);
+    const int n = (int)radiusDescriptor * 2 + 1;
+    Image desc(n, n, 1);
+    int descP = 0;
+    for (int x = p.x - radiusDescriptor; x <= p.x + radiusDescriptor; ++x) {
+        for (int y = p.y - radiusDescriptor; y <= p.y + radiusDescriptor; ++y) {
+            desc(descP) = blurredIm(x, y);
+            descP++;
+        }
+    }
+    assert(descP = n * n);
+    desc = desc - desc.mean();
+    desc = desc / sqrt(desc.var());
+    return desc;
 }
 
 vector<Feature> computeFeatures(const Image &im, const vector<Point> &cornersL,
@@ -77,13 +89,30 @@ vector<Feature> computeFeatures(const Image &im, const vector<Point> &cornersL,
                                 float radiusDescriptor) {
     // // --------- HANDOUT  PS07 ------------------------------
     // Pset07. obtain corner features from a list of corner points
-    return vector<Feature>();
+    vector<Feature> features;
+    Image blurredIm = gaussianBlur_separable(lumiChromi(im)[0], sigmaBlurDescriptor);
+    for (int i = 0; i < cornersL.size(); ++i) {
+        features.push_back(
+            Feature(
+                cornersL[i],
+                descriptor(blurredIm, cornersL[i], radiusDescriptor)
+            )
+        );
+    }
+    return features;
 }
 
 float l2Features(const Feature &f1, const Feature &f2) {
     // // --------- HANDOUT  PS07 ------------------------------
     // Compute the squared Euclidean distance between the descriptors of f1, f2.
-    return 0.0f;
+    Image d1 = f1.desc();
+    Image d2 = f2.desc();
+    assert(d1.number_of_elements() == d2.number_of_elements());
+    float sqDist = 0;
+    for (int i = 0; i < d1.number_of_elements(); ++i) {
+        sqDist += pow(d1(i) - d2(i), 2);
+    }
+    return sqDist;
 }
 
 vector<FeatureCorrespondence>
@@ -92,7 +121,27 @@ findCorrespondences(const vector<Feature> &listFeatures1,
     // // --------- HANDOUT  PS07 ------------------------------
     // Find correspondences between listFeatures1 and listFeatures2 using the
     // second-best test.
-    return vector<FeatureCorrespondence>();
+    vector<FeatureCorrespondence> correspondences;
+    float thresholdSq = threshold * threshold;
+    for (Feature f1 : listFeatures1) {
+        float d1 = INFINITY;
+        float d2 = INFINITY;
+        Feature best = listFeatures2[0];
+        for (Feature f2 : listFeatures2) {
+            float d = l2Features(f1, f2);
+            if (d < d1) {
+                d2 = d1;
+                d1 = d;
+                best = f2;
+            } else if (d < d2) {
+                d2 = d;
+            }
+        }
+        if (d2 / d1 >= thresholdSq) correspondences.push_back(
+                FeatureCorrespondence(f1, best)
+            );
+    }
+    return correspondences;
 }
 
 vector<bool> inliers(const Matrix &H,

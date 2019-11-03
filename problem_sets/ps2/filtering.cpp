@@ -212,7 +212,7 @@ vector<float> gauss2DFilterValues(float sigma, float truncate)
     return weights;
 }
 
-Image gaussianBlur_2D(const Image &im, float sigma, float truncate,
+Image 1gaussianBlur_2D(const Image &im, float sigma, float truncate,
                       bool clamp)
 {
     // --------- HANDOUT  PS02 ------------------------------

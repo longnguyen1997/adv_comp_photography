@@ -242,7 +242,22 @@ Image pano2planet(const Image &pano, int newImSize, bool clamp) {
 vector<Matrix> sequenceHs(const vector<Image> &ims, float blurDescriptor,
                           float radiusDescriptor) {
     // // --------- HANDOUT  PS07 ------------------------------
-    return vector<Matrix>();
+    vector<Matrix> seqH;
+    for (int i = 0; i < ims.size() - 1; ++i) {
+        vector<Feature> F1 = computeFeatures(
+                                 ims[i],
+                                 HarrisCorners(ims[i]),
+                                 blurDescriptor,
+                                 radiusDescriptor);
+        vector<Feature> F2 = computeFeatures(
+                                 ims[i + 1],
+                                 HarrisCorners(ims[i + 1]),
+                                 blurDescriptor,
+                                 radiusDescriptor);
+        // Find the homography between this and the next image.
+        seqH.push_back(RANSAC(findCorrespondences(F1, F2)));
+    }
+    return seqH;
 }
 
 // stack homographies:

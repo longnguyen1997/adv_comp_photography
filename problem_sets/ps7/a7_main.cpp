@@ -295,15 +295,15 @@ int main() {
     // testFindCorrespondences();
     // testRANSAC();
     // testVisualizeCorrespondenceInliers();
-    // testAutoStitch();
-    // testAutoStitchBoston();
+    testAutoStitch();
+    testAutoStitchBoston();
 
-    // testBlendingWeight();
-    // testApplyHomographyBlend();
-    // testStitchBlendStata();
-    // testAutoStitchBlendStata();
-    // testAutoStitchBlendBoston();
-    // testAutoStitchBlendCastle();
+    testBlendingWeight();
+    testApplyHomographyBlend();
+    testStitchBlendStata();
+    testAutoStitchBlendStata();
+    testAutoStitchBlendBoston();
+    testAutoStitchBlendCastle();
     // testPano2Planet();
     // testAutoStitchNBoston();
     // testAutoStitchNCastle();

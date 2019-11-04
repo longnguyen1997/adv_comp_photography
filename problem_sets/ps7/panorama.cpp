@@ -197,12 +197,12 @@ Image autostitch(const Image &im1, const Image &im2, float blurDescriptor,
                           computeFeatures(im2, HarrisCorners(im2), blurDescriptor, radiusDescriptor)
                       ));
     BoundingBox bbox1 = computeTransformedBBox(im1.width(), im1.height(), H);
-    BoundingBox bbox2 = BoundingBox(0, im2.width(), 0, im2.height());
+    BoundingBox bbox2 = BoundingBox(0, im2.width() - 1, 0, im2.height() - 1);
     BoundingBox bbox = bboxUnion(bbox1, bbox2);
     Matrix T = makeTranslation(bbox);
     Image stitch(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, im1.channels());
-    applyHomography(im2, T, stitch, true);
-    applyHomography(im1, T * H, stitch, true);
+    applyHomographyFast(im2, T, stitch, true);
+    applyHomographyFast(im1, T * H, stitch, true);
     return stitch;
 }
 

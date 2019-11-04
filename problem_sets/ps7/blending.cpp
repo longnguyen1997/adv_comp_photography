@@ -27,13 +27,18 @@ void applyhomographyBlend(const Image &source, const Image &weight, Image &out,
                           const Matrix &H, bool bilinear) {
     // --------- HANDOUT  PS07 ------------------------------
     Matrix HI = H.inverse();
-    for (int x = 0; x < out.width(); ++x) {
-        for (int y = 0; y < out.height(); ++y) {
-            if (x < source.width() and y < source.height()) {
-                Vec3f XPrimeYPrimeW = HI * Vec3f(x, y, 1.0);
-                XPrimeYPrimeW /= (float)XPrimeYPrimeW[2];
-                int X = (int)round(XPrimeYPrimeW[0]);
-                int Y = (int)round(XPrimeYPrimeW[1]);
+    BoundingBox bound = computeTransformedBBox(out.width(), out.height(), H);
+    bound.x1 = max(0, bound.x1);
+    bound.x2 = min(out.width(), bound.x2);
+    bound.y1 = max(0, bound.y1);
+    bound.y2 = min(out.height(), bound.y2);
+    for (int x = bound.x1; x < bound.x2; ++x) {
+        for (int y = bound.y1; y < bound.y2; ++y) {
+            Vec3f XPrimeYPrimeW = HI * Vec3f(x, y, 1.0);
+            XPrimeYPrimeW /= (float)XPrimeYPrimeW[2];
+            int X = (int)round(XPrimeYPrimeW[0]);
+            int Y = (int)round(XPrimeYPrimeW[1]);
+            if (X >= 0 and Y >= 0 and X < source.width() and Y < source.height()) {
                 for (int c = 0; c < out.channels(); ++c) {
                     if (bilinear) {
                         out(x, y, c) +=  interpolateLin(source, X, Y, c, true) * interpolateLin(weight, X, Y, 0, true);
@@ -106,10 +111,10 @@ Image stitchAbrupt(const Image &im1,
     Image w2Prime(outWidth, outHeight, 1);
     Image out(outWidth, outHeight, 3);
     Image outReference(outWidth, outHeight, 3);
-    applyHomography(we1, T * H, w1Prime, true);
-    applyHomography(we2, T, w2Prime, true);
-    applyHomography(im1, T * H, out, true);
-    applyHomography(im2, T, outReference, true);
+    applyHomographyFast(we1, T * H, w1Prime, true);
+    applyHomographyFast(we2, T, w2Prime, true);
+    applyHomographyFast(im1, T * H, out, true);
+    applyHomographyFast(im2, T, outReference, true);
     for (int c = 0; c < out.channels(); c++) {
         for (int y = 0; y < outHeight; ++y) {
             for (int x = 0; x < outWidth; ++x) {
@@ -152,8 +157,8 @@ Image stitchBlending(const Image &im1, const Image &im2, const Matrix &H,
         BoundingBox bbox = bboxUnion(bbox1, bbox2);
         Matrix T = makeTranslation(bbox);
         Image stitch(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, im1.channels());
-        applyHomography(im2, T, stitch, true);
-        applyHomography(im1, T * H, stitch, true);
+        applyHomographyFast(im2, T, stitch, true);
+        applyHomographyFast(im1, T * H, stitch, true);
         return stitch;
     } else if (blend == BlendType::BLEND_LINEAR) {
         return stitchLinearBlendingNormalized(im1, im2, we1, we2, H);
@@ -196,14 +201,36 @@ Image autostitch(const Image &im1, const Image &im2, BlendType blend,
 
 Image pano2planet(const Image &pano, int newImSize, bool clamp) {
     // // --------- HANDOUT  PS07 ------------------------------
-    Image planet(newImSize, newImSize, pano.channels());
-    for (int c = 0; c < planet.channels(); ++c) {
-        for (int y = 0; y < newImSize; ++y) {
-            for (int x = 0; x < newImSize; ++x) {
 
+    Image planet(newImSize, newImSize, pano.channels());
+    float C = newImSize / 2.0f;
+    float angleMult = pano.width() / (2 * M_PI);
+    float radiusMult = pano.height() / C;
+    for (int y = 0; y < newImSize; ++y) {
+        for (int x = 0; x < newImSize; ++x) {
+            // The left and right sides of the input panorama should be mapped to
+            // an angle of 0, along the right horizontal axis in the new image with
+            // increasing (counter-clockwise) angle in the output corresponding to
+            // sweeping from left to right of the input panorama.
+            int xDistCenter = x - C;
+            int yDistCenter = y - C;
+            float r = sqrt(pow(xDistCenter, 2.0) + pow(yDistCenter, 2.0));
+            float theta = -atan2(yDistCenter, xDistCenter);
+            for (int c = 0; c < planet.channels(); ++c) {
+                float X = angleMult * theta;
+                float Y = pano.height() - radiusMult * r;
+                // Use interpolateLin to copy
+                // pixels from panorama to planet image.
+                if (theta > 0) {
+                    planet(x, y, c) = interpolateLin(pano, X, Y, c, true);
+                } else {
+                    // Sweep around.
+                    planet(x, y, c) = interpolateLin(pano, X + pano.width(), Y, c, true);
+                }
             }
         }
     }
+    return planet;
 }
 
 /************************************************************************

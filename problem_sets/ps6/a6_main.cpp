@@ -254,19 +254,52 @@ void testApplyHomographyFast() {
 // This is a way for you to test your functions.
 int main() {
 
-  testEigen();
-  testApplyHomography();
-  testComputeHomography();
-  testComputeTransformedBBox();
-  testBBoxUnion();
-  testTranslate();
-  testStitchMonu();
-  testStitchStata();
-  testStitchGuedelon();
-  testApplyHomographyFast();
+  // testEigen();
+  // testApplyHomography();
+  // testComputeHomography();
+  // testComputeTransformedBBox();
+  // testBBoxUnion();
+  // testTranslate();
+  // testStitchMonu();
+  // testStitchStata();
+  // testStitchGuedelon();
+  // testApplyHomographyFast();
+
+  Image monu1 = Image("Input/monu-1.png");
+  Image monu2 = Image("Input/monu-2.png");
+  CorrespondencePair corresp[4] = {
+      CorrespondencePair(260, 180, 1, 63, 178, 1),
+      CorrespondencePair(404, 177, 1, 212, 174, 1),
+      CorrespondencePair(214, 153, 1, 11, 147, 1),
+      CorrespondencePair(431, 146, 1, 239, 144, 1)};
+  Image monu = stitch(monu1, monu2, corresp);
+  monu.write("./Output/Stitch+1+stitch.png");
+
+    Matrix H(3, 3);
+  H << 0.964545, 0.0249724, 655.465, 0.234809, 0.317685, 418.738, 0.00068247,
+      1.02387e-05, 1;
+
+  Image poster("Input/sunset-1.png");
+  BoundingBox bbox = computeTransformedBBox(poster.width(), poster.height(), H);
+
+  cout << "Computed transformed BBox:" << endl
+      << bbox.x1 << endl
+      << bbox.x2 << endl
+      << bbox.y1 << endl
+      << bbox.y2 << endl;
+
+  BoundingBox bbox1(-16, 25, 5, 110);
+  BoundingBox bbox2(-80, 19, 10, 20);
+  bbox = bboxUnion(bbox1, bbox2);
+
+  cout << "Computed BBox union:" << endl
+      << bbox.x1 << endl
+      << bbox.x2 << endl
+      << bbox.y1 << endl
+      << bbox.y2 << endl;
 
   ////--------------- for 6.865 only
-  testStitchScience();
-  testStitchConvention();
-  testStitchBoston1();
+  // testStitchScience();
+  // testStitchConvention();
+  // testStitchBoston1();
 }

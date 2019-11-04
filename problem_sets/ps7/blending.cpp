@@ -26,20 +26,20 @@ Image blendingweight(int imwidth, int imheight) {
 void applyhomographyBlend(const Image &source, const Image &weight, Image &out,
                           const Matrix &H, bool bilinear) {
     // --------- HANDOUT  PS07 ------------------------------
+    Matrix HI = H.inverse();
     for (int x = 0; x < out.width(); ++x) {
         for (int y = 0; y < out.height(); ++y) {
-            Vec3f XPrimeYPrimeW = H.inverse() * Vec3f(x, y, 1);
-            XPrimeYPrimeW /= (float)XPrimeYPrimeW[2];
-            float X = XPrimeYPrimeW[0];
-            float Y = XPrimeYPrimeW[1];
-            if (X < 0 || Y < 0 || X >= source.width() || Y >= source.height()) {
-                continue;
-            }
-            for (int c = 0; c < out.channels(); ++c) {
-                if (bilinear) {
-                    out(x, y, c) +=  interpolateLin(source, X, Y, c, true) * interpolateLin(weight, X, Y, 0, true);
-                } else {
-                    out(x, y, c) += source(X, Y, c) * weight(X, Y, 0);
+            if (x < source.width() and y < source.height()) {
+                Vec3f XPrimeYPrimeW = HI * Vec3f(x, y, 1.0);
+                XPrimeYPrimeW /= (float)XPrimeYPrimeW[2];
+                int X = (int)round(XPrimeYPrimeW[0]);
+                int Y = (int)round(XPrimeYPrimeW[1]);
+                for (int c = 0; c < out.channels(); ++c) {
+                    if (bilinear) {
+                        out(x, y, c) +=  interpolateLin(source, X, Y, c, true) * interpolateLin(weight, X, Y, 0, true);
+                    } else {
+                        out(x, y, c) += source(X, Y, c) * weight(X, Y, 0);
+                    }
                 }
             }
         }
@@ -52,7 +52,7 @@ Image stitchLinearBlending(const Image &im1, const Image &im2, const Image &we1,
     // stitch using image weights.
     // note there is no weight normalization.
     BoundingBox bbox1 = computeTransformedBBox(im1.width(), im1.height(), H);
-    BoundingBox bbox2 = BoundingBox(0, im2.width(), 0, im2.height());
+    BoundingBox bbox2 = BoundingBox(0, im2.width() - 1, 0, im2.height() - 1);
     BoundingBox bbox = bboxUnion(bbox1, bbox2);
     Matrix T = makeTranslation(bbox);
     Image stitchedLinear(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, im1.channels());
@@ -67,7 +67,7 @@ Image stitchLinearBlendingNormalized(const Image &im1, const Image &im2, const I
     // stitch using image weights.
     // note there is no weight normalization.
     BoundingBox bbox1 = computeTransformedBBox(im1.width(), im1.height(), H);
-    BoundingBox bbox2 = BoundingBox(0, im2.width(), 0, im2.height());
+    BoundingBox bbox2 = BoundingBox(0, im2.width() - 1, 0, im2.height() - 1);
     BoundingBox bbox = bboxUnion(bbox1, bbox2);
     Matrix T = makeTranslation(bbox);
     Image stitchedLinear(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, im1.channels());
@@ -99,7 +99,7 @@ Image stitchAbrupt(const Image &im1,
                    Matrix H) {
     // --------- HANDOUT  PS07 ------------------------------
     BoundingBox bbox1 = computeTransformedBBox(we1.width(), we1.height(), H);
-    BoundingBox bbox2 = BoundingBox(0, we2.width(), 0, we2.height());
+    BoundingBox bbox2 = BoundingBox(0, we2.width() - 1, 0, we2.height() - 1);
     BoundingBox bbox = bboxUnion(bbox1, bbox2);
     Matrix T = makeTranslation(bbox);
     Image w1Prime(outWidth, outHeight, 1);
@@ -148,7 +148,7 @@ Image stitchBlending(const Image &im1, const Image &im2, const Matrix &H,
     Image we2 = blendingweight(im2.width(), im2.height());
     if (blend == BlendType::BLEND_NONE) {
         BoundingBox bbox1 = computeTransformedBBox(im1.width(), im1.height(), H);
-        BoundingBox bbox2 = BoundingBox(0, im2.width(), 0, im2.height());
+        BoundingBox bbox2 = BoundingBox(0, im2.width() - 1, 0, im2.height() - 1);
         BoundingBox bbox = bboxUnion(bbox1, bbox2);
         Matrix T = makeTranslation(bbox);
         Image stitch(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, im1.channels());
@@ -196,7 +196,14 @@ Image autostitch(const Image &im1, const Image &im2, BlendType blend,
 
 Image pano2planet(const Image &pano, int newImSize, bool clamp) {
     // // --------- HANDOUT  PS07 ------------------------------
-    return Image(1, 1, 1);
+    Image planet(newImSize, newImSize, pano.channels());
+    for (int c = 0; c < planet.channels(); ++c) {
+        for (int y = 0; y < newImSize; ++y) {
+            for (int x = 0; x < newImSize; ++x) {
+
+            }
+        }
+    }
 }
 
 /************************************************************************

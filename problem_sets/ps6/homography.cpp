@@ -9,18 +9,17 @@ void applyHomography(const Image &source, const Matrix &H, Image &out,
     // Transform image source using the homography H, and composite in onto out.
     // if bilinear == true, using bilinear interpolation. Use nearest neighbor
     // otherwise.
-
-    for (int x = 0; x < out.width(); ++x) {
-        for (int y = 0; y < out.height(); ++y) {
-            Vec3f XPrimeYPrimeW = H.inverse() * Vec3f(x, y, 1.0);
-            XPrimeYPrimeW /= XPrimeYPrimeW[2];
-            float X = XPrimeYPrimeW[0];
-            float Y = XPrimeYPrimeW[1];
-            if (X < 0 || Y < 0 || X >= source.width() || Y >= source.height()) {
-                continue;
-            }
-            for (int c = 0; c < out.channels(); ++c) {
-                out(x, y, c) = bilinear ? interpolateLin(source, X, Y, c, true) : source(X, Y, c);
+    Matrix HInverse = H.inverse();
+    for (int y = 0; y < out.height(); ++y) {
+        for (int x = 0; x < out.width(); ++x) {
+            if (x <= source.width() - 1 and y <= source.height() - 1) {
+                Vec3f XPrimeYPrimeW = HInverse * Vec3f(x, y, 1.0);
+                XPrimeYPrimeW /= (float)XPrimeYPrimeW[2];
+                float X = (int)round(XPrimeYPrimeW[0]);
+                float Y = (int)round(XPrimeYPrimeW[1]);
+                for (int c = 0; c < out.channels(); ++c) {
+                    out(x, y, c) = bilinear ? interpolateLin(source, X, Y, c, true) : source(X, Y, c);
+                }
             }
         }
     }
@@ -32,8 +31,8 @@ Matrix generateEquations(const CorrespondencePair pair) {
     float y = pair.point1[1];
     float xPrime = pair.point2[0];
     float yPrime = pair.point2[1];
-    equations << x, y, 1, 0, 0, 0, -(xPrime * x), -(xPrime * y),
-              0, 0, 0, x, y, 1, -(x * yPrime), -(y * yPrime);
+    equations << x, y, 1.0, 0.0, 0.0, 0.0, -(xPrime * x), -(xPrime * y),
+              0.0, 0.0, 0.0, x, y, 1.0, -(x * yPrime), -(y * yPrime);
     return equations;
 }
 
@@ -121,7 +120,7 @@ Image stitch(const Image &im1, const Image &im2,
     // box and translation matrix.
     BoundingBox newBox = bboxUnion(
                              computeTransformedBBox(im1.width(), im1.height(), H),
-                             BoundingBox(0, im2.width(), 0, im2.height())
+                             BoundingBox(0, im2.width() - 1, 0, im2.height() - 1)
                          );
     Matrix T = makeTranslation(newBox);
     // Create a new black image
@@ -169,7 +168,7 @@ void applyHomographyFast(const Image &source, const Matrix &H, Image &out,
     // predicted bounding box (when H maps source to its new position).
     Matrix HInverse = H.inverse();
     BoundingBox bound = computeTransformedBBox(out.width(), out.height(), H);
-    
+
     bound.x1 = max(0, bound.x1);
     bound.x2 = min(out.width(), bound.x2);
     bound.y1 = max(0, bound.y1);
@@ -179,8 +178,8 @@ void applyHomographyFast(const Image &source, const Matrix &H, Image &out,
         for (int y = bound.y1; y < bound.y2; ++y) {
             Vec3f XPrimeYPrimeW = HInverse * Vec3f(x, y, 1.0);
             XPrimeYPrimeW /= XPrimeYPrimeW[2];
-            float X = XPrimeYPrimeW[0];
-            float Y = XPrimeYPrimeW[1];
+            int X = (int)round(XPrimeYPrimeW[0]);
+            int Y = (int)round(XPrimeYPrimeW[1]);
             if (X < 0 || Y < 0 || X >= source.width() || Y >= source.height()) {
                 continue;
             }

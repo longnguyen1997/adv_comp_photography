@@ -70,6 +70,7 @@ clean:
 
 prepare:
 	mkdir -p asst
+	cp -R my_pano asst
 	cp *.cpp asst
 	cp *.h asst
 	cp Makefile asst

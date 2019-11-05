@@ -329,7 +329,6 @@ Image autostitchN(const vector<Image> &ims, int refIndex, float blurDescriptor,
         applyhomographyBlend(im, weight, stitched, TH, true);
         // Update the normalized weight map.
         applyhomographyBlend(white, weight, weightSums, TH, true);
-
     }
     for (int y = 0; y < stitched.height(); ++y) {
         for (int x = 0; x < stitched.width(); ++x) {

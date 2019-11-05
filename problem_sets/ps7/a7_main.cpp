@@ -278,6 +278,15 @@ void testAutoStitchNCastle() {
     autostitchN(ims, 1).write("./Output/guedelon-autostitchN.png");
 }
 
+// 6.865 - Stitching example from own images
+void testStud5Stitch() {
+    vector<Image> ims;
+    ims.push_back(Image("./my_pano/source_1.png"));
+    ims.push_back(Image("./my_pano/source_2.png"));
+    ims.push_back(Image("./my_pano/source_3.png"));
+    autostitchN(ims, 1).write("./my_pano/mypano.png");
+}
+
 // This is a way for you to test your functions.
 int main() {
     // this sets the random number generator seed, without varying this value, all
@@ -304,7 +313,8 @@ int main() {
     // testAutoStitchBlendStata();
     // testAutoStitchBlendBoston();
     // testAutoStitchBlendCastle();
-    testPano2Planet();
+    // testPano2Planet();
     // testAutoStitchNBoston();
     // testAutoStitchNCastle();
+    testStud5Stitch();
 }

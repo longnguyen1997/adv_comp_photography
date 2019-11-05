@@ -296,25 +296,25 @@ int main() {
     // this will set it to the current system time
     srand(0); // Fixed seed for deterministic results
 
-    // testComputeTensor();
-    // testCornerResponse();
-    // testHarrisCorners();
-    // testDescriptor();
-    // testComputeFeatures();
-    // testFindCorrespondences();
-    // testRANSAC();
-    // testVisualizeCorrespondenceInliers();
-    // testAutoStitch();
-    // testAutoStitchBoston();
+    testComputeTensor();
+    testCornerResponse();
+    testHarrisCorners();
+    testDescriptor();
+    testComputeFeatures();
+    testFindCorrespondences();
+    testRANSAC();
+    testVisualizeCorrespondenceInliers();
+    testAutoStitch();
+    testAutoStitchBoston();
 
-    // testBlendingWeight();
-    // testApplyHomographyBlend();
-    // testStitchBlendStata();
-    // testAutoStitchBlendStata();
-    // testAutoStitchBlendBoston();
-    // testAutoStitchBlendCastle();
-    // testPano2Planet();
-    // testAutoStitchNBoston();
-    // testAutoStitchNCastle();
+    testBlendingWeight();
+    testApplyHomographyBlend();
+    testStitchBlendStata();
+    testAutoStitchBlendStata();
+    testAutoStitchBlendBoston();
+    testAutoStitchBlendCastle();
+    testPano2Planet();
+    testAutoStitchNBoston();
+    testAutoStitchNCastle();
     testStud5Stitch();
 }

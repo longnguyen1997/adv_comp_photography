@@ -27,13 +27,8 @@ void applyhomographyBlend(const Image &source, const Image &weight, Image &out,
                           const Matrix &H, bool bilinear) {
     // --------- HANDOUT  PS07 ------------------------------
     Matrix HI = H.inverse();
-    BoundingBox bound = computeTransformedBBox(out.width(), out.height(), H);
-    bound.x1 = max(0, bound.x1);
-    bound.x2 = min(out.width(), bound.x2);
-    bound.y1 = max(0, bound.y1);
-    bound.y2 = min(out.height(), bound.y2);
-    for (int x = bound.x1; x < bound.x2; ++x) {
-        for (int y = bound.y1; y < bound.y2; ++y) {
+    for (int y = 0; y < out.height(); ++y) {
+        for (int x = 0; x < out.width(); ++x) {
             Vec3f XPrimeYPrimeW = HI * Vec3f(x, y, 1.0);
             XPrimeYPrimeW /= (float)XPrimeYPrimeW[2];
             int X = (int)round(XPrimeYPrimeW[0]);
@@ -244,6 +239,7 @@ vector<Matrix> sequenceHs(const vector<Image> &ims, float blurDescriptor,
     // // --------- HANDOUT  PS07 ------------------------------
     vector<Matrix> seqH;
     for (int i = 0; i < ims.size() - 1; ++i) {
+        // Get features from both images.
         vector<Feature> F1 = computeFeatures(
                                  ims[i],
                                  HarrisCorners(ims[i]),
@@ -265,13 +261,43 @@ vector<Matrix> sequenceHs(const vector<Image> &ims, float blurDescriptor,
 //   to a list of N homographies going from I_i to I_refIndex.
 vector<Matrix> stackHomographies(const vector<Matrix> &Hs, int refIndex) {
     // // --------- HANDOUT  PS07 ------------------------------
-    return vector<Matrix>();
+    int N = Hs.size() + 1;
+    // N matrices.
+    vector<Matrix> stacked(N);
+    // H at refIndex is the identity.
+    stacked[refIndex] = Matrix::Identity(3, 3);
+    for (int i = 0; i < Hs.size(); ++i) {
+        // Set it to the default.
+        if (i < refIndex) {
+            stacked[i] = Hs[i];
+        } else if (i >= refIndex) {
+            // Set these to the inverse, since we want to transform back.
+            stacked[i + 1] = Hs[i].inverse();
+        }
+    }
+    for (int a = 0; a < stacked.size(); ++a) {
+        if (a != refIndex) assert(stacked[a] != Matrix::Identity(3, 3));
+    }
+    // These multiply regularly.
+    for (int i = 0; i < refIndex; ++i) {
+        for (int j = i + 1; j < refIndex; ++j) stacked[i] = stacked[i] * stacked[j];
+    }
+    // These multiply by the inverse.
+    for (int i = N - 1; i > refIndex; ++i) {
+        for (int j = N - 2; j > refIndex; ++j) stacked[i] = stacked[i] * stacked[j];
+    }
+    return stacked;
 }
 
 // Pset07-865: compute bbox around N images given one main reference.
 BoundingBox bboxN(const vector<Matrix> &Hs, const vector<Image> &ims) {
     // // --------- HANDOUT  PS07 ------------------------------
-    return BoundingBox(0, 0, 0, 0);
+    BoundingBox bbox(0, 0, 0, 0);
+    for (int i = 0; i < ims.size(); ++i) {
+        BoundingBox bboxI = computeTransformedBBox(ims[i].width(), ims[i].height(), Hs[i]);
+        bbox = bboxUnion(bboxI, bbox);
+    }
+    return bbox;
 }
 
 // Pset07-865.
@@ -279,7 +305,43 @@ BoundingBox bboxN(const vector<Matrix> &Hs, const vector<Image> &ims) {
 Image autostitchN(const vector<Image> &ims, int refIndex, float blurDescriptor,
                   float radiusDescriptor) {
     // // --------- HANDOUT  PS07 ------------------------------
-    return Image(1, 1, 1);
+
+    // Compute the sequence of homographies.
+    vector<Matrix> Hs = sequenceHs(ims, blurDescriptor, radiusDescriptor);
+    // Fix the reference image.
+    vector<Matrix> stacked = stackHomographies(Hs, refIndex);
+    // Generate overall bounding box.
+    BoundingBox bbox = bboxN(stacked, ims);
+    // Generate translation matrix to start at (0, 0).
+    Matrix T = makeTranslation(bbox);
+
+    Image stitched(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, ims[0].channels());
+    Image weightSums(bbox.x2 - bbox.x1, bbox.y2 - bbox.y1, 1);
+
+    int i = 0;
+    for (const Image &im : ims) {
+        Image weight = blendingweight(im.width(), im.height());
+        Image white(weight.width(), weight.height(), 1);
+        white.set_color(1.0, 1.0, 1.0);
+        Matrix TH = T * stacked[i];
+        i++;
+        // Merge to the output image.
+        applyhomographyBlend(im, weight, stitched, TH, true);
+        // Update the normalized weight map.
+        applyhomographyBlend(white, weight, weightSums, TH, true);
+
+    }
+    for (int y = 0; y < stitched.height(); ++y) {
+        for (int x = 0; x < stitched.width(); ++x) {
+            for (int c = 0; c < stitched.channels(); ++c) {
+                if (weightSums(x, y) != 0) {
+                    // Normalization step for linear blending.
+                    stitched(x, y, c) /= weightSums(x, y);
+                }
+            }
+        }
+    }
+    return stitched;
 }
 
 /******************************************************************************

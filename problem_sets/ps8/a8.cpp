@@ -124,8 +124,17 @@ Image<uint8_t> Sobel(Image<uint8_t> input) {
     //
     // SCHEDULE: use compute_root() on all the Func's you create (i.e.
     // use apply_compute_root(Func f).
-
-    return Image<uint8_t>(1, 1);
+    Var x;
+    Var y;
+    Func clamped;
+    clamped(x, y) = cast<float>(input(clamp(x, 0, input.width() - 1), clamp(y, 0, input.height() - 1)));
+    Func X, Y;
+    X(x, y) = -clamped(x - 1, y - 1) + clamped(x + 1, y - 1) - 2.0f * clamped(x - 1, y) + 2.0f * clamped(x + 1, y) - clamped(x - 1, y + 1) + clamped(x + 1, y + 1);
+    Y(x, y) = clamped(x - 1, y + 1) + 2.0f * clamped(x, y + 1) + clamped(x + 1, y + 1) - clamped(x - 1, y - 1) - 2.0f * clamped(x, y - 1) - clamped(x + 1, y - 1);
+    Func sobelFilter;
+    sobelFilter(x, y) = cast<uint8_t>(sqrt(X(x, y) * X(x, y) + Y(x, y) * Y(x, y)));
+    apply_compute_root(sobelFilter);
+    return sobelFilter.realize(input.width(), input.height());
 }
 
 // Example code for the equivalent .cpp loop questions

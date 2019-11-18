@@ -75,10 +75,9 @@ Image<uint8_t> WavyRGB(void) {
     Var x("x");
     Var y("y");
     Var c("c");
-    // Multiply by 255 for pixel normalization.
-    Expr e = cast<uint8_t>(255.0f *
-                           clamp((1.0f - c) * cos(x / 30.0f * PI / 180.f) * cos(y / 30.0f * PI / 180.0f),0,1)
-                          );
+    Expr e = cast<uint8_t>(
+                 255.0f * (1 - c) * cos(x / 30.0f) * cos(y / 30.0f)
+             );
     wavy(x, y, c) = e;
     apply_compute_root(wavy);
     return wavy.realize(512, 512, 3);
@@ -96,7 +95,15 @@ Image<uint8_t> Luminance(Image<uint8_t> input) {
     //
     // SCHEDULE: use compute_root() on all the Func's you create (i.e.
     // use apply_compute_root(Func f).
-    return Image<uint8_t>(1, 1);
+    Func lum;
+    Var x("x");
+    Var y("y");
+    Expr r = 0.3f * input(x, y, 0);
+    Expr g = 0.6f * input(x, y, 1);
+    Expr b = 0.1f * input(x, y, 2);
+    lum(x, y) = cast<uint8_t>(r + g + b);
+    apply_compute_root(lum);
+    return lum.realize(input.width(), input.height());
 }
 
 Image<uint8_t> Sobel(Image<uint8_t> input) {

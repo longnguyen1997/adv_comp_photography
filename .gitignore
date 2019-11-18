@@ -2,6 +2,8 @@
 # Created by https://www.gitignore.io/api/c,c++,git,linux,macos,windows
 # Edit at https://www.gitignore.io/?templates=c,c++,git,linux,macos,windows
 
+Output
+
 ### C ###
 # Prerequisites
 *.d

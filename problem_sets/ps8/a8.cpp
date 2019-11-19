@@ -332,34 +332,39 @@ Func Gaussian(Image<uint8_t> input) {
                       ) / 16.0f;
     // Blur in y
     GaussianY(x, y) = cast<uint8_t>((
-                          GaussianX(x, y + 0 - radius) * 1.f +
-                          GaussianX(x, y + 1 - radius) * 4.f +
-                          GaussianX(x, y + 2 - radius) * 6.f +
-                          GaussianX(x, y + 3 - radius) * 4.f +
-                          GaussianX(x, y + 4 - radius) * 1.f
-                      ) / 16.0f);
+                                        GaussianX(x, y + 0 - radius) * 1.f +
+                                        GaussianX(x, y + 1 - radius) * 4.f +
+                                        GaussianX(x, y + 2 - radius) * 6.f +
+                                        GaussianX(x, y + 3 - radius) * 4.f +
+                                        GaussianX(x, y + 4 - radius) * 1.f
+                                    ) / 16.0f);
     // Schedule your pipeline
 
     /*
     RESULTS TABLE
-    inline: 
+    i7-7820HQ 2.9Ghz, 16GB 2133Mhz DDR3, 512GB NVME 1.7GB/s
+    inline:
       - runtime: 70.7 ms
       - throughput: 57.9349 megapixels/sec
     root:
       - runtime: 22.8 ms
       - throughput: 179.649 megapixels/sec
+    tiling:
+      - runtime: 22.4 ms
+      - throughput: 182.857 megapixels/sec
     */
 
     // Debug to html
 
     // Return the output Func (cast it to uint8_t)
 
-#define APPLY_COMPUTE_ROOT 1
+#define APPLY_COMPUTE_ROOT 0
 #if APPLY_COMPUTE_ROOT
     GaussianX.compute_root();
     GaussianY.compute_root();
 #else
-    // Your schedule
+    GaussianY.tile(x, y, xo, yo, xi, yi, 64, 32);
+    GaussianX.compute_at(GaussianY, xo);
 #endif
 #undef APPLY_COMPUTE_ROOT
 

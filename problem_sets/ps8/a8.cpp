@@ -196,8 +196,8 @@ Image<uint8_t> boxSchedule5(Image<uint8_t> input) {
     cout << "Started boxSchedule5" << endl; // DO NOT CHANGE
 
     // Ignore boundaries: use this width and height
-    // int w = input.width()-2;
-    // int h = input.height()-2;
+    int w = input.width() - 2;
+    int h = input.height() - 2;
 
     // Intermediary stages of the pipeline, same size as input
     Image<float> blur_x(input.width(), input.height());
@@ -209,6 +209,25 @@ Image<uint8_t> boxSchedule5(Image<uint8_t> input) {
     // -------------------------
 
     // Your equivalent loops should go there --------
+    for (int y = 0; y < h; ++y) {
+        for (int x = 0; x < w; ++x) {
+            for (int yi = y; yi < y + 3; ++yi) {
+                cout << "blur_x"
+                     << " " << x << " " << yi << " " << endl;
+                // Compute blur_x as we iterate through x pixels of blur_y.
+                blur_x(x, yi) = (static_cast<float>(input(x, yi)) +
+                                 static_cast<float>(input(x + 1, yi)) +
+                                 static_cast<float>(input(x + 2, yi))) /
+                                3.0f;
+            }
+
+            cout << "blur_y"
+                 << " " << x << " " << y << " " << endl;
+            // Now that we've generated parts of the producer, we can consume!
+            blur_y(x, y) = static_cast<uint8_t>(
+                               (blur_x(x, y) + blur_x(x, y + 1) + blur_x(x, y + 2)) / 3.0f);
+        }
+    }
     // ----------- till here ------------------------
 
     cout << "Completed boxSchedule5" << endl; // DO NOT CHANGE
@@ -229,8 +248,8 @@ Image<uint8_t> boxSchedule6(Image<uint8_t> input) {
     cout << "Started boxSchedule6" << endl; // DO NOT CHANGE
 
     // Ignore boundaries: use this width and height
-    // int w = input.width()-2;
-    // int h = input.height()-2;
+    int w = input.width() - 2;
+    int h = input.height() - 2;
 
     // Intermediary stages of the pipeline, same size as input
     Image<float> blur_x(input.width(), input.height());
@@ -242,6 +261,34 @@ Image<uint8_t> boxSchedule6(Image<uint8_t> input) {
     // -------------------------
 
     // Your equivalent loops should go there --------
+    for (int yo = 0; yo < h / 2; yo++) {
+        // blur_x gets computed as we iterate through outer ys.
+        for (int yi = 0; yi < 2; yi++) {
+            // But also loop through all the yis for account for
+            // entire tile. The later nested loops need this.
+            int y = yo * 2 + yi;
+            for (int atX = 0; atX < w; ++atX) {
+                cout << "blur_x"
+                     << " " << atX << " " << y << " " << endl;
+                blur_x(atX, y) = (static_cast<float>(input(atX, y)) +
+                                  static_cast<float>(input(atX + 1, y)) +
+                                  static_cast<float>(input(atX + 2, y))) /
+                                 3.0f;
+            }
+        }
+        for (int xo = 0; xo < w / 2; xo++) {
+            for (int yi = 0; yi < 2; yi++) {
+                for (int xi = 0; xi < 2; xi++) {
+                    int x = xo * 2 + xi;
+                    int y = yo * 2 + yi;
+                    cout << "blur_y"
+                         << " " << x << " " << y << " " << endl;
+                    blur_y(x, y) = static_cast<uint8_t>(
+                                       (blur_x(x, y) + blur_x(x, y + 1) + blur_x(x, y + 2)) / 3.0f);
+                }
+            }
+        }
+    }
     // ----------- till here ------------------------
 
     cout << "Completed boxSchedule6" << endl; // DO NOT CHANGE

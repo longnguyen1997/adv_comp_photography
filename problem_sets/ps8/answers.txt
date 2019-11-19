@@ -1,0 +1,18 @@
+Long Nguyen, lpn@mit.edu
+6.865 - Computational Photography
+Fall 2019
+
+3.a Report the runtime, throughput of the four schedules in tutorial06
+(in the submission form). Which is best? Can you say why it was the
+best?
+
+1) ROOT: 11.1ms
+2) INLINE: 1.9ms
+3) TILING: 2ms
+4) TILING + PARALLEL: 1.2ms
+
+Tiling + parallelization gave the best results because it exploits
+locality in the images, especially if there is a need to grab neigh-
+boring pixels for computations. This helps with the cache, presumably.
+Parallelization lets us do multiple of these exploited tiles at once,
+which makes sense for even more speedup.

@@ -1,0 +1,98 @@
+Long Nguyen, lpn@mit.edu
+6.865 - Computational Photography, Fall 2019
+Paper Review - Assignment 8
+
+PAPER: Distortion-Free Wide-Angle Portraits on Camera Phones
+AUTHORS: YICHANG SHIH, WEI-SHENG LAI, and CHIA-KAI LIANG, Google
+VENUE: SIGGRAPH
+YEAR: 2019
+LINK: https://people.csail.mit.edu/yichangshih/wide_angle_portrait/
+
+--- REVIEW ---
+
+[DESCRIPTION]
+The paper adds excitement to the mobile camera industry by introducing
+a new type of distortion correction that primarily targets faces in an
+image and adjusts them using stereographic projection while leaving the
+rest of the image the same. The paper has huge potential for the field,
+as the authors' benchmarks on real mobile CPUs and GPUs suggest that
+even 12MP images can be corrected in less than a second.
+
+[RESUBMISSION]
+This paper was indeed not a resubmission.
+
+[CLARITY OF EXPOSITION]
+The narrative behind why this new algorithm is needed was excellent.
+The authors clearly looked into modern techniques that the mobile
+phone industry uses and found shortcomings that could be improved.
+They state the positive trends in the industry by talking about the
+prevalence of wide-angle mobile cameras these days, but qualify this
+appropriately by motivating the distortion that happens regardless
+of camera used. I do see a handful of grammar mistakes that could
+lead to semantic misunderstandings, but beyond that, the exposition
+is great.
+
+[QUALITY OF REFERENCES]
+The references provided at the end of the paper are more than enough to
+understand the motivation and the algorithm. Some of these papers are
+cited heavily, so that's another good sign.
+
+[REPRODUCIBILITY]
+There is a specific section at the end, LIMITATIONS AND CONCLUSION,
+that succintly describes what could go wrong using the authors' work,
+such as "the curvature of an edge may change when it is very close
+to face regions" and "does not perform with faces printed on a poster".
+This sets implementers' expectations clearly. Furthermore, the authors
+show all the rigorous math needed to derive the work, making references
+to papers that they followed when necessary. The work should be repro-
+ducible ASSUMING that readers are knowledgeable in the rigorous math
+and are able to translate it to working code in the right environment.
+
+[RATING]
+5 = Definitely accept. I would protest strongly if it's not accepted.
+
+[REVIEWER EXPERTISE]
+2 = Knowledgeable.
+
+[EXPLANATION OF RATING]
+I have lots of knowledge about the mobile camera industry, since I
+love doing photography on both my iPhone and my Nikon mirrorless
+camera. I do not, however, know anything about the rigorous math presented in the paper. Thus, I can only speak for the high-level
+discussions, which are well-motivated and are good.
+
+--- APPENDIX ---
+
+Review Form
+
+Description
+Briefly describe the paper and its contribution to computer graphics and interactive techniques. Please give your assessment of the scope and magnitude of the paper's contribution.
+
+Resubmission
+If the paper is a resubmission with reviewer continuity, please give your assessment of how the authors took into account comments from reviewers in the previous review cycle and improved their work. Note that the reviewing system gives you access to the former reviews and that the authors were instructed to upload a cover letter outlining the changes to their work as supplementary material.
+
+Clarity of Exposition
+Is the exposition clear? How could it be improved?
+
+Quality of References
+Are the references adequate? List any additional references that are needed.
+
+Reproducibility
+Could the work be reproduced from the information in the paper? Are all important algorithmic or system details discussed adequately? Are the limitations and drawbacks of the work clear?
+
+Rating
+Please rate this paper on a continuous scale from 1 to 5, where:
+1 = Definitely reject. I would protest strongly if it's accepted.
+2 = Probably reject. I would argue against this paper.
+3 = Possibly accept, but only if others champion it.
+4 = Probably accept. I would argue for this paper.
+5 = Definitely accept. I would protest strongly if it's not accepted.
+Please base your rating on the paper as it was submitted.
+
+Reviewer Expertise
+Please rate your expertise in the subject area of the paper on a continuous scale from 1 to 3, where:
+1 = Beginner
+2 = Knowledgeable
+3 = Expert
+
+Explanation of Rating
+Explain your rating by discussing the strengths and weaknesses of the submission, contributions, and the potential impact of the paper. Include suggestions for improvement and publication alternatives, if appropriate. Be thorough. Be fair. Be courteous. Be constructive. Your evaluation will be forwarded to the authors during the rebuttal period.

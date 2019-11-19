@@ -352,6 +352,9 @@ Func Gaussian(Image<uint8_t> input) {
     tiling:
       - runtime: 22.4 ms
       - throughput: 182.857 megapixels/sec
+    tiling + parallel + vectorization:
+      - runtime: 1.1 ms
+      - throughput: 3723.64 megapixels/sec
     */
 
     // Debug to html
@@ -363,8 +366,15 @@ Func Gaussian(Image<uint8_t> input) {
     GaussianX.compute_root();
     GaussianY.compute_root();
 #else
+    // Tiling only
     GaussianY.tile(x, y, xo, yo, xi, yi, 64, 32);
     GaussianX.compute_at(GaussianY, xo);
+    // UNCOMMENT 373 TO USE ROOT SCHEDULE
+    // GaussianX.compute_root();
+    // Parallel + vectorizing
+    GaussianY.parallel(yo);
+    GaussianX.vectorize(x, 16);
+    GaussianY.vectorize(xi, 16);
 #endif
 #undef APPLY_COMPUTE_ROOT
 

@@ -309,8 +309,8 @@ Image<uint8_t> boxSchedule7(Image<uint8_t> input) {
     cout << "Started boxSchedule7" << endl; // DO NOT CHANGE
 
     // Ignore boundaries: use this width and height
-    // int w = input.width()-2;
-    // int h = input.height()-2;
+    int w = input.width() - 2;
+    int h = input.height() - 2;
 
     // Intermediary stages of the pipeline, same size as input
     Image<float> blur_x(input.width(), input.height());
@@ -322,6 +322,22 @@ Image<uint8_t> boxSchedule7(Image<uint8_t> input) {
     // -------------------------
 
     // Your equivalent loops should go there --------
+    for (int y = 0; y < h; y++) {
+        for (int yi = y; yi < y + 3; yi++) {
+            for (int x = 0; x < w; x++) {
+                cout << "blur_x" << " " << x << " " << yi << " " << endl;
+                blur_x(x, yi) = (static_cast<float>(input(x, yi))
+                                 + static_cast<float>(input(x + 1, yi))
+                                 + static_cast<float>(input(x + 2, yi))) / 3.0f;
+            }
+        }
+        for (int xo = 0; xo < w / 2; xo++) {
+            for (int xi = 0; xi < w / 2; xi++) {
+                int x = xo * 2 + xi;
+                blur_y(x, y) = static_cast<uint8_t>((blur_x(x, y) + blur_x(x, y + 1) + blur_x(x, y + 2)) / 3.0f);
+            }
+        }
+    }
     // ----------- till here ------------------------
 
     cout << "Completed boxSchedule7" << endl; // DO NOT CHANGE

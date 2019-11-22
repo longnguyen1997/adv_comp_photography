@@ -9,7 +9,7 @@ CXX        := g++
 #
 # Modify HALIDE_DIR to the appropriate path on your machine.
 #
-HALIDE_DIR ?= $(HOME)/dev/lib/halide
+HALIDE_DIR ?= $(HOME)/Downloads/halide
 HALIDE_LIB := $(HALIDE_DIR)/lib/libHalide.a
 
 _TUTORIALS := $(wildcard tutorial*.cpp)

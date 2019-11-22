@@ -1,0 +1,1010 @@
+Schedule 0: default schedule  - runtime 533.7 ms
+  - throughput 7.67472 megapixels/sec
+
+Schedule 1: root first stage  - runtime 231.8 ms
+  - throughput 17.6704 megapixels/sec
+
+Schedule 2: tile 20x20+interleave  - runtime 258.9 ms
+  - throughput 15.8208 megapixels/sec
+Schedule 2: tile 60x20+interleave  - runtime 231.8 ms
+  - throughput 17.6704 megapixels/sec
+Schedule 2: tile 100x20+interleave  - runtime 266.9 ms
+  - throughput 15.3466 megapixels/sec
+Schedule 2: tile 140x20+interleave  - runtime 249 ms
+  - throughput 16.4498 megapixels/sec
+Schedule 2: tile 180x20+interleave  - runtime 243.6 ms
+  - throughput 16.8145 megapixels/sec
+Schedule 2: tile 220x20+interleave  - runtime 262.1 ms
+  - throughput 15.6276 megapixels/sec
+Schedule 2: tile 260x20+interleave  - runtime 227.1 ms
+  - throughput 18.0361 megapixels/sec
+Schedule 2: tile 300x20+interleave  - runtime 233.3 ms
+  - throughput 17.5568 megapixels/sec
+Schedule 2: tile 340x20+interleave  - runtime 233.2 ms
+  - throughput 17.5643 megapixels/sec
+Schedule 2: tile 380x20+interleave  - runtime 230.9 ms
+  - throughput 17.7393 megapixels/sec
+Schedule 2: tile 20x60+interleave  - runtime 213.6 ms
+  - throughput 19.176 megapixels/sec
+Schedule 2: tile 60x60+interleave  - runtime 204.3 ms
+  - throughput 20.0489 megapixels/sec
+Schedule 2: tile 100x60+interleave  - runtime 203.7 ms
+  - throughput 20.108 megapixels/sec
+Schedule 2: tile 140x60+interleave  - runtime 210.3 ms
+  - throughput 19.4769 megapixels/sec
+Schedule 2: tile 180x60+interleave  - runtime 243.7 ms
+  - throughput 16.8076 megapixels/sec
+Schedule 2: tile 220x60+interleave  - runtime 220.2 ms
+  - throughput 18.6013 megapixels/sec
+Schedule 2: tile 260x60+interleave  - runtime 203.7 ms
+  - throughput 20.108 megapixels/sec
+Schedule 2: tile 300x60+interleave  - runtime 216 ms
+  - throughput 18.963 megapixels/sec
+Schedule 2: tile 340x60+interleave  - runtime 211.4 ms
+  - throughput 19.3756 megapixels/sec
+Schedule 2: tile 380x60+interleave  - runtime 212.4 ms
+  - throughput 19.2844 megapixels/sec
+Schedule 2: tile 20x100+interleave  - runtime 218 ms
+  - throughput 18.789 megapixels/sec
+Schedule 2: tile 60x100+interleave  - runtime 209 ms
+  - throughput 19.5981 megapixels/sec
+Schedule 2: tile 100x100+interleave  - runtime 221.7 ms
+  - throughput 18.4754 megapixels/sec
+Schedule 2: tile 140x100+interleave  - runtime 207.6 ms
+  - throughput 19.7303 megapixels/sec
+Schedule 2: tile 180x100+interleave  - runtime 226.4 ms
+  - throughput 18.0919 megapixels/sec
+Schedule 2: tile 220x100+interleave  - runtime 209.3 ms
+  - throughput 19.57 megapixels/sec
+Schedule 2: tile 260x100+interleave  - runtime 199.9 ms
+  - throughput 20.4902 megapixels/sec
+Schedule 2: tile 300x100+interleave  - runtime 207.1 ms
+  - throughput 19.7779 megapixels/sec
+Schedule 2: tile 340x100+interleave  - runtime 231.6 ms
+  - throughput 17.6857 megapixels/sec
+Schedule 2: tile 380x100+interleave  - runtime 228.7 ms
+  - throughput 17.9099 megapixels/sec
+Schedule 2: tile 20x140+interleave  - runtime 233.8 ms
+  - throughput 17.5192 megapixels/sec
+Schedule 2: tile 60x140+interleave  - runtime 252.2 ms
+  - throughput 16.2411 megapixels/sec
+Schedule 2: tile 100x140+interleave  - runtime 234.2 ms
+  - throughput 17.4893 megapixels/sec
+Schedule 2: tile 140x140+interleave  - runtime 211.3 ms
+  - throughput 19.3848 megapixels/sec
+Schedule 2: tile 180x140+interleave  - runtime 229 ms
+  - throughput 17.8865 megapixels/sec
+Schedule 2: tile 220x140+interleave  - runtime 210 ms
+  - throughput 19.5048 megapixels/sec
+Schedule 2: tile 260x140+interleave  - runtime 243.8 ms
+  - throughput 16.8007 megapixels/sec
+Schedule 2: tile 300x140+interleave  - runtime 269.9 ms
+  - throughput 15.176 megapixels/sec
+Schedule 2: tile 340x140+interleave  - runtime 221.3 ms
+  - throughput 18.5088 megapixels/sec
+Schedule 2: tile 380x140+interleave  - runtime 211.3 ms
+  - throughput 19.3848 megapixels/sec
+Schedule 2: tile 20x180+interleave  - runtime 203.4 ms
+  - throughput 20.1377 megapixels/sec
+Schedule 2: tile 60x180+interleave  - runtime 197.6 ms
+  - throughput 20.7287 megapixels/sec
+Schedule 2: tile 100x180+interleave  - runtime 201.1 ms
+  - throughput 20.368 megapixels/sec
+Schedule 2: tile 140x180+interleave  - runtime 202.2 ms
+  - throughput 20.2572 megapixels/sec
+Schedule 2: tile 180x180+interleave  - runtime 209 ms
+  - throughput 19.5981 megapixels/sec
+Schedule 2: tile 220x180+interleave  - runtime 199.9 ms
+  - throughput 20.4902 megapixels/sec
+Schedule 2: tile 260x180+interleave  - runtime 196 ms
+  - throughput 20.898 megapixels/sec
+Schedule 2: tile 300x180+interleave  - runtime 204.1 ms
+  - throughput 20.0686 megapixels/sec
+Schedule 2: tile 340x180+interleave  - runtime 228.3 ms
+  - throughput 17.9413 megapixels/sec
+Schedule 2: tile 380x180+interleave  - runtime 235.5 ms
+  - throughput 17.3928 megapixels/sec
+Schedule 2: tile 20x220+interleave  - runtime 266.8 ms
+  - throughput 15.3523 megapixels/sec
+Schedule 2: tile 60x220+interleave  - runtime 318.3 ms
+  - throughput 12.8684 megapixels/sec
+Schedule 2: tile 100x220+interleave  - runtime 344.1 ms
+  - throughput 11.9035 megapixels/sec
+Schedule 2: tile 140x220+interleave  - runtime 259.3 ms
+  - throughput 15.7964 megapixels/sec
+Schedule 2: tile 180x220+interleave  - runtime 498.5 ms
+  - throughput 8.21665 megapixels/sec
+Schedule 2: tile 220x220+interleave  - runtime 286.3 ms
+  - throughput 14.3067 megapixels/sec
+Schedule 2: tile 260x220+interleave  - runtime 222.7 ms
+  - throughput 18.3925 megapixels/sec
+Schedule 2: tile 300x220+interleave  - runtime 329.1 ms
+  - throughput 12.4461 megapixels/sec
+Schedule 2: tile 340x220+interleave  - runtime 548.4 ms
+  - throughput 7.469 megapixels/sec
+Schedule 2: tile 380x220+interleave  - runtime 233.4 ms
+  - throughput 17.5493 megapixels/sec
+Schedule 2: tile 20x260+interleave  - runtime 279.8 ms
+  - throughput 14.639 megapixels/sec
+Schedule 2: tile 60x260+interleave  - runtime 226.7 ms
+  - throughput 18.0679 megapixels/sec
+Schedule 2: tile 100x260+interleave  - runtime 373 ms
+  - throughput 10.9812 megapixels/sec
+Schedule 2: tile 140x260+interleave  - runtime 284.4 ms
+  - throughput 14.4023 megapixels/sec
+Schedule 2: tile 180x260+interleave  - runtime 468.7 ms
+  - throughput 8.73907 megapixels/sec
+Schedule 2: tile 220x260+interleave  - runtime 312.7 ms
+  - throughput 13.0988 megapixels/sec
+Schedule 2: tile 260x260+interleave  - runtime 617.9 ms
+  - throughput 6.6289 megapixels/sec
+Schedule 2: tile 300x260+interleave  - runtime 260.5 ms
+  - throughput 15.7236 megapixels/sec
+Schedule 2: tile 340x260+interleave  - runtime 320.5 ms
+  - throughput 12.78 megapixels/sec
+Schedule 2: tile 380x260+interleave  - runtime 243.4 ms
+  - throughput 16.8283 megapixels/sec
+Schedule 2: tile 20x300+interleave  - runtime 227.2 ms
+  - throughput 18.0282 megapixels/sec
+Schedule 2: tile 60x300+interleave  - runtime 233.2 ms
+  - throughput 17.5643 megapixels/sec
+Schedule 2: tile 100x300+interleave  - runtime 260.1 ms
+  - throughput 15.7478 megapixels/sec
+Schedule 2: tile 140x300+interleave  - runtime 241.3 ms
+  - throughput 16.9747 megapixels/sec
+Schedule 2: tile 180x300+interleave  - runtime 241.5 ms
+  - throughput 16.9607 megapixels/sec
+Schedule 2: tile 220x300+interleave  - runtime 241.7 ms
+  - throughput 16.9466 megapixels/sec
+Schedule 2: tile 260x300+interleave  - runtime 228.8 ms
+  - throughput 17.9021 megapixels/sec
+Schedule 2: tile 300x300+interleave  - runtime 238.3 ms
+  - throughput 17.1884 megapixels/sec
+Schedule 2: tile 340x300+interleave  - runtime 262.3 ms
+  - throughput 15.6157 megapixels/sec
+Schedule 2: tile 380x300+interleave  - runtime 373.7 ms
+  - throughput 10.9607 megapixels/sec
+Schedule 2: tile 20x340+interleave  - runtime 297.4 ms
+  - throughput 13.7727 megapixels/sec
+Schedule 2: tile 60x340+interleave  - runtime 240.2 ms
+  - throughput 17.0525 megapixels/sec
+Schedule 2: tile 100x340+interleave  - runtime 290.4 ms
+  - throughput 14.1047 megapixels/sec
+Schedule 2: tile 140x340+interleave  - runtime 213 ms
+  - throughput 19.23 megapixels/sec
+Schedule 2: tile 180x340+interleave  - runtime 216.9 ms
+  - throughput 18.8843 megapixels/sec
+Schedule 2: tile 220x340+interleave  - runtime 211.7 ms
+  - throughput 19.3481 megapixels/sec
+Schedule 2: tile 260x340+interleave  - runtime 202.3 ms
+  - throughput 20.2472 megapixels/sec
+Schedule 2: tile 300x340+interleave  - runtime 210 ms
+  - throughput 19.5048 megapixels/sec
+Schedule 2: tile 340x340+interleave  - runtime 213.2 ms
+  - throughput 19.212 megapixels/sec
+Schedule 2: tile 380x340+interleave  - runtime 208.7 ms
+  - throughput 19.6263 megapixels/sec
+Schedule 2: tile 20x380+interleave  - runtime 231.8 ms
+  - throughput 17.6704 megapixels/sec
+Schedule 2: tile 60x380+interleave  - runtime 228.1 ms
+  - throughput 17.957 megapixels/sec
+Schedule 2: tile 100x380+interleave  - runtime 235.8 ms
+  - throughput 17.3707 megapixels/sec
+Schedule 2: tile 140x380+interleave  - runtime 232.3 ms
+  - throughput 17.6324 megapixels/sec
+Schedule 2: tile 180x380+interleave  - runtime 282.8 ms
+  - throughput 14.4837 megapixels/sec
+Schedule 2: tile 220x380+interleave  - runtime 230.1 ms
+  - throughput 17.801 megapixels/sec
+Schedule 2: tile 260x380+interleave  - runtime 234.7 ms
+  - throughput 17.4521 megapixels/sec
+Schedule 2: tile 300x380+interleave  - runtime 239.5 ms
+  - throughput 17.1023 megapixels/sec
+Schedule 2: tile 340x380+interleave  - runtime 362 ms
+  - throughput 11.3149 megapixels/sec
+Schedule 2: tile 380x380+interleave  - runtime 266 ms
+  - throughput 15.3985 megapixels/sec
+
+Schedule 3: tile 20x20+parallel  - runtime 109.4 ms
+  - throughput 37.4406 megapixels/sec
+Schedule 3: tile 60x20+parallel  - runtime 137.8 ms
+  - throughput 29.7242 megapixels/sec
+Schedule 3: tile 100x20+parallel  - runtime 231 ms
+  - throughput 17.7316 megapixels/sec
+Schedule 3: tile 140x20+parallel  - runtime 315.1 ms
+  - throughput 12.999 megapixels/sec
+Schedule 3: tile 180x20+parallel  - runtime 198.8 ms
+  - throughput 20.6036 megapixels/sec
+Schedule 3: tile 220x20+parallel  - runtime 182.8 ms
+  - throughput 22.407 megapixels/sec
+Schedule 3: tile 260x20+parallel  - runtime 116.5 ms
+  - throughput 35.1588 megapixels/sec
+Schedule 3: tile 300x20+parallel  - runtime 216.7 ms
+  - throughput 18.9017 megapixels/sec
+Schedule 3: tile 340x20+parallel  - runtime 135.4 ms
+  - throughput 30.2511 megapixels/sec
+Schedule 3: tile 380x20+parallel  - runtime 208.6 ms
+  - throughput 19.6357 megapixels/sec
+Schedule 3: tile 20x60+parallel  - runtime 105.6 ms
+  - throughput 38.7879 megapixels/sec
+Schedule 3: tile 60x60+parallel  - runtime 168.5 ms
+  - throughput 24.3086 megapixels/sec
+Schedule 3: tile 100x60+parallel  - runtime 108.3 ms
+  - throughput 37.8209 megapixels/sec
+Schedule 3: tile 140x60+parallel  - runtime 111.6 ms
+  - throughput 36.7025 megapixels/sec
+Schedule 3: tile 180x60+parallel  - runtime 120.9 ms
+  - throughput 33.8792 megapixels/sec
+Schedule 3: tile 220x60+parallel  - runtime 119.7 ms
+  - throughput 34.2189 megapixels/sec
+Schedule 3: tile 260x60+parallel  - runtime 135 ms
+  - throughput 30.3407 megapixels/sec
+Schedule 3: tile 300x60+parallel  - runtime 190.6 ms
+  - throughput 21.49 megapixels/sec
+Schedule 3: tile 340x60+parallel  - runtime 149.4 ms
+  - throughput 27.4163 megapixels/sec
+Schedule 3: tile 380x60+parallel  - runtime 105.2 ms
+  - throughput 38.9354 megapixels/sec
+Schedule 3: tile 20x100+parallel  - runtime 106.5 ms
+  - throughput 38.4601 megapixels/sec
+Schedule 3: tile 60x100+parallel  - runtime 104.6 ms
+  - throughput 39.1587 megapixels/sec
+Schedule 3: tile 100x100+parallel  - runtime 98.3 ms
+  - throughput 41.6684 megapixels/sec
+Schedule 3: tile 140x100+parallel  - runtime 102.8 ms
+  - throughput 39.8444 megapixels/sec
+Schedule 3: tile 180x100+parallel  - runtime 101.7 ms
+  - throughput 40.2753 megapixels/sec
+Schedule 3: tile 220x100+parallel  - runtime 106.6 ms
+  - throughput 38.424 megapixels/sec
+Schedule 3: tile 260x100+parallel  - runtime 97 ms
+  - throughput 42.2268 megapixels/sec
+Schedule 3: tile 300x100+parallel  - runtime 111.1 ms
+  - throughput 36.8677 megapixels/sec
+Schedule 3: tile 340x100+parallel  - runtime 100.8 ms
+  - throughput 40.6349 megapixels/sec
+Schedule 3: tile 380x100+parallel  - runtime 116.5 ms
+  - throughput 35.1588 megapixels/sec
+Schedule 3: tile 20x140+parallel  - runtime 157.2 ms
+  - throughput 26.056 megapixels/sec
+Schedule 3: tile 60x140+parallel  - runtime 101.8 ms
+  - throughput 40.2358 megapixels/sec
+Schedule 3: tile 100x140+parallel  - runtime 102.6 ms
+  - throughput 39.922 megapixels/sec
+Schedule 3: tile 140x140+parallel  - runtime 103.1 ms
+  - throughput 39.7284 megapixels/sec
+Schedule 3: tile 180x140+parallel  - runtime 116.8 ms
+  - throughput 35.0685 megapixels/sec
+Schedule 3: tile 220x140+parallel  - runtime 103.9 ms
+  - throughput 39.4225 megapixels/sec
+Schedule 3: tile 260x140+parallel  - runtime 112.9 ms
+  - throughput 36.2799 megapixels/sec
+Schedule 3: tile 300x140+parallel  - runtime 108.5 ms
+  - throughput 37.7512 megapixels/sec
+Schedule 3: tile 340x140+parallel  - runtime 105.9 ms
+  - throughput 38.678 megapixels/sec
+Schedule 3: tile 380x140+parallel  - runtime 124.8 ms
+  - throughput 32.8205 megapixels/sec
+Schedule 3: tile 20x180+parallel  - runtime 129.1 ms
+  - throughput 31.7273 megapixels/sec
+Schedule 3: tile 60x180+parallel  - runtime 122.3 ms
+  - throughput 33.4914 megapixels/sec
+Schedule 3: tile 100x180+parallel  - runtime 119.5 ms
+  - throughput 34.2761 megapixels/sec
+Schedule 3: tile 140x180+parallel  - runtime 107.5 ms
+  - throughput 38.1023 megapixels/sec
+Schedule 3: tile 180x180+parallel  - runtime 116 ms
+  - throughput 35.3103 megapixels/sec
+Schedule 3: tile 220x180+parallel  - runtime 126.7 ms
+  - throughput 32.3283 megapixels/sec
+Schedule 3: tile 260x180+parallel  - runtime 108.1 ms
+  - throughput 37.8908 megapixels/sec
+Schedule 3: tile 300x180+parallel  - runtime 109.4 ms
+  - throughput 37.4406 megapixels/sec
+Schedule 3: tile 340x180+parallel  - runtime 112.4 ms
+  - throughput 36.4413 megapixels/sec
+Schedule 3: tile 380x180+parallel  - runtime 113.9 ms
+  - throughput 35.9614 megapixels/sec
+Schedule 3: tile 20x220+parallel  - runtime 113.8 ms
+  - throughput 35.993 megapixels/sec
+Schedule 3: tile 60x220+parallel  - runtime 111.7 ms
+  - throughput 36.6697 megapixels/sec
+Schedule 3: tile 100x220+parallel  - runtime 108.7 ms
+  - throughput 37.6817 megapixels/sec
+Schedule 3: tile 140x220+parallel  - runtime 109.3 ms
+  - throughput 37.4748 megapixels/sec
+Schedule 3: tile 180x220+parallel  - runtime 111.1 ms
+  - throughput 36.8677 megapixels/sec
+Schedule 3: tile 220x220+parallel  - runtime 110.3 ms
+  - throughput 37.1351 megapixels/sec
+Schedule 3: tile 260x220+parallel  - runtime 118.2 ms
+  - throughput 34.6531 megapixels/sec
+Schedule 3: tile 300x220+parallel  - runtime 115.4 ms
+  - throughput 35.4939 megapixels/sec
+Schedule 3: tile 340x220+parallel  - runtime 111.6 ms
+  - throughput 36.7025 megapixels/sec
+Schedule 3: tile 380x220+parallel  - runtime 118.6 ms
+  - throughput 34.5363 megapixels/sec
+Schedule 3: tile 20x260+parallel  - runtime 113 ms
+  - throughput 36.2478 megapixels/sec
+Schedule 3: tile 60x260+parallel  - runtime 111.1 ms
+  - throughput 36.8677 megapixels/sec
+Schedule 3: tile 100x260+parallel  - runtime 110.3 ms
+  - throughput 37.1351 megapixels/sec
+Schedule 3: tile 140x260+parallel  - runtime 113 ms
+  - throughput 36.2478 megapixels/sec
+Schedule 3: tile 180x260+parallel  - runtime 113 ms
+  - throughput 36.2478 megapixels/sec
+Schedule 3: tile 220x260+parallel  - runtime 112.6 ms
+  - throughput 36.3766 megapixels/sec
+Schedule 3: tile 260x260+parallel  - runtime 110.1 ms
+  - throughput 37.2025 megapixels/sec
+Schedule 3: tile 300x260+parallel  - runtime 127.7 ms
+  - throughput 32.0752 megapixels/sec
+Schedule 3: tile 340x260+parallel  - runtime 129.2 ms
+  - throughput 31.7028 megapixels/sec
+Schedule 3: tile 380x260+parallel  - runtime 120 ms
+  - throughput 34.1333 megapixels/sec
+Schedule 3: tile 20x300+parallel  - runtime 112.9 ms
+  - throughput 36.2799 megapixels/sec
+Schedule 3: tile 60x300+parallel  - runtime 111.2 ms
+  - throughput 36.8345 megapixels/sec
+Schedule 3: tile 100x300+parallel  - runtime 110.1 ms
+  - throughput 37.2025 megapixels/sec
+Schedule 3: tile 140x300+parallel  - runtime 113.3 ms
+  - throughput 36.1518 megapixels/sec
+Schedule 3: tile 180x300+parallel  - runtime 116.9 ms
+  - throughput 35.0385 megapixels/sec
+Schedule 3: tile 220x300+parallel  - runtime 113.3 ms
+  - throughput 36.1518 megapixels/sec
+Schedule 3: tile 260x300+parallel  - runtime 125.6 ms
+  - throughput 32.6115 megapixels/sec
+Schedule 3: tile 300x300+parallel  - runtime 125.2 ms
+  - throughput 32.7157 megapixels/sec
+Schedule 3: tile 340x300+parallel  - runtime 114.9 ms
+  - throughput 35.6484 megapixels/sec
+Schedule 3: tile 380x300+parallel  - runtime 115.3 ms
+  - throughput 35.5247 megapixels/sec
+Schedule 3: tile 20x340+parallel  - runtime 116.6 ms
+  - throughput 35.1286 megapixels/sec
+Schedule 3: tile 60x340+parallel  - runtime 113.7 ms
+  - throughput 36.0246 megapixels/sec
+Schedule 3: tile 100x340+parallel  - runtime 114.2 ms
+  - throughput 35.8669 megapixels/sec
+Schedule 3: tile 140x340+parallel  - runtime 117 ms
+  - throughput 35.0086 megapixels/sec
+Schedule 3: tile 180x340+parallel  - runtime 118.2 ms
+  - throughput 34.6531 megapixels/sec
+Schedule 3: tile 220x340+parallel  - runtime 113.6 ms
+  - throughput 36.0563 megapixels/sec
+Schedule 3: tile 260x340+parallel  - runtime 113.7 ms
+  - throughput 36.0246 megapixels/sec
+Schedule 3: tile 300x340+parallel  - runtime 117.3 ms
+  - throughput 34.919 megapixels/sec
+Schedule 3: tile 340x340+parallel  - runtime 165.1 ms
+  - throughput 24.8092 megapixels/sec
+Schedule 3: tile 380x340+parallel  - runtime 131.4 ms
+  - throughput 31.172 megapixels/sec
+Schedule 3: tile 20x380+parallel  - runtime 138.6 ms
+  - throughput 29.5527 megapixels/sec
+Schedule 3: tile 60x380+parallel  - runtime 124.4 ms
+  - throughput 32.926 megapixels/sec
+Schedule 3: tile 100x380+parallel  - runtime 124.3 ms
+  - throughput 32.9525 megapixels/sec
+Schedule 3: tile 140x380+parallel  - runtime 149.5 ms
+  - throughput 27.398 megapixels/sec
+Schedule 3: tile 180x380+parallel  - runtime 150.7 ms
+  - throughput 27.1798 megapixels/sec
+Schedule 3: tile 220x380+parallel  - runtime 141.2 ms
+  - throughput 29.0085 megapixels/sec
+Schedule 3: tile 260x380+parallel  - runtime 129.2 ms
+  - throughput 31.7028 megapixels/sec
+Schedule 3: tile 300x380+parallel  - runtime 132.8 ms
+  - throughput 30.8434 megapixels/sec
+Schedule 3: tile 340x380+parallel  - runtime 127.1 ms
+  - throughput 32.2266 megapixels/sec
+Schedule 3: tile 380x380+parallel  - runtime 126.1 ms
+  - throughput 32.4822 megapixels/sec
+
+Schedule 4: tile 20x20+vector  - runtime 33.1 ms
+  - throughput 123.746 megapixels/sec
+Schedule 4: tile 60x20+vector  - runtime 34.6 ms
+  - throughput 118.382 megapixels/sec
+Schedule 4: tile 100x20+vector  - runtime 45.8 ms
+  - throughput 89.4323 megapixels/sec
+Schedule 4: tile 140x20+vector  - runtime 46.1 ms
+  - throughput 88.8503 megapixels/sec
+Schedule 4: tile 180x20+vector  - runtime 51.8 ms
+  - throughput 79.0734 megapixels/sec
+Schedule 4: tile 220x20+vector  - runtime 48.5 ms
+  - throughput 84.4536 megapixels/sec
+Schedule 4: tile 260x20+vector  - runtime 50.2 ms
+  - throughput 81.5936 megapixels/sec
+Schedule 4: tile 300x20+vector  - runtime 56 ms
+  - throughput 73.1429 megapixels/sec
+Schedule 4: tile 340x20+vector  - runtime 59.8 ms
+  - throughput 68.495 megapixels/sec
+Schedule 4: tile 380x20+vector  - runtime 61.5 ms
+  - throughput 66.6016 megapixels/sec
+Schedule 4: tile 20x60+vector  - runtime 34.6 ms
+  - throughput 118.382 megapixels/sec
+Schedule 4: tile 60x60+vector  - runtime 33.5 ms
+  - throughput 122.269 megapixels/sec
+Schedule 4: tile 100x60+vector  - runtime 35.5 ms
+  - throughput 115.38 megapixels/sec
+Schedule 4: tile 140x60+vector  - runtime 40.3 ms
+  - throughput 101.638 megapixels/sec
+Schedule 4: tile 180x60+vector  - runtime 42 ms
+  - throughput 97.5238 megapixels/sec
+Schedule 4: tile 220x60+vector  - runtime 43.8 ms
+  - throughput 93.516 megapixels/sec
+Schedule 4: tile 260x60+vector  - runtime 46 ms
+  - throughput 89.0435 megapixels/sec
+Schedule 4: tile 300x60+vector  - runtime 49.7 ms
+  - throughput 82.4145 megapixels/sec
+Schedule 4: tile 340x60+vector  - runtime 58.8 ms
+  - throughput 69.6599 megapixels/sec
+Schedule 4: tile 380x60+vector  - runtime 69.9 ms
+  - throughput 58.598 megapixels/sec
+Schedule 4: tile 20x100+vector  - runtime 97.5 ms
+  - throughput 42.0103 megapixels/sec
+Schedule 4: tile 60x100+vector  - runtime 37.7 ms
+  - throughput 108.647 megapixels/sec
+Schedule 4: tile 100x100+vector  - runtime 62.2 ms
+  - throughput 65.8521 megapixels/sec
+Schedule 4: tile 140x100+vector  - runtime 46.3 ms
+  - throughput 88.4665 megapixels/sec
+Schedule 4: tile 180x100+vector  - runtime 84.3 ms
+  - throughput 48.5884 megapixels/sec
+Schedule 4: tile 220x100+vector  - runtime 152.4 ms
+  - throughput 26.8766 megapixels/sec
+Schedule 4: tile 260x100+vector  - runtime 49.3 ms
+  - throughput 83.0832 megapixels/sec
+Schedule 4: tile 300x100+vector  - runtime 56.5 ms
+  - throughput 72.4956 megapixels/sec
+Schedule 4: tile 340x100+vector  - runtime 55.1 ms
+  - throughput 74.3376 megapixels/sec
+Schedule 4: tile 380x100+vector  - runtime 95.8 ms
+  - throughput 42.7557 megapixels/sec
+Schedule 4: tile 20x140+vector  - runtime 37.7 ms
+  - throughput 108.647 megapixels/sec
+Schedule 4: tile 60x140+vector  - runtime 43 ms
+  - throughput 95.2558 megapixels/sec
+Schedule 4: tile 100x140+vector  - runtime 44 ms
+  - throughput 93.0909 megapixels/sec
+Schedule 4: tile 140x140+vector  - runtime 95.5 ms
+  - throughput 42.8901 megapixels/sec
+Schedule 4: tile 180x140+vector  - runtime 46.6 ms
+  - throughput 87.897 megapixels/sec
+Schedule 4: tile 220x140+vector  - runtime 51 ms
+  - throughput 80.3137 megapixels/sec
+Schedule 4: tile 260x140+vector  - runtime 50.2 ms
+  - throughput 81.5936 megapixels/sec
+Schedule 4: tile 300x140+vector  - runtime 58.9 ms
+  - throughput 69.5416 megapixels/sec
+Schedule 4: tile 340x140+vector  - runtime 56.8 ms
+  - throughput 72.1127 megapixels/sec
+Schedule 4: tile 380x140+vector  - runtime 73.3 ms
+  - throughput 55.88 megapixels/sec
+Schedule 4: tile 20x180+vector  - runtime 49.8 ms
+  - throughput 82.249 megapixels/sec
+Schedule 4: tile 60x180+vector  - runtime 35.6 ms
+  - throughput 115.056 megapixels/sec
+Schedule 4: tile 100x180+vector  - runtime 61.8 ms
+  - throughput 66.2783 megapixels/sec
+Schedule 4: tile 140x180+vector  - runtime 64.5 ms
+  - throughput 63.5039 megapixels/sec
+Schedule 4: tile 180x180+vector  - runtime 90.5 ms
+  - throughput 45.2597 megapixels/sec
+Schedule 4: tile 220x180+vector  - runtime 42.8 ms
+  - throughput 95.7009 megapixels/sec
+Schedule 4: tile 260x180+vector  - runtime 47.8 ms
+  - throughput 85.6904 megapixels/sec
+Schedule 4: tile 300x180+vector  - runtime 48 ms
+  - throughput 85.3333 megapixels/sec
+Schedule 4: tile 340x180+vector  - runtime 51 ms
+  - throughput 80.3137 megapixels/sec
+Schedule 4: tile 380x180+vector  - runtime 52 ms
+  - throughput 78.7692 megapixels/sec
+Schedule 4: tile 20x220+vector  - runtime 41.7 ms
+  - throughput 98.2254 megapixels/sec
+Schedule 4: tile 60x220+vector  - runtime 37 ms
+  - throughput 110.703 megapixels/sec
+Schedule 4: tile 100x220+vector  - runtime 38.5 ms
+  - throughput 106.39 megapixels/sec
+Schedule 4: tile 140x220+vector  - runtime 44.8 ms
+  - throughput 91.4286 megapixels/sec
+Schedule 4: tile 180x220+vector  - runtime 51.6 ms
+  - throughput 79.3799 megapixels/sec
+Schedule 4: tile 220x220+vector  - runtime 66.6 ms
+  - throughput 61.5015 megapixels/sec
+Schedule 4: tile 260x220+vector  - runtime 51.4 ms
+  - throughput 79.6887 megapixels/sec
+Schedule 4: tile 300x220+vector  - runtime 51.6 ms
+  - throughput 79.3799 megapixels/sec
+Schedule 4: tile 340x220+vector  - runtime 75 ms
+  - throughput 54.6133 megapixels/sec
+Schedule 4: tile 380x220+vector  - runtime 79.5 ms
+  - throughput 51.522 megapixels/sec
+Schedule 4: tile 20x260+vector  - runtime 54.8 ms
+  - throughput 74.7445 megapixels/sec
+Schedule 4: tile 60x260+vector  - runtime 41.2 ms
+  - throughput 99.4175 megapixels/sec
+Schedule 4: tile 100x260+vector  - runtime 47.2 ms
+  - throughput 86.7797 megapixels/sec
+Schedule 4: tile 140x260+vector  - runtime 50.3 ms
+  - throughput 81.4314 megapixels/sec
+Schedule 4: tile 180x260+vector  - runtime 46 ms
+  - throughput 89.0435 megapixels/sec
+Schedule 4: tile 220x260+vector  - runtime 51.1 ms
+  - throughput 80.1566 megapixels/sec
+Schedule 4: tile 260x260+vector  - runtime 51 ms
+  - throughput 80.3137 megapixels/sec
+Schedule 4: tile 300x260+vector  - runtime 56.6 ms
+  - throughput 72.3675 megapixels/sec
+Schedule 4: tile 340x260+vector  - runtime 58.1 ms
+  - throughput 70.4991 megapixels/sec
+Schedule 4: tile 380x260+vector  - runtime 60.3 ms
+  - throughput 67.927 megapixels/sec
+Schedule 4: tile 20x300+vector  - runtime 44.9 ms
+  - throughput 91.225 megapixels/sec
+Schedule 4: tile 60x300+vector  - runtime 38.6 ms
+  - throughput 106.114 megapixels/sec
+Schedule 4: tile 100x300+vector  - runtime 39.3 ms
+  - throughput 104.224 megapixels/sec
+Schedule 4: tile 140x300+vector  - runtime 42.8 ms
+  - throughput 95.7009 megapixels/sec
+Schedule 4: tile 180x300+vector  - runtime 44.5 ms
+  - throughput 92.045 megapixels/sec
+Schedule 4: tile 220x300+vector  - runtime 45.7 ms
+  - throughput 89.628 megapixels/sec
+Schedule 4: tile 260x300+vector  - runtime 47.9 ms
+  - throughput 85.5115 megapixels/sec
+Schedule 4: tile 300x300+vector  - runtime 52.1 ms
+  - throughput 78.618 megapixels/sec
+Schedule 4: tile 340x300+vector  - runtime 55.8 ms
+  - throughput 73.405 megapixels/sec
+Schedule 4: tile 380x300+vector  - runtime 56.8 ms
+  - throughput 72.1127 megapixels/sec
+Schedule 4: tile 20x340+vector  - runtime 40.9 ms
+  - throughput 100.147 megapixels/sec
+Schedule 4: tile 60x340+vector  - runtime 36.3 ms
+  - throughput 112.837 megapixels/sec
+Schedule 4: tile 100x340+vector  - runtime 37.1 ms
+  - throughput 110.404 megapixels/sec
+Schedule 4: tile 140x340+vector  - runtime 39.7 ms
+  - throughput 103.174 megapixels/sec
+Schedule 4: tile 180x340+vector  - runtime 42.1 ms
+  - throughput 97.2922 megapixels/sec
+Schedule 4: tile 220x340+vector  - runtime 43.6 ms
+  - throughput 93.945 megapixels/sec
+Schedule 4: tile 260x340+vector  - runtime 45.6 ms
+  - throughput 89.8246 megapixels/sec
+Schedule 4: tile 300x340+vector  - runtime 49.6 ms
+  - throughput 82.5807 megapixels/sec
+Schedule 4: tile 340x340+vector  - runtime 52 ms
+  - throughput 78.7692 megapixels/sec
+Schedule 4: tile 380x340+vector  - runtime 54.8 ms
+  - throughput 74.7445 megapixels/sec
+Schedule 4: tile 20x380+vector  - runtime 45.7 ms
+  - throughput 89.628 megapixels/sec
+Schedule 4: tile 60x380+vector  - runtime 39.9 ms
+  - throughput 102.657 megapixels/sec
+Schedule 4: tile 100x380+vector  - runtime 41.1 ms
+  - throughput 99.6594 megapixels/sec
+Schedule 4: tile 140x380+vector  - runtime 44.3 ms
+  - throughput 92.4605 megapixels/sec
+Schedule 4: tile 180x380+vector  - runtime 47 ms
+  - throughput 87.1489 megapixels/sec
+Schedule 4: tile 220x380+vector  - runtime 48.6 ms
+  - throughput 84.2798 megapixels/sec
+Schedule 4: tile 260x380+vector  - runtime 50.7 ms
+  - throughput 80.789 megapixels/sec
+Schedule 4: tile 300x380+vector  - runtime 54.5 ms
+  - throughput 75.156 megapixels/sec
+Schedule 4: tile 340x380+vector  - runtime 57.4 ms
+  - throughput 71.3589 megapixels/sec
+Schedule 4: tile 380x380+vector  - runtime 59.1 ms
+  - throughput 69.3063 megapixels/sec
+
+Schedule 5: tile 20x20+parallel+vector  - runtime 15.8 ms
+  - throughput 259.241 megapixels/sec
+Schedule 5: tile 60x20+parallel+vector  - runtime 17 ms
+  - throughput 240.941 megapixels/sec
+Schedule 5: tile 100x20+parallel+vector  - runtime 18.7 ms
+  - throughput 219.037 megapixels/sec
+Schedule 5: tile 140x20+parallel+vector  - runtime 19.3 ms
+  - throughput 212.228 megapixels/sec
+Schedule 5: tile 180x20+parallel+vector  - runtime 20.9 ms
+  - throughput 195.981 megapixels/sec
+Schedule 5: tile 220x20+parallel+vector  - runtime 22.9 ms
+  - throughput 178.865 megapixels/sec
+Schedule 5: tile 260x20+parallel+vector  - runtime 22.7 ms
+  - throughput 180.441 megapixels/sec
+Schedule 5: tile 300x20+parallel+vector  - runtime 25 ms
+  - throughput 163.84 megapixels/sec
+Schedule 5: tile 340x20+parallel+vector  - runtime 28.9 ms
+  - throughput 141.73 megapixels/sec
+Schedule 5: tile 380x20+parallel+vector  - runtime 27.7 ms
+  - throughput 147.87 megapixels/sec
+Schedule 5: tile 20x60+parallel+vector  - runtime 15.5 ms
+  - throughput 264.258 megapixels/sec
+Schedule 5: tile 60x60+parallel+vector  - runtime 18.2 ms
+  - throughput 225.055 megapixels/sec
+Schedule 5: tile 100x60+parallel+vector  - runtime 17.1 ms
+  - throughput 239.532 megapixels/sec
+Schedule 5: tile 140x60+parallel+vector  - runtime 19.1 ms
+  - throughput 214.45 megapixels/sec
+Schedule 5: tile 180x60+parallel+vector  - runtime 20.5 ms
+  - throughput 199.805 megapixels/sec
+Schedule 5: tile 220x60+parallel+vector  - runtime 20.7 ms
+  - throughput 197.874 megapixels/sec
+Schedule 5: tile 260x60+parallel+vector  - runtime 21.8 ms
+  - throughput 187.89 megapixels/sec
+Schedule 5: tile 300x60+parallel+vector  - runtime 23 ms
+  - throughput 178.087 megapixels/sec
+Schedule 5: tile 340x60+parallel+vector  - runtime 24.4 ms
+  - throughput 167.869 megapixels/sec
+Schedule 5: tile 380x60+parallel+vector  - runtime 24.9 ms
+  - throughput 164.498 megapixels/sec
+Schedule 5: tile 20x100+parallel+vector  - runtime 16.3 ms
+  - throughput 251.288 megapixels/sec
+Schedule 5: tile 60x100+parallel+vector  - runtime 15.9 ms
+  - throughput 257.61 megapixels/sec
+Schedule 5: tile 100x100+parallel+vector  - runtime 17.5 ms
+  - throughput 234.057 megapixels/sec
+Schedule 5: tile 140x100+parallel+vector  - runtime 18.8 ms
+  - throughput 217.872 megapixels/sec
+Schedule 5: tile 180x100+parallel+vector  - runtime 20.3 ms
+  - throughput 201.773 megapixels/sec
+Schedule 5: tile 220x100+parallel+vector  - runtime 20.5 ms
+  - throughput 199.805 megapixels/sec
+Schedule 5: tile 260x100+parallel+vector  - runtime 21.5 ms
+  - throughput 190.512 megapixels/sec
+Schedule 5: tile 300x100+parallel+vector  - runtime 22.5 ms
+  - throughput 182.044 megapixels/sec
+Schedule 5: tile 340x100+parallel+vector  - runtime 23.6 ms
+  - throughput 173.559 megapixels/sec
+Schedule 5: tile 380x100+parallel+vector  - runtime 24.2 ms
+  - throughput 169.256 megapixels/sec
+Schedule 5: tile 20x140+parallel+vector  - runtime 17 ms
+  - throughput 240.941 megapixels/sec
+Schedule 5: tile 60x140+parallel+vector  - runtime 17.6 ms
+  - throughput 232.727 megapixels/sec
+Schedule 5: tile 100x140+parallel+vector  - runtime 19 ms
+  - throughput 215.579 megapixels/sec
+Schedule 5: tile 140x140+parallel+vector  - runtime 21.2 ms
+  - throughput 193.208 megapixels/sec
+Schedule 5: tile 180x140+parallel+vector  - runtime 20.8 ms
+  - throughput 196.923 megapixels/sec
+Schedule 5: tile 220x140+parallel+vector  - runtime 21.1 ms
+  - throughput 194.123 megapixels/sec
+Schedule 5: tile 260x140+parallel+vector  - runtime 22 ms
+  - throughput 186.182 megapixels/sec
+Schedule 5: tile 300x140+parallel+vector  - runtime 23.5 ms
+  - throughput 174.298 megapixels/sec
+Schedule 5: tile 340x140+parallel+vector  - runtime 24.8 ms
+  - throughput 165.161 megapixels/sec
+Schedule 5: tile 380x140+parallel+vector  - runtime 25.9 ms
+  - throughput 158.147 megapixels/sec
+Schedule 5: tile 20x180+parallel+vector  - runtime 18.5 ms
+  - throughput 221.405 megapixels/sec
+Schedule 5: tile 60x180+parallel+vector  - runtime 19.9 ms
+  - throughput 205.829 megapixels/sec
+Schedule 5: tile 100x180+parallel+vector  - runtime 22.3 ms
+  - throughput 183.677 megapixels/sec
+Schedule 5: tile 140x180+parallel+vector  - runtime 20.3 ms
+  - throughput 201.773 megapixels/sec
+Schedule 5: tile 180x180+parallel+vector  - runtime 21.8 ms
+  - throughput 187.89 megapixels/sec
+Schedule 5: tile 220x180+parallel+vector  - runtime 22.1 ms
+  - throughput 185.339 megapixels/sec
+Schedule 5: tile 260x180+parallel+vector  - runtime 23.6 ms
+  - throughput 173.559 megapixels/sec
+Schedule 5: tile 300x180+parallel+vector  - runtime 24.6 ms
+  - throughput 166.504 megapixels/sec
+Schedule 5: tile 340x180+parallel+vector  - runtime 25.5 ms
+  - throughput 160.627 megapixels/sec
+Schedule 5: tile 380x180+parallel+vector  - runtime 26.6 ms
+  - throughput 153.985 megapixels/sec
+Schedule 5: tile 20x220+parallel+vector  - runtime 23.5 ms
+  - throughput 174.298 megapixels/sec
+Schedule 5: tile 60x220+parallel+vector  - runtime 18.8 ms
+  - throughput 217.872 megapixels/sec
+Schedule 5: tile 100x220+parallel+vector  - runtime 23.7 ms
+  - throughput 172.827 megapixels/sec
+Schedule 5: tile 140x220+parallel+vector  - runtime 28.3 ms
+  - throughput 144.735 megapixels/sec
+Schedule 5: tile 180x220+parallel+vector  - runtime 22.1 ms
+  - throughput 185.339 megapixels/sec
+Schedule 5: tile 220x220+parallel+vector  - runtime 24.3 ms
+  - throughput 168.56 megapixels/sec
+Schedule 5: tile 260x220+parallel+vector  - runtime 23.7 ms
+  - throughput 172.827 megapixels/sec
+Schedule 5: tile 300x220+parallel+vector  - runtime 28.8 ms
+  - throughput 142.222 megapixels/sec
+Schedule 5: tile 340x220+parallel+vector  - runtime 27.8 ms
+  - throughput 147.338 megapixels/sec
+Schedule 5: tile 380x220+parallel+vector  - runtime 32.2 ms
+  - throughput 127.205 megapixels/sec
+Schedule 5: tile 20x260+parallel+vector  - runtime 24 ms
+  - throughput 170.667 megapixels/sec
+Schedule 5: tile 60x260+parallel+vector  - runtime 22.1 ms
+  - throughput 185.339 megapixels/sec
+Schedule 5: tile 100x260+parallel+vector  - runtime 20.3 ms
+  - throughput 201.773 megapixels/sec
+Schedule 5: tile 140x260+parallel+vector  - runtime 30.3 ms
+  - throughput 135.182 megapixels/sec
+Schedule 5: tile 180x260+parallel+vector  - runtime 26.6 ms
+  - throughput 153.985 megapixels/sec
+Schedule 5: tile 220x260+parallel+vector  - runtime 68.9 ms
+  - throughput 59.4485 megapixels/sec
+Schedule 5: tile 260x260+parallel+vector  - runtime 79 ms
+  - throughput 51.8481 megapixels/sec
+Schedule 5: tile 300x260+parallel+vector  - runtime 104.8 ms
+  - throughput 39.084 megapixels/sec
+Schedule 5: tile 340x260+parallel+vector  - runtime 47.1 ms
+  - throughput 86.9639 megapixels/sec
+Schedule 5: tile 380x260+parallel+vector  - runtime 76.5 ms
+  - throughput 53.5425 megapixels/sec
+Schedule 5: tile 20x300+parallel+vector  - runtime 24.3 ms
+  - throughput 168.56 megapixels/sec
+Schedule 5: tile 60x300+parallel+vector  - runtime 23.7 ms
+  - throughput 172.827 megapixels/sec
+Schedule 5: tile 100x300+parallel+vector  - runtime 22.6 ms
+  - throughput 181.239 megapixels/sec
+Schedule 5: tile 140x300+parallel+vector  - runtime 24.8 ms
+  - throughput 165.161 megapixels/sec
+Schedule 5: tile 180x300+parallel+vector  - runtime 25.7 ms
+  - throughput 159.377 megapixels/sec
+Schedule 5: tile 220x300+parallel+vector  - runtime 28.8 ms
+  - throughput 142.222 megapixels/sec
+Schedule 5: tile 260x300+parallel+vector  - runtime 27.4 ms
+  - throughput 149.489 megapixels/sec
+Schedule 5: tile 300x300+parallel+vector  - runtime 30.4 ms
+  - throughput 134.737 megapixels/sec
+Schedule 5: tile 340x300+parallel+vector  - runtime 30.5 ms
+  - throughput 134.295 megapixels/sec
+Schedule 5: tile 380x300+parallel+vector  - runtime 40.4 ms
+  - throughput 101.386 megapixels/sec
+Schedule 5: tile 20x340+parallel+vector  - runtime 31.9 ms
+  - throughput 128.401 megapixels/sec
+Schedule 5: tile 60x340+parallel+vector  - runtime 28.7 ms
+  - throughput 142.718 megapixels/sec
+Schedule 5: tile 100x340+parallel+vector  - runtime 24.6 ms
+  - throughput 166.504 megapixels/sec
+Schedule 5: tile 140x340+parallel+vector  - runtime 23.7 ms
+  - throughput 172.827 megapixels/sec
+Schedule 5: tile 180x340+parallel+vector  - runtime 29.1 ms
+  - throughput 140.756 megapixels/sec
+Schedule 5: tile 220x340+parallel+vector  - runtime 28 ms
+  - throughput 146.286 megapixels/sec
+Schedule 5: tile 260x340+parallel+vector  - runtime 29 ms
+  - throughput 141.241 megapixels/sec
+Schedule 5: tile 300x340+parallel+vector  - runtime 28.8 ms
+  - throughput 142.222 megapixels/sec
+Schedule 5: tile 340x340+parallel+vector  - runtime 30.7 ms
+  - throughput 133.42 megapixels/sec
+Schedule 5: tile 380x340+parallel+vector  - runtime 31.1 ms
+  - throughput 131.704 megapixels/sec
+Schedule 5: tile 20x380+parallel+vector  - runtime 60.2 ms
+  - throughput 68.0399 megapixels/sec
+Schedule 5: tile 60x380+parallel+vector  - runtime 32.5 ms
+  - throughput 126.031 megapixels/sec
+Schedule 5: tile 100x380+parallel+vector  - runtime 25.5 ms
+  - throughput 160.627 megapixels/sec
+Schedule 5: tile 140x380+parallel+vector  - runtime 28.2 ms
+  - throughput 145.248 megapixels/sec
+Schedule 5: tile 180x380+parallel+vector  - runtime 54 ms
+  - throughput 75.8519 megapixels/sec
+Schedule 5: tile 220x380+parallel+vector  - runtime 28.4 ms
+  - throughput 144.225 megapixels/sec
+Schedule 5: tile 260x380+parallel+vector  - runtime 30 ms
+  - throughput 136.533 megapixels/sec
+Schedule 5: tile 300x380+parallel+vector  - runtime 31.9 ms
+  - throughput 128.401 megapixels/sec
+Schedule 5: tile 340x380+parallel+vector  - runtime 32.7 ms
+  - throughput 125.26 megapixels/sec
+Schedule 5: tile 380x380+parallel+vector  - runtime 39.1 ms
+  - throughput 104.757 megapixels/sec
+
+Schedule 6: tile 20x20+parallel+vector+unroll without interleaving  - runtime 30.7 ms
+  - throughput 133.42 megapixels/sec
+Schedule 6: tile 60x20+parallel+vector+unroll without interleaving  - runtime 25.9 ms
+  - throughput 158.147 megapixels/sec
+Schedule 6: tile 100x20+parallel+vector+unroll without interleaving  - runtime 27.7 ms
+  - throughput 147.87 megapixels/sec
+Schedule 6: tile 140x20+parallel+vector+unroll without interleaving  - runtime 33.4 ms
+  - throughput 122.635 megapixels/sec
+Schedule 6: tile 180x20+parallel+vector+unroll without interleaving  - runtime 31.8 ms
+  - throughput 128.805 megapixels/sec
+Schedule 6: tile 220x20+parallel+vector+unroll without interleaving  - runtime 30.7 ms
+  - throughput 133.42 megapixels/sec
+Schedule 6: tile 260x20+parallel+vector+unroll without interleaving  - runtime 35 ms
+  - throughput 117.029 megapixels/sec
+Schedule 6: tile 300x20+parallel+vector+unroll without interleaving  - runtime 38.3 ms
+  - throughput 106.945 megapixels/sec
+Schedule 6: tile 340x20+parallel+vector+unroll without interleaving  - runtime 64.4 ms
+  - throughput 63.6025 megapixels/sec
+Schedule 6: tile 380x20+parallel+vector+unroll without interleaving  - runtime 42 ms
+  - throughput 97.5238 megapixels/sec
+Schedule 6: tile 20x60+parallel+vector+unroll without interleaving  - runtime 50.7 ms
+  - throughput 80.789 megapixels/sec
+Schedule 6: tile 60x60+parallel+vector+unroll without interleaving  - runtime 34.4 ms
+  - throughput 119.07 megapixels/sec
+Schedule 6: tile 100x60+parallel+vector+unroll without interleaving  - runtime 39.5 ms
+  - throughput 103.696 megapixels/sec
+Schedule 6: tile 140x60+parallel+vector+unroll without interleaving  - runtime 38.1 ms
+  - throughput 107.507 megapixels/sec
+Schedule 6: tile 180x60+parallel+vector+unroll without interleaving  - runtime 55.7 ms
+  - throughput 73.5368 megapixels/sec
+Schedule 6: tile 220x60+parallel+vector+unroll without interleaving  - runtime 50.4 ms
+  - throughput 81.2698 megapixels/sec
+Schedule 6: tile 260x60+parallel+vector+unroll without interleaving  - runtime 54.8 ms
+  - throughput 74.7445 megapixels/sec
+Schedule 6: tile 300x60+parallel+vector+unroll without interleaving  - runtime 47.7 ms
+  - throughput 85.87 megapixels/sec
+Schedule 6: tile 340x60+parallel+vector+unroll without interleaving  - runtime 52.9 ms
+  - throughput 77.4291 megapixels/sec
+Schedule 6: tile 380x60+parallel+vector+unroll without interleaving  - runtime 48.5 ms
+  - throughput 84.4536 megapixels/sec
+Schedule 6: tile 20x100+parallel+vector+unroll without interleaving  - runtime 50.6 ms
+  - throughput 80.9486 megapixels/sec
+Schedule 6: tile 60x100+parallel+vector+unroll without interleaving  - runtime 55.8 ms
+  - throughput 73.405 megapixels/sec
+Schedule 6: tile 100x100+parallel+vector+unroll without interleaving  - runtime 56.1 ms
+  - throughput 73.0125 megapixels/sec
+Schedule 6: tile 140x100+parallel+vector+unroll without interleaving  - runtime 49.7 ms
+  - throughput 82.4145 megapixels/sec
+Schedule 6: tile 180x100+parallel+vector+unroll without interleaving  - runtime 61.2 ms
+  - throughput 66.9281 megapixels/sec
+Schedule 6: tile 220x100+parallel+vector+unroll without interleaving  - runtime 34.7 ms
+  - throughput 118.04 megapixels/sec
+Schedule 6: tile 260x100+parallel+vector+unroll without interleaving  - runtime 36.5 ms
+  - throughput 112.219 megapixels/sec
+Schedule 6: tile 300x100+parallel+vector+unroll without interleaving  - runtime 36 ms
+  - throughput 113.778 megapixels/sec
+Schedule 6: tile 340x100+parallel+vector+unroll without interleaving  - runtime 44.6 ms
+  - throughput 91.8386 megapixels/sec
+Schedule 6: tile 380x100+parallel+vector+unroll without interleaving  - runtime 49.9 ms
+  - throughput 82.0842 megapixels/sec
+Schedule 6: tile 20x140+parallel+vector+unroll without interleaving  - runtime 51.1 ms
+  - throughput 80.1566 megapixels/sec
+Schedule 6: tile 60x140+parallel+vector+unroll without interleaving  - runtime 47.5 ms
+  - throughput 86.2316 megapixels/sec
+Schedule 6: tile 100x140+parallel+vector+unroll without interleaving  - runtime 37.4 ms
+  - throughput 109.519 megapixels/sec
+Schedule 6: tile 140x140+parallel+vector+unroll without interleaving  - runtime 35 ms
+  - throughput 117.029 megapixels/sec
+Schedule 6: tile 180x140+parallel+vector+unroll without interleaving  - runtime 40.3 ms
+  - throughput 101.638 megapixels/sec
+Schedule 6: tile 220x140+parallel+vector+unroll without interleaving  - runtime 39.6 ms
+  - throughput 103.434 megapixels/sec
+Schedule 6: tile 260x140+parallel+vector+unroll without interleaving  - runtime 49.6 ms
+  - throughput 82.5807 megapixels/sec
+Schedule 6: tile 300x140+parallel+vector+unroll without interleaving  - runtime 52.2 ms
+  - throughput 78.4674 megapixels/sec
+Schedule 6: tile 340x140+parallel+vector+unroll without interleaving  - runtime 50.1 ms
+  - throughput 81.7565 megapixels/sec
+Schedule 6: tile 380x140+parallel+vector+unroll without interleaving  - runtime 54.2 ms
+  - throughput 75.572 megapixels/sec
+Schedule 6: tile 20x180+parallel+vector+unroll without interleaving  - runtime 48.3 ms
+  - throughput 84.8033 megapixels/sec
+Schedule 6: tile 60x180+parallel+vector+unroll without interleaving  - runtime 45 ms
+  - throughput 91.0222 megapixels/sec
+Schedule 6: tile 100x180+parallel+vector+unroll without interleaving  - runtime 45.7 ms
+  - throughput 89.628 megapixels/sec
+Schedule 6: tile 140x180+parallel+vector+unroll without interleaving  - runtime 67.3 ms
+  - throughput 60.8618 megapixels/sec
+Schedule 6: tile 180x180+parallel+vector+unroll without interleaving  - runtime 44.5 ms
+  - throughput 92.045 megapixels/sec
+Schedule 6: tile 220x180+parallel+vector+unroll without interleaving  - runtime 42.6 ms
+  - throughput 96.1502 megapixels/sec
+Schedule 6: tile 260x180+parallel+vector+unroll without interleaving  - runtime 44 ms
+  - throughput 93.0909 megapixels/sec
+Schedule 6: tile 300x180+parallel+vector+unroll without interleaving  - runtime 48.2 ms
+  - throughput 84.9793 megapixels/sec
+Schedule 6: tile 340x180+parallel+vector+unroll without interleaving  - runtime 47.8 ms
+  - throughput 85.6904 megapixels/sec
+Schedule 6: tile 380x180+parallel+vector+unroll without interleaving  - runtime 47.2 ms
+  - throughput 86.7797 megapixels/sec
+Schedule 6: tile 20x220+parallel+vector+unroll without interleaving  - runtime 43.4 ms
+  - throughput 94.3779 megapixels/sec
+Schedule 6: tile 60x220+parallel+vector+unroll without interleaving  - runtime 40.1 ms
+  - throughput 102.145 megapixels/sec
+Schedule 6: tile 100x220+parallel+vector+unroll without interleaving  - runtime 39.5 ms
+  - throughput 103.696 megapixels/sec
+Schedule 6: tile 140x220+parallel+vector+unroll without interleaving  - runtime 43.2 ms
+  - throughput 94.8148 megapixels/sec
+Schedule 6: tile 180x220+parallel+vector+unroll without interleaving  - runtime 45.4 ms
+  - throughput 90.2203 megapixels/sec
+Schedule 6: tile 220x220+parallel+vector+unroll without interleaving  - runtime 44.6 ms
+  - throughput 91.8386 megapixels/sec
+Schedule 6: tile 260x220+parallel+vector+unroll without interleaving  - runtime 46.1 ms
+  - throughput 88.8503 megapixels/sec
+Schedule 6: tile 300x220+parallel+vector+unroll without interleaving  - runtime 69.2 ms
+  - throughput 59.1908 megapixels/sec
+Schedule 6: tile 340x220+parallel+vector+unroll without interleaving  - runtime 127.6 ms
+  - throughput 32.1003 megapixels/sec
+Schedule 6: tile 380x220+parallel+vector+unroll without interleaving  - runtime 139.7 ms
+  - throughput 29.32 megapixels/sec
+Schedule 6: tile 20x260+parallel+vector+unroll without interleaving  - runtime 95.3 ms
+  - throughput 42.9801 megapixels/sec
+Schedule 6: tile 60x260+parallel+vector+unroll without interleaving  - runtime 127.6 ms
+  - throughput 32.1003 megapixels/sec
+Schedule 6: tile 100x260+parallel+vector+unroll without interleaving  - runtime 101.5 ms
+  - throughput 40.3547 megapixels/sec
+Schedule 6: tile 140x260+parallel+vector+unroll without interleaving  - runtime 104.2 ms
+  - throughput 39.309 megapixels/sec
+Schedule 6: tile 180x260+parallel+vector+unroll without interleaving  - runtime 62.2 ms
+  - throughput 65.8521 megapixels/sec
+Schedule 6: tile 220x260+parallel+vector+unroll without interleaving  - runtime 73.8 ms
+  - throughput 55.5014 megapixels/sec
+Schedule 6: tile 260x260+parallel+vector+unroll without interleaving  - runtime 79.5 ms
+  - throughput 51.522 megapixels/sec
+Schedule 6: tile 300x260+parallel+vector+unroll without interleaving  - runtime 75.3 ms
+  - throughput 54.3958 megapixels/sec
+Schedule 6: tile 340x260+parallel+vector+unroll without interleaving  - runtime 106.9 ms
+  - throughput 38.3162 megapixels/sec
+Schedule 6: tile 380x260+parallel+vector+unroll without interleaving  - runtime 94.7 ms
+  - throughput 43.2524 megapixels/sec
+Schedule 6: tile 20x300+parallel+vector+unroll without interleaving  - runtime 115.8 ms
+  - throughput 35.3713 megapixels/sec
+Schedule 6: tile 60x300+parallel+vector+unroll without interleaving  - runtime 53.3 ms
+  - throughput 76.848 megapixels/sec
+Schedule 6: tile 100x300+parallel+vector+unroll without interleaving  - runtime 49.2 ms
+  - throughput 83.252 megapixels/sec
+Schedule 6: tile 140x300+parallel+vector+unroll without interleaving  - runtime 49.1 ms
+  - throughput 83.4216 megapixels/sec
+Schedule 6: tile 180x300+parallel+vector+unroll without interleaving  - runtime 52.3 ms
+  - throughput 78.3174 megapixels/sec
+Schedule 6: tile 220x300+parallel+vector+unroll without interleaving  - runtime 60.8 ms
+  - throughput 67.3684 megapixels/sec
+Schedule 6: tile 260x300+parallel+vector+unroll without interleaving  - runtime 60.6 ms
+  - throughput 67.5908 megapixels/sec
+Schedule 6: tile 300x300+parallel+vector+unroll without interleaving  - runtime 57 ms
+  - throughput 71.8597 megapixels/sec
+Schedule 6: tile 340x300+parallel+vector+unroll without interleaving  - runtime 59 ms
+  - throughput 69.4237 megapixels/sec
+Schedule 6: tile 380x300+parallel+vector+unroll without interleaving  - runtime 59.1 ms
+  - throughput 69.3063 megapixels/sec
+Schedule 6: tile 20x340+parallel+vector+unroll without interleaving  - runtime 48.1 ms
+  - throughput 85.1559 megapixels/sec
+Schedule 6: tile 60x340+parallel+vector+unroll without interleaving  - runtime 42 ms
+  - throughput 97.5238 megapixels/sec
+Schedule 6: tile 100x340+parallel+vector+unroll without interleaving  - runtime 48.2 ms
+  - throughput 84.9793 megapixels/sec
+Schedule 6: tile 140x340+parallel+vector+unroll without interleaving  - runtime 47.9 ms
+  - throughput 85.5115 megapixels/sec
+Schedule 6: tile 180x340+parallel+vector+unroll without interleaving  - runtime 53.4 ms
+  - throughput 76.7041 megapixels/sec
+Schedule 6: tile 220x340+parallel+vector+unroll without interleaving  - runtime 54.4 ms
+  - throughput 75.2941 megapixels/sec
+Schedule 6: tile 260x340+parallel+vector+unroll without interleaving  - runtime 52.1 ms
+  - throughput 78.618 megapixels/sec
+Schedule 6: tile 300x340+parallel+vector+unroll without interleaving  - runtime 56.3 ms
+  - throughput 72.7531 megapixels/sec
+Schedule 6: tile 340x340+parallel+vector+unroll without interleaving  - runtime 54.5 ms
+  - throughput 75.156 megapixels/sec
+Schedule 6: tile 380x340+parallel+vector+unroll without interleaving  - runtime 58.2 ms
+  - throughput 70.378 megapixels/sec
+Schedule 6: tile 20x380+parallel+vector+unroll without interleaving  - runtime 61.8 ms
+  - throughput 66.2783 megapixels/sec
+Schedule 6: tile 60x380+parallel+vector+unroll without interleaving  - runtime 52.6 ms
+  - throughput 77.8707 megapixels/sec
+Schedule 6: tile 100x380+parallel+vector+unroll without interleaving  - runtime 59.1 ms
+  - throughput 69.3063 megapixels/sec
+Schedule 6: tile 140x380+parallel+vector+unroll without interleaving  - runtime 60.1 ms
+  - throughput 68.1531 megapixels/sec
+Schedule 6: tile 180x380+parallel+vector+unroll without interleaving  - runtime 53.1 ms
+  - throughput 77.1375 megapixels/sec
+Schedule 6: tile 220x380+parallel+vector+unroll without interleaving  - runtime 56.1 ms
+  - throughput 73.0125 megapixels/sec
+Schedule 6: tile 260x380+parallel+vector+unroll without interleaving  - runtime 58 ms
+  - throughput 70.6207 megapixels/sec
+Schedule 6: tile 300x380+parallel+vector+unroll without interleaving  - runtime 64.3 ms
+  - throughput 63.7014 megapixels/sec
+Schedule 6: tile 340x380+parallel+vector+unroll without interleaving  - runtime 85.9 ms
+  - throughput 47.6834 megapixels/sec
+Schedule 6: tile 380x380+parallel+vector+unroll without interleaving  - runtime 68.5 ms
+  - throughput 59.7956 megapixels/sec

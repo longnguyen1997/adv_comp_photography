@@ -34,7 +34,7 @@ OBJ        := $(patsubst %, $(BUILD_DIR)/%,$(_OBJ))
 PNG_INC := `libpng-config --I_opts`
 PNG_LIB := `libpng-config --L_opts`
 
-CXXFLAGS := $(PNG_INC) -I$(HALIDE_DIR)/include/ -I$(HALIDE_DIR)/tools/ -I. -Wall -std=c++11
+CXXFLAGS := $(PNG_INC) -I$(HALIDE_DIR)/include/ -I$(HALIDE_DIR)/tools/ -I. -w -Wall -std=c++11
 LDFLAGS  := $(PNG_LIB) -L$(HALIDE_DIR)/bin/ -lz -lpthread -ldl -lncurses -lpng
 
 all: $(EXECUTABLE) $(TUTORIALS)

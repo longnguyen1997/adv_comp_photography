@@ -44,8 +44,12 @@ Func Gaussian_horizontal(Image<uint8_t> input, float sigma, float truncate) {
     // Blur in x
     int kernelWidth = fwidth;
     Image<float> K = GKernel.realize(kernelWidth);
-    GX(x, y) = cast<uint8_t>(sum(clamped(x + rx - kernelWidth / 2, y) * K(rx)));
+    Func X;
+    X(x, y) = sum(clamped(x + rx - kernelWidth / 2, y) * K(rx));
+    GX(x, y) = cast<uint8_t>(X(x, y));
     // Schedule your pipeline
+    X.compute_at(GX, x)
+    .vectorize(x, 16);
     // Debug to html
     // Return the output Func (cast it to uint8_t)
 

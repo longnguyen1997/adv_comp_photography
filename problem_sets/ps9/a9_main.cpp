@@ -30,13 +30,13 @@ int main(int argc, char **argv) {
     //      << " megapixels/sec" << endl;
     // save_image(out_ref, "Output/Gaussian_horizontal_cpp.png");
     // ------- Halide version -----------------------------------
-    Func gaussian_hori_halide = Gaussian_horizontal(input, 3.0f);
-    cout<< endl
-        << "Halide implementation" << endl
-        << "---------------------" << endl;
-    profile(gaussian_hori_halide, w, h);
-    out = gaussian_hori_halide.realize(w, h);
-    save_image(out, "Output/Gaussian_horizontal_halide.png");
+    // Func gaussian_hori_halide = Gaussian_horizontal(input, 3.0f);
+    // cout<< endl
+    //     << "Halide implementation" << endl
+    //     << "---------------------" << endl;
+    // profile(gaussian_hori_halide, w, h);
+    // out = gaussian_hori_halide.realize(w, h);
+    // save_image(out, "Output/Gaussian_horizontal_halide.png");
     // ----------------------------------------------------------
   }
 

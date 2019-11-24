@@ -48,8 +48,7 @@ Func Gaussian_horizontal(Image<uint8_t> input, float sigma, float truncate) {
     X(x, y) = sum(clamped(x + rx - kernelWidth / 2, y) * K(rx));
     GX(x, y) = cast<uint8_t>(X(x, y));
     // Schedule your pipeline
-    X.compute_at(GX, x)
-    .vectorize(x, 16);
+    X.compute_at(GX, x).vectorize(x, 16);
     // Debug to html
     // Return the output Func (cast it to uint8_t)
 
@@ -79,20 +78,40 @@ Func Gaussian(Image<uint8_t> input, float sigma, float truncate) {
 
     // We give you the Halide starter code for computing the kernel
     // You will need to schedule it yourself
-    // int radius = sigma * truncate;
-    // int fwidth = 2 * radius + 1;
+    int radius = sigma * truncate;
+    int fwidth = 2 * radius + 1;
 
     // TODO:
     // Compute the kernel
+    Func GKernelUnNorm("GKernelUnnorm");
+    Func GKernelSum("GKernelSum");
+    Func GKernel("GKernel");
+    RDom rx(0, fwidth);
+    GKernelUnNorm(x) =
+        exp(-((x - radius) * (x - radius)) / (2.0f * sigma * sigma));
+    GKernelSum(x) = sum(GKernelUnNorm(rx));
+    GKernel(x) = GKernelUnNorm(x) / GKernelSum(0);
     // Clamp the image (boundary conditions)
+    Func clamped;
+    clamped(x, y) = cast<float>(input(
+                                    clamp(x, 0, input.width() - 1),
+                                    clamp(y, 0, input.height() - 1))
+                               );
     // Blur in x
+    int kernelWidth = fwidth;
+    Image<float> K = GKernel.realize(kernelWidth);
+    Func X;
+    X(x, y) = sum(clamped(x + rx - kernelWidth / 2, y) * K(rx));
     // Blur in y
+    Func Y;
+    Y(x, y) = sum(X(x, y + rx - kernelWidth / 2) * K(rx));
+    GB(x, y) = cast<uint8_t>(Y(x, y));
     // Schedule your pipeline
     // Debug to html
     // Return the output Func (cast it to uint8_t)
 
-    // Buffer<uint8_t> b(input.height(),input.width());
-    // GB.compile_to_lowered_stmt("Output/Gaussian.html", {b}, HTML);
+    Buffer<uint8_t> b(input.height(), input.width());
+    GB.compile_to_lowered_stmt("Output/Gaussian.html", {b}, HTML);
 
     return GB;
 }

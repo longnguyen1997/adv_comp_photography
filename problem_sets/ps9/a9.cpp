@@ -50,11 +50,9 @@ Func Gaussian_horizontal(Image<uint8_t> input, float sigma, float truncate) {
     // Schedule your pipeline
     X.compute_at(GX, x).vectorize(x, 16);
     // Debug to html
-    // Return the output Func (cast it to uint8_t)
-
     Buffer<uint8_t> b(input.height(), input.width());
     GX.compile_to_lowered_stmt("Output/Gaussian_hori.html", {b}, HTML);
-
+    // Return the output Func (cast it to uint8_t)
     return GX;
 }
 
@@ -91,6 +89,10 @@ Func Gaussian(Image<uint8_t> input, float sigma, float truncate) {
         exp(-((x - radius) * (x - radius)) / (2.0f * sigma * sigma));
     GKernelSum(x) = sum(GKernelUnNorm(rx));
     GKernel(x) = GKernelUnNorm(x) / GKernelSum(0);
+    // Schedule the kernel
+    GKernelUnNorm.compute_root();
+    GKernelSum   .compute_root();
+    GKernel      .compute_root();
     // Clamp the image (boundary conditions)
     Func clamped;
     clamped(x, y) = cast<float>(input(
@@ -107,12 +109,13 @@ Func Gaussian(Image<uint8_t> input, float sigma, float truncate) {
     Y(x, y) = sum(X(x, y + rx - kernelWidth / 2) * K(rx));
     GB(x, y) = cast<uint8_t>(Y(x, y));
     // Schedule your pipeline
+    GB.tile(x, y, xo, yo, xi, yi, 256, 32).parallel(yo).vectorize(xi, 32);
+    Y.compute_at(GB, xo);
+    X.compute_at(GB, yo).vectorize(x, 16);
     // Debug to html
-    // Return the output Func (cast it to uint8_t)
-
     Buffer<uint8_t> b(input.height(), input.width());
     GB.compile_to_lowered_stmt("Output/Gaussian.html", {b}, HTML);
-
+    // Return the output Func (cast it to uint8_t)
     return GB;
 }
 

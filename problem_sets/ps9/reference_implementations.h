@@ -117,6 +117,7 @@ Image<uint8_t> UnsharpMask_cpp(Image<uint8_t> input, float sigma,
       gamma_im(x, y) = (pow(in_float, 1.f / gamma) - 1.f) * factor + 1.f;
     }
   }
+  save_image(gamma_im, "Output/UnsharpMask_cpp_gamma.png");
   int radius = sigma * truncate;
   int fwidth = 2 * radius + 1;
 
@@ -153,6 +154,8 @@ Image<uint8_t> UnsharpMask_cpp(Image<uint8_t> input, float sigma,
     }
   }
 
+  save_image(blur_x, "Output/UnsharpMask_cpp_blurX.png");
+
   // Blur vertical
   for (int y = 0; y < height; ++y) {
     for (int x = 0; x < width; ++x) {
@@ -164,6 +167,9 @@ Image<uint8_t> UnsharpMask_cpp(Image<uint8_t> input, float sigma,
       }
     }
   }
+
+  save_image(blur_y, "Output/UnsharpMask_cpp_blurY.png");
+
   // ----- Construct hi-pass image ------------------------------------
   Image<float> hi_pass(width, height);
   for (int y = 0; y < height; ++y) {
@@ -171,6 +177,7 @@ Image<uint8_t> UnsharpMask_cpp(Image<uint8_t> input, float sigma,
       hi_pass(x, y) = gamma_im(x, y) - blur_y(x, y);
     }
   }
+  save_image(hi_pass, "Output/UnsharpMask_cpp_hipass.png");
   // ----- Reconstruct sharpened image --------------------------------
   Image<uint8_t> output(width, height);
   for (int y = 0; y < height; ++y) {

@@ -43,9 +43,8 @@ Func Gaussian_horizontal(Image<uint8_t> input, float sigma, float truncate) {
                                );
     // Blur in x
     int kernelWidth = fwidth;
-    Image<float> K = GKernel.realize(kernelWidth);
     Func X;
-    X(x, y) = sum(cast<uint8_t>(clamped(x + rx - radius, y) * K(rx)));
+    X(x, y) = sum(cast<uint8_t>(clamped(x + rx - radius, y) * GKernel(rx)));
     GX(x, y) = X(x, y);
     // Schedule your pipeline
     GKernelUnNorm.compute_root();
@@ -53,8 +52,8 @@ Func Gaussian_horizontal(Image<uint8_t> input, float sigma, float truncate) {
     GKernel      .compute_root();
     X.compute_at(GX, y).parallel(y).vectorize(x, 16);
     // Debug to html
-    Buffer<uint8_t> b(input.height(), input.width());
-    GX.compile_to_lowered_stmt("Output/Gaussian_hori.html", {b}, HTML);
+    // Buffer<uint8_t> b(input.height(), input.width());
+    // GX.compile_to_lowered_stmt("Output/Gaussian_hori.html", {b}, HTML);
     // Return the output Func (cast it to uint8_t)
     return GX;
 }
@@ -103,20 +102,19 @@ Func Gaussian(Image<uint8_t> input, float sigma, float truncate) {
                                );
     // Blur in x
     int kernelWidth = fwidth;
-    Image<float> K = GKernel.realize(kernelWidth);
     Func X;
-    X(x, y) = sum(clamped(x + rx - radius, y) * K(rx));
+    X(x, y) = sum(clamped(x + rx - radius, y) * GKernel(rx));
     // Blur in y
     Func Y;
-    Y(x, y) = sum(X(x, y + rx - radius) * K(rx));
+    Y(x, y) = sum(X(x, y + rx - radius) * GKernel(rx));
     GB(x, y) = cast<uint8_t>(Y(x, y));
     // Schedule your pipeline
     GB.tile(x, y, xo, yo, xi, yi, 256, 32).parallel(yo).vectorize(xi, 32);
     Y.compute_at(GB, xo);
     X.compute_at(GB, yo).vectorize(x, 16);
     // Debug to html
-    Buffer<uint8_t> b(input.height(), input.width());
-    GB.compile_to_lowered_stmt("Output/Gaussian.html", {b}, HTML);
+    // Buffer<uint8_t> b(input.height(), input.width());
+    // GB.compile_to_lowered_stmt("Output/Gaussian.html", {b}, HTML);
     // Return the output Func (cast it to uint8_t)
     return GB;
 }
@@ -150,50 +148,71 @@ Func UnsharpMask(Image<uint8_t> input, int schedule_index,
     // INPUT: single channel luminance image
     // OUTPUT: Halide Func that computes the UnsharpMask
 
-    Var x, y;
+    Var x, y, xi, yi, xo, yo;
+    Func clamped, Gamma, ClampedGamma, X, Y, HiPass, Out;
+    Func GKernelUnNorm, GKernelSum, GKernel;
 
     // Clamp the image (boundary conditions)
-    Func clamped;
     clamped(x, y) = cast<float>(input(
                                     clamp(x, 0, input.width() - 1),
                                     clamp(y, 0, input.height() - 1)
                                 )
                                );
+
     // Apply contrast-adjusted gamma correction to the image
     float factor = (1.f - 0.5f) / (1.f - pow(0.5f, 1.f / gamma));
-    Func Gamma;
-    Gamma(x, y) = (255.f * ((pow(clamped(x, y) / 255.f, 1.f / gamma) - 1.f) * factor + 1.f));
+    Gamma(x, y) = (pow(clamped(x, y) / 255.f, 1.f / gamma) - 1.f) * factor + 1.f;
+    // Image<float> G = Gamma.realize(input.width(), input.height());
+    // save_image(G, "Output/UnsharpMask_halide_gamma.png");
+
     // Apply Gaussian Blur to the adjusted image with
     // the specified sigma and truncate
-    Func GB("Gaussian");
-    Var xi("xi"), yi("yi");
-    Var xo("xo"), yo("yo");
+    Image<float> GammaIm = Gamma.realize(input.width(), input.height());
+    ClampedGamma(x, y) = cast<float>(GammaIm(
+                                         clamp(x, 0, input.width() - 1),
+                                         clamp(y, 0, input.height() - 1)
+                                     )
+                                    );
     int radius = sigma * truncate;
     int fwidth = 2 * radius + 1;
-    Func GKernelUnNorm("GKernelUnnorm"), GKernelSum("GKernelSum"), GKernel("GKernel");
     RDom rx(0, fwidth);
     GKernelUnNorm(x) =
         exp(-((x - radius) * (x - radius)) / (2.0f * sigma * sigma));
     GKernelSum(x) = sum(GKernelUnNorm(rx));
     GKernel(x) = GKernelUnNorm(x) / GKernelSum(0);
-    int kernelWidth = fwidth;
-    Image<float> K = GKernel.realize(kernelWidth);
-    Func X, Y;
-    X(x, y) = sum(Gamma(x + rx - kernelWidth / 2, y) * K(rx));
-    Y(x, y) = sum(X(x, y + rx - kernelWidth / 2) * K(rx));
-    GB(x, y) = cast<uint8_t>(Y(x, y));
-    // Construct the high-pass image with sigma and truncate
-    Func HiPass;
+    X(x, y) = sum(ClampedGamma(x + rx - radius, y) * GKernel(rx.x));
+    // Image<float> unsharpBlurX = X.realize(input.width(), input.height());
+    // save_image(unsharpBlurX, "Output/UnsharpMask_halide_blurX.png");
+    Y(x, y) = sum(X(x, y + rx - radius) * GKernel(rx.x));
+    // Image<float> unsharpBlurY = Y.realize(input.width(), input.height());
+    // save_image(unsharpBlurY, "Output/UnsharpMask_halide_blurY.png");
+
+    // // Construct the high-pass image with sigma and truncate
     HiPass(x, y) = Gamma(x, y) - Y(x, y);
-    // Recombine the high-pass image times sharpening strength
-    // with the gamma-adjusted image from the very beginning.
-    Func Out;
-    Out(x, y) = cast<uint8_t>(HiPass(x, y) * strength + Gamma(x, y));
+    // Image<float> unsharpHipass = HiPass.realize(input.width(), input.height());
+    // save_image(unsharpHipass, "Output/UnsharpMask_halide_hipass.png");
+
+    // // Recombine the high-pass image times sharpening strength
+    // // with the gamma-adjusted image from the very beginning.
+    Out(x, y) = cast<uint8_t>(255.f * clamp((HiPass(x, y) * strength + Gamma(x, y)), 0.f, 1.f));
+
     // SCHEDULING
-    // Schedule the Gaussian blur
-    // GB.tile(x, y, xo, yo, xi, yi, 256, 32).parallel(yo).vectorize(xi, 32);
-    // Y.compute_at(GB, xo);
-    // X.compute_at(GB, yo).vectorize(x, 16);
+    GKernelUnNorm.compute_root();
+    GKernelSum   .compute_root();
+    GKernel      .compute_root();
+
+    Out.tile(x, y, xo, yo, xi, yi, 256, 32)
+    .parallel(yo)
+    .vectorize(xi, 32);
+
+    X.compute_root()
+    .parallel(y)
+    .vectorize(x, 32);
+
+    clamped.compute_root()
+    .parallel(y)
+    .vectorize(x, 32);
+
     return Out;
 }
 

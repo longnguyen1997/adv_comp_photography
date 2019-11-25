@@ -79,7 +79,6 @@ Func Gaussian(Image<uint8_t> input, float sigma, float truncate) {
     int radius = sigma * truncate;
     int fwidth = 2 * radius + 1;
 
-    // TODO:
     // Compute the kernel
     Func GKernelUnNorm("GKernelUnnorm");
     Func GKernelSum("GKernelSum");
@@ -147,10 +146,40 @@ Func UnsharpMask(Image<uint8_t> input, int schedule_index,
     //
     // INPUT: single channel luminance image
     // OUTPUT: Halide Func that computes the UnsharpMask
-
+    Var x, y;
     Func USM("USM");
 
-    return USM;
+    // Clamp the image (boundary conditions)
+    Func clamped;
+    clamped(x, y) = cast<float>(input(
+                                    clamp(x, 0, input.width() - 1),
+                                    clamp(y, 0, input.height() - 1)
+                                )
+                               );
+    // Apply contrast-adjusted gamma correction to the image
+    float factor = (1.f - 0.5f) / (1.f - pow(0.5f, 1.f / gamma));
+    Func Out;
+    Out(x, y) = cast<uint8_t>(255.f * (factor * (pow(clamped(x, y) / 255.f, 1.f / gamma) - 1.f) + 1.f));
+    // Apply Gaussian Blur to the adjusted image with
+    // the specified sigma and truncate
+    // Func GB("Gaussian");
+    // Var xi("xi"), yi("yi");
+    // Var xo("xo"), yo("yo");
+    // int radius = sigma * truncate;
+    // int fwidth = 2 * radius + 1;
+    // Func GKernelUnNorm("GKernelUnnorm"), GKernelSum("GKernelSum"), GKernel("GKernel");
+    // RDom rx(0, fwidth);
+    // GKernelUnNorm(x) =
+    //     exp(-((x - radius) * (x - radius)) / (2.0f * sigma * sigma));
+    // GKernelSum(x) = sum(GKernelUnNorm(rx));
+    // GKernel(x) = GKernelUnNorm(x) / GKernelSum(0);
+    // int kernelWidth = fwidth;
+    // Image<float> K = GKernel.realize(kernelWidth);
+    // Func X, Y;
+    // X(x, y) = sum(Out(x + rx - kernelWidth / 2, y) * K(rx));
+    // Y(x, y) = sum(X(x, y + rx - kernelWidth / 2) * K(rx));
+    // GB(x, y) = cast<uint8_t>(Y(x, y));
+    return Out;
 }
 
 // ----------------------------------------------------------

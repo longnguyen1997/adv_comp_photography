@@ -45,10 +45,13 @@ Func Gaussian_horizontal(Image<uint8_t> input, float sigma, float truncate) {
     int kernelWidth = fwidth;
     Image<float> K = GKernel.realize(kernelWidth);
     Func X;
-    X(x, y) = sum(clamped(x + rx - radius, y) * K(rx));
-    GX(x, y) = cast<uint8_t>(X(x, y));
+    X(x, y) = sum(cast<uint8_t>(clamped(x + rx - radius, y) * K(rx)));
+    GX(x, y) = X(x, y);
     // Schedule your pipeline
-    X.compute_at(GX, x).vectorize(x, 16);
+    GKernelUnNorm.compute_root();
+    GKernelSum   .compute_root();
+    GKernel      .compute_root();
+    X.compute_at(GX, y).parallel(y).vectorize(x, 16);
     // Debug to html
     Buffer<uint8_t> b(input.height(), input.width());
     GX.compile_to_lowered_stmt("Output/Gaussian_hori.html", {b}, HTML);

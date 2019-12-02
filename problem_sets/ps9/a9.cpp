@@ -196,22 +196,76 @@ Func UnsharpMask(Image<uint8_t> input, int schedule_index,
     // // with the gamma-adjusted image from the very beginning.
     Out(x, y) = cast<uint8_t>(255.f * clamp((HiPass(x, y) * strength + Gamma(x, y)), 0.f, 1.f));
 
-    // SCHEDULING
-    GKernelUnNorm.compute_root();
-    GKernelSum   .compute_root();
-    GKernel      .compute_root();
+    // // MANUAL SCHEDULING
+    // GKernelUnNorm.compute_root();
+    // GKernelSum   .compute_root();
+    // GKernel      .compute_root();
+    // Out.tile(x, y, xo, yo, xi, yi, 256, 32)
+    // .parallel(yo)
+    // .vectorize(xi, 32);
+    // X.compute_root()
+    // .parallel(y)
+    // .vectorize(x, 32);
+    // clamped.compute_root()
+    // .parallel(y)
+    // .vectorize(x, 32);
 
-    Out.tile(x, y, xo, yo, xi, yi, 256, 32)
-    .parallel(yo)
-    .vectorize(xi, 32);
+    // AUTOSCHEDULING
+    switch(schedule_index) {
+    case 0: { // default
 
-    X.compute_root()
-    .parallel(y)
-    .vectorize(x, 32);
+        GKernelUnNorm.compute_root();
+        GKernelSum   .compute_root();
+        GKernel      .compute_root();
 
-    clamped.compute_root()
-    .parallel(y)
-    .vectorize(x, 32);
+        Out.tile(x, y, xo, yo, xi, yi, 256, 32)
+        .parallel(yo)
+        .vectorize(xi, 32);
+
+        X.compute_root()
+        .parallel(y)
+        .vectorize(x, 32);
+
+        clamped.compute_root()
+        .parallel(y)
+        .vectorize(x, 32);
+        break;
+    }
+
+    case 1: { // parallelize everything
+        GKernelUnNorm.compute_root();
+        GKernelSum   .compute_root();
+        GKernel      .compute_root();
+        int tileWidth  = schedule_parameters[0];
+        int tileHeight = schedule_parameters[1];
+        int vectorWidth = schedule_parameters[2];
+        Out.tile(x, y, xo, yo, xi, yi, tileWidth, tileHeight)
+        .parallel(yo)
+        .vectorize(xi, vectorWidth);
+        X.compute_root().parallel(y);
+        Gamma.compute_root().parallel(y);
+        HiPass.compute_root().parallel(y);
+        break;
+    }
+
+    case 2: { // vectorize everything!
+        int tileWidth  = schedule_parameters[0];
+        int tileHeight = schedule_parameters[1];
+        int vectorWidth = schedule_parameters[2];
+        GKernelUnNorm.compute_root().vectorize(x, vectorWidth);
+        GKernelSum   .compute_root().vectorize(x, vectorWidth);
+        GKernel      .compute_root().vectorize(x, vectorWidth);
+        Out.tile(x, y, xo, yo, xi, yi, tileWidth, tileHeight)
+        .parallel(yo)
+        .vectorize(xi, vectorWidth);
+        X.compute_root().parallel(y).vectorize(x, vectorWidth);
+        clamped.compute_root().parallel(y).vectorize(x, vectorWidth);
+        HiPass.compute_root().vectorize(x, vectorWidth);
+        Gamma.compute_root().vectorize(x, vectorWidth);
+        break;
+    }
+
+    }
 
     return Out;
 }
@@ -231,38 +285,68 @@ void apply_auto_schedule(Func F) {
     }
     cout << endl;
 }
+
 // ----------------------------------------------------------
 void autoschedule_unsharp_mask(const Image<uint8_t> &input) {
     // --------- HANDOUT  PS09 ------------------------------
     // An example autotuner, that does not do much yet... Build your own !
     //
 
-    cout << "** Autotuning begins **" << endl
+    /*
+    I had three cases. Case 0 was the default, 1 prioritized paralellization, and 2 prioritized vectorization.
+    To be fair, there wasn't much to do, since I was already achieving times of below 1ms for all the test
+    cases in this assignment. If anything, the autotuning was twice as slow, lots of results hovering at about 2ms.
+
+    The best schedule achieved was:
+    ** Autotuning complete **                                                                                                  │···········
+    - best schedule: 0                                                                                                      │···········
+    - time: 0.8 ms                                                                                                          │···········
+    - params: 256 width, 32 height, 32 vector width
+
+    As expected, my manual tuning was already the best possible. No other optimizations to be had.
+    */
+
+    cout << "** AUTOTUNING **" << endl
          << "=======================" << endl;
     int w = input.width();
     int h = input.height();
 
-    vector<float> timings;
+    vector<float> timings(3, INFINITY);
     vector<int> schedule_idxs;
-    vector<vector<int>> schedule_params;
-    for (int idx = 0; idx < 2; ++idx) {
-        vector<int> params;
+    vector<vector<int>> schedule_params(3);
 
-        Func f = UnsharpMask(input, idx, params, 3.f);
+    cout << endl << "---------------------------------------" << endl;
+    cout << "* Autoschedule | DEFAULT" << endl;
+    schedule_params[0] = vector<int> {256, 32, 32};
+    schedule_idxs.push_back(0);
+    timings[0] = profile(UnsharpMask(input, 0, schedule_params[0], 3.f), w, h);
 
-        cout << endl << "---------------------------------------" << endl;
-        cout << "* Autoschedule | " << idx << endl;
+    for (int idx = 1; idx < 3; ++idx) {
 
-        cout << "  Params: ";
-        for (int i = 0; i < (int)params.size(); ++i) {
-            cout << params[i] << " ";
+        // Try lots of parameters.
+        for (int tileWidth = 32; tileWidth < 512; tileWidth += 16) {
+            for (int tileHeight = 32; tileHeight < 512; tileHeight += 16) {
+                for (int vectorWidth = 16; vectorWidth < 32; ++vectorWidth) {
+                    vector<int> params{tileWidth, tileHeight, vectorWidth};
+                    Func f = UnsharpMask(input, idx, params, 3.f);
+
+                    cout << endl << "---------------------------------------" << endl;
+                    cout << "* Autoschedule | " << idx << endl;
+
+                    cout << "  Params:" << endl;
+                    cout << "       > tile width " << tileWidth << endl;
+                    cout << "       > tile height " << tileHeight << endl;
+                    cout << "       > vectorization width " << vectorWidth << endl;
+                    float time = profile(f, w, h);
+                    if (time < timings[idx]) {
+                        timings[idx] = time;
+                        schedule_params[idx] = params;
+                    }
+                }
+            }
         }
-        cout << endl;
 
-        float time = profile(f, w, h);
-        timings.push_back(time);
         schedule_idxs.push_back(idx);
-        schedule_params.push_back(params);
 
         cout << endl << "---------------------------------------" << endl;
     }

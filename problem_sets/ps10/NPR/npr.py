@@ -99,16 +99,52 @@ def computeAngles(im):
         for x in xrange(im.shape[1]):
             eigenvalues, eigenvectors = np.linalg.eigh(tensor[y, x])
             min_vec = eigenvectors[:, np.argmin(eigenvalues)] # indexing syntax wonky!
+            # add pi here to offset negative angles
             theta = np.arctan2(min_vec[0], min_vec[1]) + math.pi
-            angles[y, x] = theta # add pi to offset negative angles
+            angles[y, x] = theta 
     return angles
 
 
 def singleScaleOrientedPaint(im, out, thetas, importance, texture, size, N, noise, nAngles=36):
     '''same as single scale paint but now the brush strokes will be oriented according to the angles in thetas.'''
-    pass
+
+    # size is the product of the dimensions, so we divide by the max
+    texture_scaled = helper.scaleImage(
+        texture, float(size) / max(texture.shape))
+    out_height = out.shape[0]
+    out_width = out.shape[1]
+
+    brushes = helper.rotateBrushes(texture_scaled, nAngles)
+
+    num_strokes = 0
+    # generate N strokes of the brush
+    while (num_strokes < N):
+        # randrange intervals [0, x), end noninclusive
+        y, x = rnd.randrange(0, out_height), rnd.randrange(0, out_width)
+        rejection_factor = rnd.random()
+        if importance[y, x][0] > rejection_factor:
+            noise_factor = 1 - noise / 2 + noise * np.random.rand(3)
+            color = im[y, x] * noise_factor
+            index = int(thetas[y, x, 0] * nAngles / (2 * math.pi))
+            brush(out, y, x, color, brushes[index]) # color with this index brush
+            # keeping increment inside ensures N strokes
+            num_strokes += 1
 
 
 def orientedPaint(im, texture, N=7000, size=50, noise=0.3):
     '''same as painterly but computes and uses the local orientation information to orient strokes.'''
-    pass
+
+    out = io.constantIm(im.shape[0], im.shape[1])
+
+    thetas = computeAngles(im)
+
+    # first pass
+    importance_first_pass = np.ones_like(im)
+    singleScaleOrientedPaint(im, out, thetas, importance_first_pass, texture, size, N, noise)
+
+    # second pass
+    importance_second_pass = helper.sharpnessMap(im)
+    singleScaleOrientedPaint(im, out, thetas, importance_second_pass,
+                     texture, size/4, N, noise)
+
+    return out

@@ -1,0 +1,251 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BW	../nprHelper.py	/^def BW(im, weights=[0.3,0.6,0.1]):$/;"	kind:function	line:103
+ChunkError	../png.py	/^class ChunkError(FormatError):$/;"	kind:class	line:309
+Error	../png.py	/^class Error(Exception):$/;"	kind:class	line:297
+FormatError	../png.py	/^class FormatError(Error):$/;"	kind:class	line:302
+Image	../png.py	/^class Image:$/;"	kind:class	line:1266
+Reader	../png.py	/^class Reader:$/;"	kind:class	line:1323
+Sobel	../nprHelper.py	/^Sobel=array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])$/;"	kind:variable	line:19
+Test	../png.py	/^class Test(unittest.TestCase):$/;"	kind:class	line:2500
+Writer	../png.py	/^class Writer:$/;"	kind:class	line:313
+__all__	../png.py	/^__all__ = ['Image', 'Reader', 'Writer', 'write_chunks', 'from_array']$/;"	kind:variable	line:188
+__init__	../png.py	/^    def __init__(self, _guess=None, **kw):$/;"	kind:member	line:1328
+__init__	../png.py	/^    def __init__(self, buf):$/;"	kind:member	line:1311
+__init__	../png.py	/^    def __init__(self, rows, info):$/;"	kind:member	line:1271
+__init__	../png.py	/^    def __init__(self, width=None, height=None,$/;"	kind:member	line:318
+__new__	../png.py	/^            def __new__(cls, typecode, init=None):$/;"	kind:member	line:2255
+__str__	../png.py	/^    def __str__(self):$/;"	kind:member	line:299
+__version__	../png.py	/^__version__ = "0.0.15"$/;"	kind:variable	line:165
+_adam7	../png.py	/^_adam7 = ((0, 0, 8, 8),$/;"	kind:variable	line:195
+_add_common_options	../png.py	/^def _add_common_options(parser):$/;"	kind:function	line:3736
+_array_shim	../png.py	/^        class _array_shim(array):$/;"	kind:class	line:2253
+_as_rescale	../png.py	/^    def _as_rescale(self, get, targetbitdepth):$/;"	kind:member	line:2097
+_dehex	../png.py	/^def _dehex(s):$/;"	kind:function	line:3023
+_dummy_itertools	../png.py	/^    class _dummy_itertools:$/;"	kind:class	line:2300
+_enhex	../png.py	/^def _enhex(s):$/;"	kind:function	line:3033
+_itertools_chain	../png.py	/^    def _itertools_chain(*iterables):$/;"	kind:member	line:2307
+_itertools_imap	../png.py	/^    def _itertools_imap(f, seq):$/;"	kind:member	line:2303
+_main	../png.py	/^def _main(argv):$/;"	kind:function	line:3758
+_pngsuite	../png.py	/^_pngsuite = {$/;"	kind:variable	line:3046
+_readable	../png.py	/^class _readable:$/;"	kind:class	line:1306
+_signature	../png.py	/^_signature = struct.pack('8B', 137, 80, 78, 71, 13, 10, 26, 10)$/;"	kind:variable	line:193
+ap	../nprHelper.py	/^    def ap(y, x):$/;"	kind:function	line:62
+arraify	../png.py	/^        def arraify(list_of_str):$/;"	kind:function	line:3004
+array	../png.py	/^        def array(typecode, init=()):$/;"	kind:function	line:2273
+array_scanlines	../png.py	/^    def array_scanlines(self, pixels):$/;"	kind:member	line:913
+array_scanlines_interlace	../png.py	/^    def array_scanlines_interlace(self, pixels):$/;"	kind:member	line:927
+asDirect	../png.py	/^    def asDirect(self):$/;"	kind:member	line:1977
+asFloat	../png.py	/^    def asFloat(self, maxval=1.0):$/;"	kind:member	line:2081
+asRGB	../png.py	/^    def asRGB(self):$/;"	kind:member	line:2143
+asRGB8	../png.py	/^    def asRGB8(self):$/;"	kind:member	line:2113
+asRGBA	../png.py	/^    def asRGBA(self):$/;"	kind:member	line:2172
+asRGBA8	../png.py	/^    def asRGBA8(self):$/;"	kind:member	line:2133
+asvalues	../png.py	/^        def asvalues(raw):$/;"	kind:function	line:1609
+average	../png.py	/^        def average():$/;"	kind:function	line:1502
+average	../png.py	/^    def average():$/;"	kind:function	line:1013
+baseInputPath	../imageIO.py	/^baseInputPath='Input\/'$/;"	kind:variable	line:4
+baseOutputPath	../imageIO.py	/^baseOutputPath='Output\/'$/;"	kind:variable	line:5
+bigBrush	../nprScript.py	/^bigBrush = io.imread('longBrush2.png')$/;"	kind:variable	line:58
+brush	../npr.py	/^def brush(out, y, x, color, texture):$/;"	kind:function	line:14
+brush1	../nprScript.py	/^brush1 = io.imread('brush.png')$/;"	kind:variable	line:56
+brushtest	../nprScript.py	/^brushtest = np.zeros([200,200,3]) + 0.1$/;"	kind:variable	line:67
+bytestostr	../png.py	/^    bytestostr = str$/;"	kind:variable	line:238
+bytestostr	../png.py	/^    def bytestostr(x): return str(x, 'iso8859-1')$/;"	kind:function	line:235
+check_color	../png.py	/^        def check_color(c, which):$/;"	kind:function	line:467
+check_palette	../png.py	/^def check_palette(palette):$/;"	kind:function	line:269
+china	../nprScript.py	/^china = io.imread('china.png')$/;"	kind:variable	line:63
+chunk	../png.py	/^    def chunk(self, seek=None, lenient=False):$/;"	kind:member	line:1375
+chunklentype	../png.py	/^    def chunklentype(self):$/;"	kind:member	line:1720
+chunks	../png.py	/^    def chunks(self):$/;"	kind:member	line:1429
+close	../png.py	/^            def close(): file.close()$/;"	kind:function	line:1299
+close	../png.py	/^            def close(): pass$/;"	kind:function	line:1296
+color_triple	../png.py	/^def color_triple(color):$/;"	kind:function	line:3718
+computeAngles	../npr.py	/^def computeAngles(im):$/;"	kind:function	line:84
+computeTensor	../nprHelper.py	/^def computeTensor(im, sigmaG=1, factor=4, debug=False):$/;"	kind:function	line:36
+computeTensor	../nprHelper.py	/^def computeTensor(im, sigmaG=1, factorSigma=4):$/;"	kind:function	line:115
+constantIm	../imageIO.py	/^def constantIm(y, x, color=0):$/;"	kind:function	line:86
+convert	../png.py	/^            def convert():$/;"	kind:function	line:2193
+convert	../png.py	/^            def convert():$/;"	kind:function	line:2203
+convert	../png.py	/^            def convert():$/;"	kind:function	line:2211
+convert_l_to_rgba	../png.py	/^        convert_l_to_rgba = staticmethod(convert_l_to_rgba)$/;"	kind:variable	line:2396
+convert_l_to_rgba	../png.py	/^        def convert_l_to_rgba(row, result):$/;"	kind:member	line:2391
+convert_la_to_rgba	../png.py	/^        convert_la_to_rgba = staticmethod(convert_la_to_rgba)$/;"	kind:variable	line:2389
+convert_la_to_rgba	../png.py	/^        def convert_la_to_rgba(row, result):$/;"	kind:member	line:2385
+convert_pnm	../png.py	/^    def convert_pnm(self, infile, outfile):$/;"	kind:member	line:850
+convert_ppm_and_pgm	../png.py	/^    def convert_ppm_and_pgm(self, ppmfile, pgmfile, outfile):$/;"	kind:member	line:866
+convert_rgb_to_rgba	../png.py	/^        convert_rgb_to_rgba = staticmethod(convert_rgb_to_rgba)$/;"	kind:variable	line:2403
+convert_rgb_to_rgba	../png.py	/^        def convert_rgb_to_rgba(row, result):$/;"	kind:member	line:2398
+cp	../png.py	/^        def cp(a):$/;"	kind:function	line:2981
+deinterlace	../png.py	/^    def deinterlace(self, raw):$/;"	kind:member	line:1551
+do	../png.py	/^        def do():$/;"	kind:function	line:2648
+do	../png.py	/^        def do():$/;"	kind:function	line:2663
+do	../png.py	/^        def do():$/;"	kind:function	line:2727
+eachchunk	../png.py	/^        def eachchunk(chunk):$/;"	kind:function	line:2806
+eachchunk	../png.py	/^        def eachchunk(chunk):$/;"	kind:function	line:2816
+eachchunk	../png.py	/^        def eachchunk(chunk):$/;"	kind:function	line:2835
+eigenVec	../nprHelper.py	/^def eigenVec(triplet):$/;"	kind:function	line:60
+emptyIm	../imageIO.py	/^def emptyIm(im):$/;"	kind:function	line:91
+enumerate	../png.py	/^    def enumerate(seq):$/;"	kind:member	line:2282
+extend	../png.py	/^            def extend(self, extension):$/;"	kind:member	line:2262
+extend	../png.py	/^            def extend(sl):$/;"	kind:function	line:734
+extend	../png.py	/^            def extend(sl):$/;"	kind:function	line:742
+extend	../png.py	/^            def extend(sl):$/;"	kind:function	line:758
+failureException	../png.py	/^    class failureException(Exception):$/;"	kind:class	line:2506
+file_scanlines	../png.py	/^    def file_scanlines(self, infile):$/;"	kind:member	line:887
+filter_scanline	../png.py	/^def filter_scanline(type, line, fo, prev=None):$/;"	kind:function	line:986
+from_array	../png.py	/^def from_array(a, mode=None, info={}):$/;"	kind:function	line:1070
+fromarray	../png.py	/^fromarray = from_array$/;"	kind:variable	line:1264
+getImage	../imageIO.py	/^def getImage(path='raw.png', gamma=2.2):$/;"	kind:function	line:35
+getc	../png.py	/^    def getc():$/;"	kind:function	line:3630
+gfilter3	../nprHelper.py	/^def gfilter3(im, sigma):$/;"	kind:function	line:108
+group	../png.py	/^def group(s, n):$/;"	kind:function	line:203
+helperFormat	../png.py	/^    def helperFormat(self, f):$/;"	kind:member	line:2825
+helperLN	../png.py	/^    def helperLN(self, n):$/;"	kind:member	line:2509
+helperLtrns	../png.py	/^    def helperLtrns(self, transparent):$/;"	kind:member	line:2746
+imageFrom1Channel	../nprHelper.py	/^def imageFrom1Channel(a):$/;"	kind:function	line:21
+imageIO.py	../imageIO.py	1;"	kind:file	line:1
+imread	../imageIO.py	/^def imread(path='in.png', gamma=2.2):$/;"	kind:function	line:7
+imreadGrey	../imageIO.py	/^def imreadGrey(path='raw.png'):$/;"	kind:function	line:21
+imwrite	../imageIO.py	/^def imwrite(im, path='out.png' ,gamma=2.2):$/;"	kind:function	line:52
+imwriteGrey	../imageIO.py	/^def imwriteGrey(im, path='raw.png'):$/;"	kind:function	line:73
+imwriteSeq	../imageIO.py	/^def imwriteSeq(im, path='out'):$/;"	kind:function	line:66
+interleave_planes	../png.py	/^def interleave_planes(ipixels, apixels, ipsize, apsize):$/;"	kind:function	line:240
+isarray	../png.py	/^def isarray(x):$/;"	kind:function	line:208
+isinteger	../png.py	/^        def isinteger(x):$/;"	kind:function	line:461
+iterboxed	../png.py	/^    def iterboxed(self, rows):$/;"	kind:member	line:1603
+iterdecomp	../png.py	/^        def iterdecomp(idat):$/;"	kind:function	line:1894
+iterfloat	../png.py	/^        def iterfloat():$/;"	kind:function	line:2092
+iteridat	../png.py	/^        def iteridat():$/;"	kind:function	line:1876
+iterpal	../png.py	/^            def iterpal(pixels):$/;"	kind:function	line:2029
+iterrgb	../png.py	/^        def iterrgb():$/;"	kind:function	line:2164
+iterscale	../png.py	/^        def iterscale():$/;"	kind:function	line:2105
+itershift	../png.py	/^            def itershift(pixels):$/;"	kind:function	line:2075
+iterstraight	../png.py	/^    def iterstraight(self, raw):$/;"	kind:member	line:1658
+itertools	../png.py	/^    itertools = _dummy_itertools()$/;"	kind:variable	line:2302
+itertrns	../png.py	/^            def itertrns(pixels):$/;"	kind:function	line:2047
+line	../png.py	/^            def line():$/;"	kind:function	line:904
+line	../png.py	/^            def line():$/;"	kind:function	line:907
+liz	../nprScript.py	/^liz = io.imread('liz.png')$/;"	kind:variable	line:62
+longBrush	../nprScript.py	/^longBrush = io.imread('longBrush.png')$/;"	kind:variable	line:57
+make_palette	../png.py	/^    def make_palette(self):$/;"	kind:member	line:604
+mycallersname	../png.py	/^def mycallersname():$/;"	kind:function	line:2477
+newarray	../png.py	/^        def newarray():$/;"	kind:function	line:2188
+newchunks	../png.py	/^        def newchunks():$/;"	kind:function	line:2828
+npr.py	../npr.py	1;"	kind:file	line:1
+nprHelper.py	../nprHelper.py	1;"	kind:file	line:1
+nprScript.py	../nprScript.py	1;"	kind:file	line:1
+orientedPaint	../npr.py	/^def orientedPaint(im, texture, N=7000, size=50, noise=0.3):$/;"	kind:function	line:94
+paeth	../png.py	/^        def paeth():$/;"	kind:function	line:1516
+paeth	../png.py	/^    def paeth():$/;"	kind:function	line:1022
+paeth	../png.py	/^    def paeth(self, x, a, b, c):$/;"	kind:member	line:2924
+painterly	../npr.py	/^def painterly(im, texture, N=10000, size=50, noise=0.3):$/;"	kind:function	line:79
+palette	../png.py	/^    def palette(self, alpha='natural'):$/;"	kind:member	line:1954
+png.py	../png.py	1;"	kind:file	line:1
+pngfilters	../png.py	/^    class pngfilters(object):$/;"	kind:class	line:2319
+preamble	../png.py	/^    def preamble(self, lenient=False):$/;"	kind:member	line:1697
+prefix	../png.py	/^    prefix = 'ChunkError'$/;"	kind:variable	line:310
+prefix	../png.py	/^    prefix = 'Error'$/;"	kind:variable	line:298
+prefix	../png.py	/^    prefix = 'FormatError'$/;"	kind:variable	line:307
+process_chunk	../png.py	/^    def process_chunk(self, lenient=False):$/;"	kind:member	line:1739
+read	../png.py	/^    def read(self, lenient=False):$/;"	kind:member	line:1863
+read	../png.py	/^    def read(self, n):$/;"	kind:member	line:1315
+read_flat	../png.py	/^    def read_flat(self):$/;"	kind:member	line:1936
+read_pam_header	../png.py	/^def read_pam_header(infile):$/;"	kind:function	line:3554
+read_pnm_header	../png.py	/^def read_pnm_header(infile, supported=('P5','P6')):$/;"	kind:function	line:3595
+reversed	../png.py	/^    def reversed(l):$/;"	kind:member	line:2291
+rotateBrushes	../nprHelper.py	/^def rotateBrushes(texture, n):$/;"	kind:function	line:95
+rotateImage	../nprHelper.py	/^def rotateImage(im, theta):$/;"	kind:function	line:80
+roundIm	../nprScript.py	/^roundIm = io.imread('round.png')$/;"	kind:variable	line:59
+runTests	../nprScript.py	/^def runTests(im, texture, imname):$/;"	kind:function	line:49
+save	../png.py	/^    def save(self, file):$/;"	kind:member	line:1281
+scaleImage	../nprHelper.py	/^def scaleImage(im, k):$/;"	kind:function	line:72
+seqCount	../imageIO.py	/^seqCount=0$/;"	kind:variable	line:65
+seqtobytes	../png.py	/^def seqtobytes(s):$/;"	kind:function	line:2493
+serialtoflat	../png.py	/^    def serialtoflat(self, bytes, width=None):$/;"	kind:member	line:1631
+sharpnessMap	../nprHelper.py	/^def sharpnessMap(im, sigma=1):$/;"	kind:function	line:27
+singleScaleOrientedPaint	../npr.py	/^def singleScaleOrientedPaint(im, out, thetas, importance, texture, size, N, noise, nAngles=36):$/;"	kind:function	line:89
+singleScalePaint	../npr.py	/^def singleScalePaint(im, out, importance, texture, size=10, N=1000, noise=0.3):$/;"	kind:function	line:54
+strtobytes	../png.py	/^    def strtobytes(x): return bytes(x, 'iso8859-1')$/;"	kind:function	line:234
+strtobytes	../png.py	/^    strtobytes = str$/;"	kind:variable	line:237
+sub	../png.py	/^        def sub():$/;"	kind:function	line:1481
+sub	../png.py	/^    def sub():$/;"	kind:function	line:1002
+test	../png.py	/^def test():$/;"	kind:function	line:2431
+testAdam7read	../png.py	/^    def testAdam7read(self):$/;"	kind:member	line:2597
+testAdam7write	../png.py	/^    def testAdam7write(self):$/;"	kind:member	line:2617
+testAngle	../nprScript.py	/^def testAngle(im):$/;"	kind:function	line:20
+testBadFilter	../png.py	/^    def testBadFilter(self):$/;"	kind:member	line:2834
+testBrush	../nprScript.py	/^def testBrush(out, brushTex, nStrokes = 10, col=np.array([1.0,1.0,1.0])):$/;"	kind:function	line:11
+testCtrns	../png.py	/^    def testCtrns(self):$/;"	kind:member	line:2588
+testEmpty	../png.py	/^    def testEmpty(self):$/;"	kind:member	line:2793
+testExtraPixels	../png.py	/^    def testExtraPixels(self):$/;"	kind:member	line:2803
+testFilterScanline	../png.py	/^    def testFilterScanline(self):$/;"	kind:member	line:2958
+testFilterScanlineFirstLine	../png.py	/^    def testFilterScanlineFirstLine(self):$/;"	kind:member	line:2938
+testFlat	../png.py	/^    def testFlat(self):$/;"	kind:member	line:2845
+testInterlacedArray	../png.py	/^    def testInterlacedArray(self):$/;"	kind:member	line:2778
+testIterstraight	../png.py	/^    def testIterstraight(self):$/;"	kind:member	line:3003
+testL2	../png.py	/^    def testL2(self):$/;"	kind:member	line:2526
+testL4	../png.py	/^    def testL4(self):$/;"	kind:member	line:2524
+testL8	../png.py	/^    def testL8(self):$/;"	kind:member	line:2522
+testLA4	../png.py	/^    def testLA4(self):$/;"	kind:member	line:2681
+testLtoRGBA	../png.py	/^    def testLtoRGBA(self):$/;"	kind:member	line:2580
+testLtrns0	../png.py	/^    def testLtrns0(self):$/;"	kind:member	line:2740
+testLtrns1	../png.py	/^    def testLtrns1(self):$/;"	kind:member	line:2743
+testNotEnoughPixels	../png.py	/^    def testNotEnoughPixels(self):$/;"	kind:member	line:2815
+testNumpyarray	../png.py	/^    def testNumpyarray(self):$/;"	kind:member	line:2912
+testNumpybool	../png.py	/^    def testNumpybool(self):$/;"	kind:member	line:2900
+testNumpyuint16	../png.py	/^    def testNumpyuint16(self):$/;"	kind:member	line:2876
+testNumpyuint8	../png.py	/^    def testNumpyuint8(self):$/;"	kind:member	line:2888
+testOrientedPaint	../nprScript.py	/^def testOrientedPaint(im, texture, outputName, N=10000, size=50, noise=0.3):$/;"	kind:function	line:45
+testP2	../png.py	/^    def testP2(self):$/;"	kind:member	line:2538
+testPAMin	../png.py	/^    def testPAMin(self):$/;"	kind:member	line:2661
+testPGMin	../png.py	/^    def testPGMin(self):$/;"	kind:member	line:2646
+testPNMsbit	../png.py	/^    def testPNMsbit(self):$/;"	kind:member	line:2725
+testPackedIter	../png.py	/^    def testPackedIter(self):$/;"	kind:member	line:2764
+testPainterly	../nprScript.py	/^def testPainterly(im, texture, outputName, N=10000, size=50, noise=0.3):$/;"	kind:function	line:36
+testPal	../png.py	/^    def testPal(self):$/;"	kind:member	line:2687
+testPalExpand	../png.py	/^    def testPalExpand(self):$/;"	kind:member	line:2708
+testPalWrite	../png.py	/^    def testPalWrite(self):$/;"	kind:member	line:2694
+testPtrns	../png.py	/^    def testPtrns(self):$/;"	kind:member	line:2551
+testRGBtoRGBA	../png.py	/^    def testRGBtoRGBA(self):$/;"	kind:member	line:2571
+testSigOnly	../png.py	/^    def testSigOnly(self):$/;"	kind:member	line:2798
+testSingleScale	../nprScript.py	/^def testSingleScale(im, texture, outputName, N=10000, size=50, noise=0.3):$/;"	kind:function	line:31
+testSingleScaleOrientedPaint	../nprScript.py	/^def testSingleScaleOrientedPaint(im, texture, outputName, N=10000, size=50, noise=0.3, nAngles=36):$/;"	kind:function	line:39
+testTrnsArray	../png.py	/^    def testTrnsArray(self):$/;"	kind:member	line:2783
+testUnfilterScanline	../png.py	/^    def testUnfilterScanline(self):$/;"	kind:member	line:2976
+testUnfilterScanlinePaeth	../png.py	/^    def testUnfilterScanlinePaeth(self):$/;"	kind:member	line:2994
+testWinfo	../png.py	/^    def testWinfo(self):$/;"	kind:member	line:2757
+testWithIO	../png.py	/^def testWithIO(inp, out, f):$/;"	kind:function	line:2454
+testfromarray	../png.py	/^    def testfromarray(self):$/;"	kind:member	line:2853
+testfromarrayIter	../png.py	/^    def testfromarrayIter(self):$/;"	kind:member	line:2864
+testfromarrayL16	../png.py	/^    def testfromarrayL16(self):$/;"	kind:member	line:2856
+testfromarrayRGB	../png.py	/^    def testfromarrayRGB(self):$/;"	kind:member	line:2859
+topngbytes	../png.py	/^def topngbytes(name, rows, x, y, **k):$/;"	kind:function	line:2434
+tostring	../png.py	/^    def tostring(row):$/;"	kind:function	line:221
+tostring	../png.py	/^    def tostring(row):$/;"	kind:function	line:225
+true_array	../png.py	/^            true_array = array$/;"	kind:variable	line:2254
+undo_filter	../png.py	/^    def undo_filter(self, filter_type, scanline, previous):$/;"	kind:member	line:1440
+undo_filter_average	../png.py	/^        def undo_filter_average(filter_unit, scanline, previous, result):$/;"	kind:member	line:2343
+undo_filter_average	../png.py	/^        undo_filter_average = staticmethod(undo_filter_average)$/;"	kind:variable	line:2356
+undo_filter_paeth	../png.py	/^        def undo_filter_paeth(filter_unit, scanline, previous, result):$/;"	kind:member	line:2358
+undo_filter_paeth	../png.py	/^        undo_filter_paeth = staticmethod(undo_filter_paeth)$/;"	kind:variable	line:2383
+undo_filter_sub	../png.py	/^        def undo_filter_sub(filter_unit, scanline, previous, result):$/;"	kind:member	line:2320
+undo_filter_sub	../png.py	/^        undo_filter_sub = staticmethod(undo_filter_sub)$/;"	kind:variable	line:2332
+undo_filter_up	../png.py	/^        def undo_filter_up(filter_unit, scanline, previous, result):$/;"	kind:member	line:2334
+undo_filter_up	../png.py	/^        undo_filter_up = staticmethod(undo_filter_up)$/;"	kind:variable	line:2341
+up	../png.py	/^        def up():$/;"	kind:function	line:1494
+up	../png.py	/^    def up():$/;"	kind:function	line:1009
+validate_signature	../png.py	/^    def validate_signature(self):$/;"	kind:member	line:1686
+vpd	../nprScript.py	/^vpd = io.imread('villeperdue.png')$/;"	kind:variable	line:64
+wrapmapint	../png.py	/^            def wrapmapint(f):$/;"	kind:function	line:783
+write	../png.py	/^    def write(self, outfile, rows):$/;"	kind:member	line:623
+write_array	../png.py	/^    def write_array(self, outfile, pixels):$/;"	kind:member	line:819
+write_chunk	../png.py	/^def write_chunk(outfile, tag, data=strtobytes('')):$/;"	kind:function	line:963
+write_chunks	../png.py	/^def write_chunks(out, chunks):$/;"	kind:function	line:979
+write_packed	../png.py	/^    def write_packed(self, outfile, rows):$/;"	kind:member	line:830
+write_passes	../png.py	/^    def write_passes(self, outfile, rows, packed=False):$/;"	kind:member	line:648
+write_pnm	../png.py	/^def write_pnm(file, width, height, pixels, meta):$/;"	kind:function	line:3674

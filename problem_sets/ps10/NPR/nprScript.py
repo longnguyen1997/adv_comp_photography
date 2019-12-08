@@ -45,7 +45,6 @@ def testSingleScaleOrientedPaint(im, texture, outputName, N=10000, size=50, nois
 def testOrientedPaint(im, texture, outputName, N=10000, size=50, noise=0.3):
     io.imwrite(npr.orientedPaint(im, texture, N, size, noise), str(outputName+"OrientedPaint"+".png"))
 
-
 def runTests(im, texture, imname):
     testSingleScale(im, texture, imname)
     testPainterly(im, texture, imname)
@@ -68,10 +67,10 @@ brushtest = np.zeros([200,200,3]) + 0.1
 testBrush(brushtest, brush1)
 io.imwrite(brushtest, "brushtest1.png")
 testAngle(roundIm)
-runTests(liz, brush1, "Liz")
-runTests(china, brush1, "China")
-runTests(vpd, brush1, "VPD")
+# runTests(liz, brush1, "Liz")
+# runTests(china, brush1, "China")
+# runTests(vpd, brush1, "VPD")
 
-runTests(liz, longBrush, "LizTestLongBrush")
-runTests(china, longBrush, "ChinaTestLongBrush")
-runTests(roundIm, longBrush, "RoundImLong")
+# runTests(liz, longBrush, "LizTestLongBrush")
+# runTests(china, longBrush, "ChinaTestLongBrush")
+# runTests(roundIm, longBrush, "RoundImLong")

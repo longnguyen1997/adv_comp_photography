@@ -112,19 +112,19 @@ def gfilter3(im, sigma):
   im_out[:,:,2]=ndimage.filters.gaussian_filter(im_out[:,:,2], sigma)
   return im_out
 
-def computeTensor(im, sigmaG=1, factorSigma=4):
-  # rgb to lumin
-  l=ndimage.filters.gaussian_filter(BW(im), sigmaG) 
+# def computeTensor(im, sigmaG=1, factorSigma=4):
+#   # rgb to lumin
+#   l=ndimage.filters.gaussian_filter(BW(im), sigmaG) 
 
 
-  # Compute Ix^2, Iy^2, IxIy
-  Sobel=array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-  im_x=ndimage.filters.convolve(l, Sobel, mode='reflect')
-  im_y=ndimage.filters.convolve(l, Sobel.transpose(), mode='reflect')
+#   # Compute Ix^2, Iy^2, IxIy
+#   Sobel=array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+#   im_x=ndimage.filters.convolve(l, Sobel, mode='reflect')
+#   im_y=ndimage.filters.convolve(l, Sobel.transpose(), mode='reflect')
 
-  # Pack components
-  im_out=dstack([im_x**2, im_x*im_y, im_y**2])
-  im_out=gfilter3(im_out, sigmaG*factorSigma)
-  return im_out
+#   # Pack components
+#   im_out=dstack([im_x**2, im_x*im_y, im_y**2])
+#   im_out=gfilter3(im_out, sigmaG*factorSigma)
+#   return im_out
 
 

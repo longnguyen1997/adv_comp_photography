@@ -11,7 +11,7 @@ import math
 def testBrush(out, brushTex, nStrokes = 10, col=np.array([1.0,1.0,1.0])):
     h = out.shape[0]
     w = out.shape[1]
-    for i in xrange(nStrokes):
+    for _ in xrange(nStrokes):
         y=int(rnd.random()*h*0.9999)
         x=int(rnd.random()*w*0.9999)
         npr.brush(out, int(y), int(x), col, brushTex)

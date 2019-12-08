@@ -62,9 +62,10 @@ def singleScalePaint(im, out, importance, texture, size=10, N=1000, noise=0.3):
     num_strokes = 0
     # generate N strokes of the brush
     while (num_strokes < N):
-        # randrange intervals [0, x), end noninclusive
+        # randrange uses interval [0, x), end noninclusive
         y, x = rnd.randrange(0, out_height), rnd.randrange(0, out_width)
         rejection_factor = rnd.random()
+        # ignore samples if below rejection factor
         if importance[y, x][0] > rejection_factor:
             noise_factor = 1 - noise / 2 + noise * np.random.rand(3)
             color = im[y, x] * noise_factor
@@ -73,18 +74,29 @@ def singleScalePaint(im, out, importance, texture, size=10, N=1000, noise=0.3):
             num_strokes += 1
 
 
-def painterly(im, texture, N=10000, size=50, noise=01.3):
+def painterly(im, texture, N=10000, size=50, noise=01.3, debug=False, imname=''):
     '''First paints at a coarse scale using all 1's for importance sampling, then paints again at size/4 scale using the sharpness map for importance sampling.'''
 
     out = io.constantIm(im.shape[0], im.shape[1])
+    outCopy = None
+    if debug:
+        outCopy = out.copy()
 
     # first pass
     importance_first_pass = np.ones_like(im)
     singleScalePaint(im, out, importance_first_pass, texture, size, N, noise)
+    if debug:
+        io.imwrite(out,
+                   str(imname + "PainterlyFirstPassOnly.png"))
 
     # second pass
     importance_second_pass = helper.sharpnessMap(im)
     singleScalePaint(im, out, importance_second_pass, texture, size/4, N, noise)
+    if debug:
+        singleScalePaint(im, outCopy, importance_second_pass,
+                         texture, size/4, N, noise)
+        io.imwrite(outCopy,
+                   str(imname + "PainterlySecondPassOnly.png"))
 
     return out
 

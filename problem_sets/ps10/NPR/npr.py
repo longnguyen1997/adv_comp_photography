@@ -1,6 +1,5 @@
 # npr.py
 import imageIO as io
-#import a2
 import numpy as np
 import png
 import scipy as sp
@@ -160,3 +159,39 @@ def orientedPaint(im, texture, N=7000, size=50, noise=0.3):
                      texture, size/4, N, noise)
 
     return out
+
+
+# FINAL PROJECT - 6.865
+
+def gradientMagnitude(im):
+    '''
+    This function does the same as gradientMagnitude in our C++
+    filtering.h file for the modern version of the class.
+    '''
+    sobel_x = np.ndarray((3, 3), buffer=np.array(
+        [-1.0, 0.0, 1.0, -2.0, 0.0, 2.0, -1.0, 0.0, 1.0])
+    )
+    sobel_y = np.ndarray((3, 3), buffer=np.array(
+        [-1.0, -2.0, -1.0, 0.0, 0.0, 0.0, 1.0, 2.0, 1.0])
+    )
+    sobel_im_x = ndimage.filters.convolve(input=im, weights=sobel_x)
+    sobel_im_y = ndimage.filters.convolve(input=im, weights=sobel_y)
+    gradient_magnitude = np.sqrt(np.square(sobel_im_x) + np.square(sobel_im_y))
+    return gradient_magnitude
+
+
+def paintAndOutline(im, texture, N=7000, size=50, noise=0.3):
+    '''
+    On top of painted images, I implement a Sobel filter
+    pipeline to outline edges black. This is similar
+    to the game series 'Borderlands' and its art style.
+
+    Output image is a grayscale painted-style image.
+    Color processing for edge detection requires more
+    advanced techniques.
+
+    See the company's SIGGRAPH talk about Borderlands's development:
+    https://www.cs.williams.edu/~morgan/SRG10/borderlands.pptx.zip.
+    '''
+    edges = gradientMagnitude(helper.BW(im))
+    

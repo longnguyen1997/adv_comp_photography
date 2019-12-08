@@ -180,7 +180,7 @@ def gradientMagnitude(im):
     return gradient_magnitude
 
 
-def paintAndOutline(im, texture, N=7000, size=50, noise=0.3):
+def paintAndOutline(im, texture, N=7000, size=50, noise=0.3, debug=False):
     '''
     On top of painted images, I implement a Sobel filter
     pipeline to outline edges black. This is similar
@@ -188,10 +188,27 @@ def paintAndOutline(im, texture, N=7000, size=50, noise=0.3):
 
     Output image is a grayscale painted-style image.
     Color processing for edge detection requires more
-    advanced techniques.
+    advanced techniques (like the one for Borderlands).
 
     See the company's SIGGRAPH talk about Borderlands's development:
     https://www.cs.williams.edu/~morgan/SRG10/borderlands.pptx.zip.
     '''
     edges = gradientMagnitude(helper.BW(im))
+    black_edges = 1 - edges
+
+    if debug:
+        # should print a picture where the edges are black
+        io.imwriteGrey(black_edges,
+                   str("paintAndOutlineSobelEdges.png"))
+
+    # mix with the original color image, but painted!
+    out = orientedPaint(im, texture, N, size, noise)
+    for y in xrange(im.shape[0]):
+        for x in xrange(im.shape[1]):
+            if black_edges[y, x] < 0.05:
+                out[y, x] = 0.0
     
+    io.imwrite(out,
+                str("paintAndOutlineEdges.png"))
+
+    return out

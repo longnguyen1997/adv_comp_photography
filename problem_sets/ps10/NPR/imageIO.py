@@ -74,8 +74,6 @@ def imwriteGrey(im, path='raw.png'):
     '''takes a 2D numpy array organized along Y, X and writes it to a PNG file.
     The values are assumed to be linear between 0 and 1 and are NOT gamma encoded before writing.'''
     global baseOutputPath
-    print im
-    print im.shape
     y,x=im.shape[0], im.shape[1]
     im2=numpy.clip(im, 0, 1)
     writer = png.Writer(x,y,greyscale=True)

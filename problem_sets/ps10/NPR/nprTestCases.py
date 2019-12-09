@@ -70,7 +70,7 @@ def testPainterly(im, texture, outputName, N=10000, size=50, noise=0.3):
 
 # 2
 @timeprofile
-def testForest(im, N=50000, size=200, noise=0.1):
+def testForest(im, N=50000, size=25, noise=0.4):
     '''
     Tests NPR on a beautiful image of a forest I found
     on Google Images.
@@ -85,7 +85,7 @@ def testForest(im, N=50000, size=200, noise=0.1):
 
 # 3
 @timeprofile
-def testForestIntermediate(im, N=50000, size=200, noise=0.1):
+def testForestIntermediate(im, N=50000, size=25, noise=0.4):
     '''
     Verifies the intermediate passes in the painterly function.
     This works on the same forest image as before.
@@ -122,10 +122,10 @@ def testCatalinaIntermediate(im, N=50000, size=50, noise=0.2):
 
 ''' MAIN TEST CASES HERE '''
 # testPainterly(vpd, brush1, "VPD")
-# testForest(forest)
-# testForestIntermediate(forest)
+testForest(forest)
+testForestIntermediate(forest)
 # testCatalina(catalina)
 # testCatalinaIntermediate(catalina)
 
 ''' FURTHER EXTENSION FOR 6.865 '''
-npr.paintAndOutline(catalina, brush1, debug=True)
+# npr.paintAndOutline(catalina, brush1, debug=True)

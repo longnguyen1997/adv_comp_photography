@@ -5,11 +5,11 @@ TEST 1: painterly on provided VPD image
 - - - - - - - - - - - - - - - - - - - - - - -
 Operating on image of size (1080, 1920, 3)...
 TEST 2: oriented brushing on beautiful forest image
-  > time to completion: 51.662745s
+  > time to completion: 29.407891s
 - - - - - - - - - - - - - - - - - - - - - - -
 Operating on image of size (1080, 1920, 3)...
 TEST 3: painterly on forest (outputting intermediate passes)
-  > time to completion: 27.769287s
+  > time to completion: 5.944859s
 - - - - - - - - - - - - - - - - - - - - - - -
 Operating on image of size (300, 650, 3)...
 TEST 4: oriented brushing on macOS Catalina wallpaper

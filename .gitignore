@@ -2,7 +2,8 @@
 # Created by https://www.gitignore.io/api/c,c++,git,linux,macos,windows
 # Edit at https://www.gitignore.io/?templates=c,c++,git,linux,macos,windows
 
-Output
+*/Output
+!ps10/NPR/Output
 
 ### C ###
 # Prerequisites

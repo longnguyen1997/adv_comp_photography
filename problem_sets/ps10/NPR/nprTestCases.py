@@ -122,10 +122,11 @@ def testCatalinaIntermediate(im, N=50000, size=50, noise=0.2):
 
 ''' MAIN TEST CASES HERE '''
 # testPainterly(vpd, brush1, "VPD")
-testForest(forest)
-testForestIntermediate(forest)
+# testForest(forest)
+# testForestIntermediate(forest)
 # testCatalina(catalina)
 # testCatalinaIntermediate(catalina)
 
 ''' FURTHER EXTENSION FOR 6.865 '''
 # npr.paintAndOutline(catalina, brush1, debug=True)
+npr.paintAndOutline(forest, brush1, debug=True, size=25, N=50000, noise=0.4)
